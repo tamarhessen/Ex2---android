@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#6E6666</color>
+    <color name="dark_grey">#474545</color>
+    <color name="facebook_text_color">#1877f2</color>
+    <color name="facebook_blue">#1877f2</color> <!-- Facebook's blue color -->
+    <color name="facebook_background">#FFFFFF</color> <!-- Facebook's background color -->
+
+</resources>
