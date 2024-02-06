@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Log In</string>
     <string name="Log_In">Log In</string>
-    <item name="click" type="id" />
+
 </resources>

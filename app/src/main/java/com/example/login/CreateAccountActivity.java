@@ -119,6 +119,8 @@ public class CreateAccountActivity extends Activity {
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String displayName = editTextDisplayName.getText().toString().trim();
         boolean agreeTerms = checkBoxTermsConditions.isChecked();
+        boolean pictureUploaded = (imageViewProfilePicture.getDrawable() != null);
+
 
         // Clear any previous error messages
         clearErrors();
@@ -173,6 +175,11 @@ public class CreateAccountActivity extends Activity {
         if (displayName.isEmpty()) {
             editTextDisplayName.setError("Display name is required");
             editTextDisplayName.requestFocus();
+            return;
+        }
+        if (!pictureUploaded) {
+            // No picture uploaded, show an error message
+            Toast.makeText(CreateAccountActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
             return;
         }
 

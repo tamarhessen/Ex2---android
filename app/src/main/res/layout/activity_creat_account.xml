@@ -33,18 +33,20 @@
         android:layout_marginEnd="20dp"
         android:hint="Username"
         android:padding="10dp"
-        android:textColor="@color/facebook_text_color" />
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
 
     <EditText
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="normal"
         android:layout_below="@id/edit_username"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:hint="Password"
-
+        android:background="@drawable/grey_border_button"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textColor="@color/facebook_text_color" />
@@ -57,11 +59,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:textStyle="normal"
         android:hint="Confirm Password"
 
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textColor="@color/facebook_text_color" />
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
 
     <EditText
         android:id="@+id/edit_display_name"
@@ -72,8 +76,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:hint="Display Name"
+        android:textStyle="normal"
         android:padding="10dp"
-        android:textColor="@color/facebook_text_color" />
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
 
     <ImageView
         android:id="@+id/image_profile_picture"
