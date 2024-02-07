@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="facebookLogo" type="id" />
+    <item name="click" type="id" />
+    <item name="username" type="id" />
+    <item name="password" type="id" />
+    <item name="loginbtn" type="id" />
+    <item name="forgot_password" type="id" />
+    <item name="create_btn" type="id" />
+</resources>
