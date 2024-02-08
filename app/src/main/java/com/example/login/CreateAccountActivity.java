@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class CreateAccountActivity extends Activity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-
+    public static Bitmap profilePictureBitmap;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private CheckBox checkBoxTermsConditions;
@@ -31,6 +32,7 @@ public class CreateAccountActivity extends Activity {
     private EditText editTextConfirmPassword;
     private EditText editTextDisplayName;
     private ImageView imageViewProfilePicture;
+    private String displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class CreateAccountActivity extends Activity {
         buttonSelectImage = findViewById(R.id.btn_select_image);
         imageViewProfilePicture = findViewById(R.id.image_profile_picture);
 
-        // Set click listener for the Sign Up button
+
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +122,8 @@ public class CreateAccountActivity extends Activity {
         String displayName = editTextDisplayName.getText().toString().trim();
         boolean agreeTerms = checkBoxTermsConditions.isChecked();
         boolean pictureUploaded = (imageViewProfilePicture.getDrawable() != null);
+        profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
+
 
 
         // Clear any previous error messages
@@ -189,13 +193,14 @@ public class CreateAccountActivity extends Activity {
         }
 
         // Add user to the global list
-        UserCredentials.addUser(username, password);
+        UserCredentials.addUser(username, password, profilePictureBitmap,displayName);
 
         // Display success message
         Toast.makeText(CreateAccountActivity.this, "Sign-up successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(CreateAccountActivity.this,LogInActivity.class);
         startActivity(intent);
-        finish(); // Optional: finish the current activity to remove it from the back stack
+        finish();
+        // Optional: finish the current activity to remove it from the back stack
     }
 
     // Method to clear error messages

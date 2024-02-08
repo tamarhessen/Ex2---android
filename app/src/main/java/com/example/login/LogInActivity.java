@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +21,8 @@ public class LogInActivity extends AppCompatActivity {
     private Button createButton;
     private Button loginButton;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,8 @@ public class LogInActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         createButton = findViewById(R.id.create_btn);
         loginButton = findViewById(R.id.loginbtn);
+        Bitmap profilePictureBitmap = getIntent().getParcelableExtra("profilePictureBitmap");
+
 
         // Set click listener for the "Create Account" button
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +62,7 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(LogInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     // Start the FeedActivity
                     Intent intent = new Intent(LogInActivity.this, FeedActivity.class);
+
                     startActivity(intent);
                     finish();
                 } else {
