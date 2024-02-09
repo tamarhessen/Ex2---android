@@ -1,0 +1,42 @@
+<!-- post_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- ImageView for displaying selected image -->
+    <ImageView
+        android:id="@+id/postImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/facebook_logo"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to select an image -->
+    <Button
+        android:id="@+id/selectImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Image"/>
+
+    <!-- EditText for post text -->
+    <EditText
+        android:id="@+id/postEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your post here..."
+        android:gravity="top"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to submit the post -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:layout_gravity="end"/>
+</LinearLayout>
