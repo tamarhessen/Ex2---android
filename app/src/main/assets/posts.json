@@ -1,0 +1,72 @@
+[
+  {
+    "author": "John Doe",
+    "content": "Look at the beautiful sea",
+    "imageDrawableId": "pic1",
+    "likes": 100,
+    "profileDrawableId": "img_1"
+  },
+  {
+    "author": "Sarit Cohen",
+    "content": "Linoi Ashram is retiring",
+    "imageDrawableId": "img_2",
+    "likes": 5678,
+    "profileDrawableId": "img_3"
+  },
+  {
+    "author": "Sapir Yanai",
+    "content": "Vecation with mt family",
+    "imageDrawableId": "img_4",
+    "likes": 64,
+    "profileDrawableId": "img_5"
+  },
+  {
+    "author": "Roei Levi",
+    "content": "Red pasta I made. Anyone who wants a recipe, send a message :)",
+    "imageDrawableId": "img_6",
+    "likes": 101,
+    "profileDrawableId": "img_7"
+  },
+  {
+    "author": "Judy Dov",
+    "content": "Look at the beautiful sea",
+    "imageDrawableId": "img_8",
+    "likes": 34,
+    "profileDrawableId": "img_9"
+  },
+  {
+    "author": "Tamar Hessen",
+    "content": "Look at my cutey dog",
+    "imageDrawableId": "img_11",
+    "likes": 21,
+    "profileDrawableId": "img_10"
+  },
+  {
+    "author": "John Doe",
+    "content": "Happy Valentine's Day!",
+    "imageDrawableId": "img_12",
+    "likes": 244,
+    "profileDrawableId": "img_13"
+  },
+  {
+    "author": "Hila123",
+    "content": "Going to ski",
+    "imageDrawableId": "img_14",
+    "likes": 435,
+    "profileDrawableId": "img_15"
+  },
+  {
+    "author": "Mako",
+    "content": "The name of the war - the Iron Flats War",
+    "imageDrawableId": "img_16",
+    "likes": 100,
+    "profileDrawableId": "img_17"
+  },
+  {
+    "author": "Ori Dovev",
+    "content": "A day in jerusalem",
+    "imageDrawableId": "img_18",
+    "likes": 4562,
+    "profileDrawableId": "img_19"
+  }
+]

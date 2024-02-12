@@ -59,13 +59,10 @@ public class FeedActivity extends AppCompatActivity {
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
         // Create sample posts
-        List<Post> posts = new ArrayList<>();
-        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_1);
-        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.pic1);
 
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,200,bitmap1));
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,300,bitmap1));
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,200,bitmap1));
+        // Load posts from JSON file and pass them to the adapter
+        List<Post> posts = JsonParser.parseJson(this);
+
 
         // Pass the list of posts to the adapter
         adapter.setPosts(posts);
@@ -99,35 +96,4 @@ public class FeedActivity extends AppCompatActivity {
 }
 
 
-
-//    private List<Post> loadPostsFromJson() {
-//        List<Post> posts = new ArrayList<>();
-//        try {
-//            // Load JSON data from file
-//            InputStream inputStream = getAssets().open("posts.json");
-//            int size = inputStream.available();
-//            byte[] buffer = new byte[size];
-//            inputStream.read(buffer);
-//            inputStream.close();
-//            String json = new String(buffer, StandardCharsets.UTF_8);
-//
-//            // Parse JSON array
-//            // Parse JSON array
-//            JSONArray jsonArray = new JSONArray(json);
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                String author = jsonObject.getString("author");
-//                String content = jsonObject.getString("content");
-//                int pic = jsonObject.getInt("pic");
-//                int likes = jsonObject.getInt("likes");
-//                int profilePic = jsonObject.getInt("profilepic");
-//                Post post = new Post(author, content, pic, likes, profilePic);
-//                posts.add(post);
-//            }
-//
-//        } catch (IOException | JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return posts;
-//    }
 
