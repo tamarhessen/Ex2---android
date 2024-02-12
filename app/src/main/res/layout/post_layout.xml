@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginBottom="6dp"
     android:background="#FFFFFF">
 
+    <!-- Top Layout -->
     <LinearLayout
         android:id="@+id/topLayout"
         android:layout_width="match_parent"
@@ -14,41 +14,61 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+        <!-- Profile Picture -->
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/profilePic"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:scaleType="centerCrop"
-                />
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="20dp">
 
-            <!-- Define the circular background drawable as circle_background -->
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
         </FrameLayout>
 
+        <!-- Author -->
         <TextView
             android:id="@+id/tvAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 
+    <!-- Content -->
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
-    <ImageView
-        android:id="@+id/ivPic"
+    <!-- Post Image -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-50dp"/>
+        android:layout_height="200dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="8dp">
 
+        <ImageView
+            android:id="@+id/ivPic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Bottom Layout -->
     <LinearLayout
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
@@ -56,6 +76,7 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+        <!-- Like Button -->
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +84,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/like" />
 
+        <!-- Likes Count -->
         <TextView
             android:id="@+id/tvLikes"
             android:layout_width="wrap_content"
@@ -71,6 +93,7 @@
             android:text="0"
             android:textSize="16sp" />
 
+        <!-- Comment Button -->
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +101,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/comment" />
 
+        <!-- Share Button -->
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

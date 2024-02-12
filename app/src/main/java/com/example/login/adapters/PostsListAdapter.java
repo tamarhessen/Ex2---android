@@ -1,18 +1,17 @@
 package com.example.login.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.login.R;
 import com.example.login.entities.Post;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.PostViewHolder> {
@@ -33,18 +32,29 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        if (posts != null) {
-            final Post current = posts.get(position);
+        if (posts != null && posts.size() > position) {
+            final Post current = posts.get(posts.size() - position - 1); // Adjust position here
             holder.tvAuthor.setText(current.getAuthor());
             holder.tvContent.setText(current.getContent());
-            holder.ivPic.setImageResource(current.getPic());
-            holder.profilePic.setImageResource(current.getProfilepic());
+
+            // Set the Bitmap objects to the ImageViews in the ViewHolder
+            holder.ivPic.setImageBitmap(current.getPic());
+            holder.profilePic.setImageBitmap(current.getProfilepic());
+
             holder.tvLikes.setText(String.valueOf(current.getLikes()));
         }
     }
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+        notifyDataSetChanged();
+    }
+
+    public void addPost(Post post) {
+        if (posts == null) {
+            posts = new ArrayList<>();
+        }
+        posts.add(post);
         notifyDataSetChanged();
     }
 
@@ -64,7 +74,6 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private final ImageView profilePic;
         private final TextView tvLikes;
 
-
         private PostViewHolder(View itemView) {
             super(itemView);
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
@@ -72,7 +81,6 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             ivPic = itemView.findViewById(R.id.ivPic);
             profilePic = itemView.findViewById(R.id.profilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
-
         }
     }
 }

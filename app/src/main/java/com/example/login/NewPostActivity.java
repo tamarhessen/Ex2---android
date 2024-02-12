@@ -24,8 +24,10 @@ public class NewPostActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
+
     private ImageView postImageView;
     private EditText postEditText;
+    private Button selectImageButton;
     private Button submitButton;
 
     private Uri imageUri;
@@ -35,11 +37,13 @@ public class NewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
+        // Initialize views
         postImageView = findViewById(R.id.postImageView);
         postEditText = findViewById(R.id.postEditText);
-        Button selectImageButton = findViewById(R.id.selectImageButton);
+        selectImageButton = findViewById(R.id.selectImageButton);
         submitButton = findViewById(R.id.submitButton);
 
+        // Set click listener for selecting image
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,49 +51,24 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        // Set click listener for submitting the post
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the post text from EditText
-                String postText = postEditText.getText().toString();
-
-                // Get the post image bitmap from ImageView
-                Bitmap postImageBitmap = null;
-                if (postImageView.getDrawable() != null) {
-                    postImageBitmap = ((BitmapDrawable) postImageView.getDrawable()).getBitmap();
-                }
-
-                // Check if both post text and image are available
-                if (!TextUtils.isEmpty(postText) && postImageBitmap != null) {
-                    // Pass the post text and image bitmap back to the calling activity
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("postText", postText);
-                    resultIntent.putExtra("postImageBitmap", postImageBitmap);
-
-                    // Set the result to indicate successful submission
-                    setResult(RESULT_OK, resultIntent);
-                    finish(); // Finish the activity
-                } else {
-                    // Show a toast message if either post text or image is missing
-                    Toast.makeText(NewPostActivity.this, "Please select an image and write something", Toast.LENGTH_SHORT).show();
-                }
+                submitPost();
             }
         });
     }
 
+    // Method to open image chooser dialog
     private void openImageChooser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose an option");
-        builder.setItems(new CharSequence[]{"Choose from Gallery", "Take Photo"}, new DialogInterface.OnClickListener() {
+        builder.setItems(new CharSequence[]{"Take Photo"}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        // Choose from Gallery
-                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-                        break;
-                    case 1:
                         // Take Photo
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
@@ -104,29 +83,68 @@ public class NewPostActivity extends AppCompatActivity {
         builder.show();
     }
 
+    // Method to capture image from camera
+    private void captureImage() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+        } else {
+            Toast.makeText(NewPostActivity.this, "Camera not available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Method to handle the result of image capture
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
-                // For image selection from gallery
-                imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                    postImageView.setImageBitmap(bitmap);
-                    postImageView.setVisibility(View.VISIBLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == REQUEST_IMAGE_CAPTURE && data != null && data.getExtras() != null) {
-                // For image captured from camera
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                if (imageBitmap != null) {
-                    postImageView.setImageBitmap(imageBitmap);
-                    postImageView.setVisibility(View.VISIBLE);
-                }
+            if (requestCode == REQUEST_IMAGE_CAPTURE && data != null && data.getExtras() != null) {
+                handleCapturedImage(data);
             }
+        }
+    }
+
+    // Method to handle the captured image from camera
+    private void handleCapturedImage(Intent data) {
+        // Get the captured image as a Bitmap
+        Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+        if (imageBitmap != null) {
+            // Set the captured image bitmap to the profile picture bitmap static variable
+            CreateAccountActivity.profilePictureBitmap = imageBitmap;
+
+            // Optionally, you can set the captured image bitmap to the image view for preview
+            postImageView.setImageBitmap(imageBitmap);
+            postImageView.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(NewPostActivity.this, "Error: Failed to capture image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Method to submit the post
+    private void submitPost() {
+        // Get the post text from EditText
+        String postText = postEditText.getText().toString();
+
+        // Get the post image bitmap from ImageView
+        Bitmap postImageBitmap = null;
+        if (postImageView.getDrawable() != null) {
+            postImageBitmap = ((BitmapDrawable) postImageView.getDrawable()).getBitmap();
+        }
+
+        // Check if both post text and image are available
+        if (!TextUtils.isEmpty(postText) && postImageBitmap != null) {
+            // Pass the post text and image bitmap back to the calling activity
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("postText", postText);
+            resultIntent.putExtra("postImageBitmap", postImageBitmap);
+
+            // Set the result to indicate successful submission
+            setResult(RESULT_OK, resultIntent);
+            finish(); // Finish the activity
+        } else {
+            // Show a toast message if either post text or image is missing
+            Toast.makeText(NewPostActivity.this, "Please select an image and write something", Toast.LENGTH_SHORT).show();
         }
     }
 }
