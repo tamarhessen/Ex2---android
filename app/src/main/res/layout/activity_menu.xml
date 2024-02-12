@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,17 +22,19 @@
                 android:orientation="horizontal"
                 android:background="@color/white">
 
-                <ImageView
+                <Button
                     android:id="@+id/homeimg"
-                    android:layout_width="50dp"
+                    android:layout_width="74dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/home"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/home" />
 
                 <ImageView
                     android:id="@+id/videoimg"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/video"
+                    android:layout_weight="1"
                     android:layout_marginStart="16dp" />
 
                 <ImageView
@@ -40,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/people"
+                    android:layout_weight="1"
                     android:layout_marginStart="16dp"/>
 
                 <ImageView
@@ -47,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/store"
+                    android:layout_weight="1"
                     android:layout_marginStart="16dp"/>
 
                 <ImageView
@@ -54,14 +58,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bell"
+                    android:layout_weight="1"
                     android:layout_marginStart="16dp"/>
 
                 <Button
                     android:id="@+id/menuimg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/menu"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_width="63dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu" />
 
             </LinearLayout>
             <View
@@ -219,10 +225,12 @@
                     android:textSize="30dp"
                     android:text="  Events"
                     android:background="@drawable/grey_border_button"/>
+
                 <Button
+                    android:id="@+id/logOutBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="50dp"
                     android:text="Log Out"
                     android:textSize="20dp">
 
