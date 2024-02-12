@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Post {
     @PrimaryKey(autoGenerate = true)
@@ -15,6 +18,7 @@ public class Post {
     private Bitmap pic;
     private Bitmap profilepic;
     private boolean liked;
+//    private List<String> comments;
 
     public Post() {
         // Default constructor
@@ -27,6 +31,7 @@ public class Post {
         this.likes = likes;
         this.profilepic = profilepic;
         this.liked=false;
+//        comments = new ArrayList<>();
     }
 
     public int getId() {
@@ -86,5 +91,16 @@ public class Post {
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
+//    public List<String> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<String> comments) {
+//        this.comments = comments;
+//    }
+//    public void addComment(String comment) {
+//        comments.add(comment);
+//    }
+
 }
 
