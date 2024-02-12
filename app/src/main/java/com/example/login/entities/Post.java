@@ -14,6 +14,7 @@ public class Post {
     private int likes;
     private Bitmap pic;
     private Bitmap profilepic;
+    private boolean liked;
 
     public Post() {
         // Default constructor
@@ -25,6 +26,7 @@ public class Post {
         this.pic = pic;
         this.likes = likes;
         this.profilepic = profilepic;
+        this.liked=false;
     }
 
     public int getId() {
@@ -74,4 +76,15 @@ public class Post {
     public void setProfilepic(Bitmap profilepic) {
         this.profilepic = profilepic;
     }
+
+
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+}
 }

@@ -42,6 +42,19 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             holder.profilePic.setImageBitmap(current.getProfilepic());
 
             holder.tvLikes.setText(String.valueOf(current.getLikes()));
+            holder.likeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Toggle the liked status
+                    current.setLiked(!current.isLiked());
+
+
+                    // Update the number of likes
+                    int currentLikes = current.getLikes();
+                    current.setLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
+                    holder.tvLikes.setText(String.valueOf(current.getLikes()));
+                }
+            });
         }
     }
 
@@ -73,6 +86,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private final ImageView ivPic;
         private final ImageView profilePic;
         private final TextView tvLikes;
+        private final ImageView likeButton;
 
         private PostViewHolder(View itemView) {
             super(itemView);
@@ -81,6 +95,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             ivPic = itemView.findViewById(R.id.ivPic);
             profilePic = itemView.findViewById(R.id.profilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
+            likeButton = itemView.findViewById(R.id.likeButton);
         }
     }
 }
