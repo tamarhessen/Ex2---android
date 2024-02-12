@@ -15,6 +15,7 @@ public class Post {
    private int likes;
     private int pic;
     private int profilepic;
+    private boolean liked;
 
     public Post() {
       this.pic = R.drawable.pic1;
@@ -25,6 +26,7 @@ public class Post {
         this.pic = pic;
         this.likes=likes;
         this.profilepic=profilepic;
+        this.liked=false;
     }
 
     public int getId() {
@@ -73,5 +75,14 @@ public class Post {
 
     public void setPic(int pic) {
         this.pic = pic;
+    }
+
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }
