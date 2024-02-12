@@ -59,8 +59,8 @@ public class FeedActivity extends AppCompatActivity {
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
         // Create sample posts
-
         // Load posts from JSON file and pass them to the adapter
+
         List<Post> posts = JsonParser.parseJson(this);
 
 
@@ -96,4 +96,35 @@ public class FeedActivity extends AppCompatActivity {
 }
 
 
+
+//    private List<Post> loadPostsFromJson() {
+//        List<Post> posts = new ArrayList<>();
+//        try {
+//            // Load JSON data from file
+//            InputStream inputStream = getAssets().open("posts.json");
+//            int size = inputStream.available();
+//            byte[] buffer = new byte[size];
+//            inputStream.read(buffer);
+//            inputStream.close();
+//            String json = new String(buffer, StandardCharsets.UTF_8);
+//
+//            // Parse JSON array
+//            // Parse JSON array
+//            JSONArray jsonArray = new JSONArray(json);
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                String author = jsonObject.getString("author");
+//                String content = jsonObject.getString("content");
+//                int pic = jsonObject.getInt("pic");
+//                int likes = jsonObject.getInt("likes");
+//                int profilePic = jsonObject.getInt("profilepic");
+//                Post post = new Post(author, content, pic, likes, profilePic);
+//                posts.add(post);
+//            }
+//
+//        } catch (IOException | JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return posts;
+//    }
 
