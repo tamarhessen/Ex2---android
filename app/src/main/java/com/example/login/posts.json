@@ -1,0 +1,72 @@
+[
+  {
+    "author": "John Doe",
+    "content": "Look at the beautiful sea",
+    "imageUrl": R.,
+    "likes": 100,
+    "profilePic": "https://example.com/profile1.jpg"
+  },
+  {
+    "author": "Jane Smith",
+    "content": "Check out this amazing photo!",
+    "imageUrl": "https://example.com/image2.jpg",
+    "likes": 150,
+    "profilePic": "https://example.com/profile2.jpg"
+  },
+  {
+    "author": "Alice Johnson",
+    "content": "Feeling grateful today.",
+    "imageUrl": "https://example.com/image3.jpg",
+    "likes": 120,
+    "profilePic": "https://example.com/profile3.jpg"
+  },
+  {
+    "author": "Bob Brown",
+    "content": "Just another day in paradise.",
+    "imageUrl": "https://example.com/image4.jpg",
+    "likes": 80,
+    "profilePic": "https://example.com/profile4.jpg"
+  },
+  {
+    "author": "Emily Davis",
+    "content": "Happy Friday everyone!",
+    "imageUrl": "https://example.com/image5.jpg",
+    "likes": 200,
+    "profilePic": "https://example.com/profile5.jpg"
+  },
+  {
+    "author": "Michael Wilson",
+    "content": "Enjoying the sunshine.",
+    "imageUrl": "https://example.com/image6.jpg",
+    "likes": 90,
+    "profilePic": "https://example.com/profile6.jpg"
+  },
+  {
+    "author": "Samantha Martinez",
+    "content": "Exploring new places.",
+    "imageUrl": "https://example.com/image7.jpg",
+    "likes": 110,
+    "profilePic": "https://example.com/profile7.jpg"
+  },
+  {
+    "author": "David Taylor",
+    "content": "Weekend vibes.",
+    "imageUrl": "https://example.com/image8.jpg",
+    "likes": 130,
+    "profilePic": "https://example.com/profile8.jpg"
+  },
+  {
+    "author": "Olivia Anderson",
+    "content": "Nature's beauty.",
+    "imageUrl": "https://example.com/image9.jpg",
+    "likes": 170,
+    "profilePic": "https://example.com/profile9.jpg"
+  },
+  {
+    "author": "Daniel Thomas",
+    "content": "Chasing dreams.",
+    "imageUrl": "https://example.com/image10.jpg",
+    "likes": 140,
+    "profilePic": "https://example.com/profile10.jpg"
+  }
+]
