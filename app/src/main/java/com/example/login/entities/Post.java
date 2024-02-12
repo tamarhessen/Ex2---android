@@ -62,6 +62,7 @@ public class Post {
     }
 
     public Bitmap getPic() {
+        
         return pic;
     }
 

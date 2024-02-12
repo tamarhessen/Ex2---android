@@ -53,19 +53,24 @@
 
     <!-- Post Image -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:background="@android:color/white"
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/ivPic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:scaleType="centerCrop" />
+            android:background="@android:color/white"
+            android:scaleType="centerCrop"
+            android:visibility="visible"/>
 
     </androidx.cardview.widget.CardView>
 

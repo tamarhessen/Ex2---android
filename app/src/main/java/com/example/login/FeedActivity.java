@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ public class FeedActivity extends AppCompatActivity {
     private static final int REQUEST_NEW_POST = 1;
     private Button menuButton;
     private Button newPostButton;
+    private Button whatsNewButton;
     private RecyclerView lstPosts;
     private PostsListAdapter adapter;
 
@@ -35,6 +38,8 @@ public class FeedActivity extends AppCompatActivity {
         // Find the menu button and set click listener
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
+        Button whatsNewButton = findViewById(R.id.whatsNewButton);
+
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +55,20 @@ public class FeedActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
-
+        whatsNewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
+            }
+        });
+        ImageView profileImageView = findViewById(R.id.image_profile_picture);
+        Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap; // Assuming you have already stored the profile picture bitmap
+        if (profilePictureBitmap != null) {
+            profileImageView.setImageBitmap(profilePictureBitmap);
+        } else {
+            profileImageView.setImageResource(R.drawable.facebook_logo); // Set a default profile picture
+        }
 
         // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
@@ -63,9 +81,9 @@ public class FeedActivity extends AppCompatActivity {
         Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_1);
         Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.pic1);
 
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,200,bitmap1));
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,300,bitmap1));
-        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2,200,bitmap1));
+        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2, 200, bitmap1));
+        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2, 300, bitmap1));
+        posts.add(new Post("Hila123", "Look at the beautiful sea", bitmap2, 200, bitmap1));
 
         // Pass the list of posts to the adapter
         adapter.setPosts(posts);
@@ -83,21 +101,38 @@ public class FeedActivity extends AppCompatActivity {
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");
             Bitmap profileImageBitmap = CreateAccountActivity.profilePictureBitmap; // Assuming you have already stored the profile picture bitmap
+            ImageView ivPic = findViewById(R.id.ivPic);
+            CardView cardView = findViewById(R.id.cardView); // Replace R.id.cardView with the actual ID of your CardView
 
-            // Load the image from the file path
-            Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
+            // Check if postImagePath is not null
+            if (postImagePath != null) {
+                // Load the image from the file path
+                Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
 
-            // Create a new Post object
-            Post newPost = new Post("Tamar", postText, postImageBitmap, 0, profileImageBitmap);
+                // Create a new Post object
+                Post newPost = new Post("Tamar", postText, postImageBitmap, 0, profileImageBitmap);
 
-            // Add the new post to the adapter
-            adapter.addPost(newPost);
+                // Add the new post to the adapter
+                adapter.addPost(newPost);
+
+                // Set visibility to visible if an image is uploaded
+                ivPic.setVisibility(View.VISIBLE);
+                cardView.setVisibility(View.VISIBLE);
+            } else {
+                // If no image is uploaded, create a post with null image
+                Post newPost = new Post("Tamar", postText, null, 0, profileImageBitmap);
+                // Add the new post to the adapter
+                adapter.addPost(newPost);
+
+                // Set visibility to gone if no image is uploaded
+                ivPic.setVisibility(View.GONE);
+                cardView.setVisibility(View.GONE);
+            }
         }
     }
 
 
 }
-
 
 
 //    private List<Post> loadPostsFromJson() {

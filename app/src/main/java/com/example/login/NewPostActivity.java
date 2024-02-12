@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -134,28 +135,35 @@ public class NewPostActivity extends AppCompatActivity {
 
 
     // Method to submit the post
+    // Method to submit the post
     private void submitPost() {
         // Get the post text from EditText
         String postText = postEditText.getText().toString();
 
         // Get the post image bitmap from ImageView
         Bitmap postImageBitmap = null;
-        if (postImageView.getDrawable() != null) {
-            postImageBitmap = ((BitmapDrawable) postImageView.getDrawable()).getBitmap();
+        Drawable drawable = postImageView.getDrawable();
+        if (drawable instanceof BitmapDrawable) {
+            postImageBitmap = ((BitmapDrawable) drawable).getBitmap();
         }
 
         // Check if both post text and image are available
-        if (!TextUtils.isEmpty(postText) && postImageBitmap != null) {
-            // Save the post image bitmap to a file
-            String imagePath = saveBitmapToFile(postImageBitmap);
-
-            // Pass the post text and image file path back to the calling activity
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("postText", postText);
-            resultIntent.putExtra("postImagePath", imagePath);
-
-            // Set the result to indicate successful submission
-            setResult(RESULT_OK, resultIntent);
+        if (!TextUtils.isEmpty(postText) || postImageBitmap != null) {
+            if (postImageBitmap != null) {
+                // Save the post image bitmap to a file
+                String imagePath = saveBitmapToFile(postImageBitmap);
+                // Pass the post text and image file path back to the calling activity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("postText", postText);
+                resultIntent.putExtra("postImagePath", imagePath);
+                // Set the result to indicate successful submission
+                setResult(RESULT_OK, resultIntent);
+            } else {
+                // If no image is selected, pass only the post text
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("postText", postText);
+                setResult(RESULT_OK, resultIntent);
+            }
             finish(); // Finish the activity
         } else {
             // Show a toast message if either post text or image is missing
