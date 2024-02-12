@@ -73,7 +73,59 @@
             android:visibility="visible"/>
 
     </androidx.cardview.widget.CardView>
+    <!-- Comment Section -->
+    <LinearLayout
+        android:id="@+id/commentSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
 
+        <!-- Comment List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Add Comment -->
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add a comment" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addCommentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Comment" />
+
+            <Button
+                android:id="@+id/editCommentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit Comment"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/deleteCommentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete Comment"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
     <!-- Bottom Layout -->
     <LinearLayout
         android:id="@+id/bottomLayout"
@@ -102,6 +154,7 @@
 
         <!-- Comment Button -->
         <ImageButton
+            android:id="@+id/commentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

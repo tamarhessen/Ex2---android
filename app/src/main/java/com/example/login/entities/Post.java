@@ -18,7 +18,7 @@ public class Post {
     private Bitmap pic;
     private Bitmap profilepic;
     private boolean liked;
-//    private List<String> comments;
+    private List<String> comments;
 
     public Post() {
         // Default constructor
@@ -31,7 +31,7 @@ public class Post {
         this.likes = likes;
         this.profilepic = profilepic;
         this.liked=false;
-//        comments = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     public int getId() {
@@ -92,16 +92,26 @@ public class Post {
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
-//    public List<String> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(List<String> comments) {
-//        this.comments = comments;
-//    }
-//    public void addComment(String comment) {
-//        comments.add(comment);
-//    }
 
+    public void addComment(String newComment) {
+        comments.add(newComment);
+    }
+
+    public void editComment(int index, String editedComment) {
+        if (index >= 0 && index < comments.size()) {
+            comments.set(index, editedComment);
+        }
+    }
+
+    public void deleteComment(int index) {
+        if (index >= 0 && index < comments.size()) {
+            comments.remove(index);
+        }
+    }
+
+
+    public List<String> getComments() {
+        return comments;
+    }
 }
 
