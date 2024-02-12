@@ -42,12 +42,11 @@ public class MenuActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the FeedActivity when the home button is clicked
-                Intent intent = new Intent(MenuActivity.this, FeedActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Add this line to clear the activity stack
-                startActivity(intent);
+                onBackPressed(); // Navigate back to the previous activity
             }
         });
+
+
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

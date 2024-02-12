@@ -54,7 +54,7 @@
     <!-- Post Image -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="350dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
@@ -64,6 +64,7 @@
             android:id="@+id/ivPic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>

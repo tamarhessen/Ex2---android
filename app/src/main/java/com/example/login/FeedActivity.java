@@ -81,8 +81,11 @@ public class FeedActivity extends AppCompatActivity {
             Log.d("FeedActivity", "Adding new post");
             // Retrieve post data from NewPostActivity
             String postText = data.getStringExtra("postText");
-            Bitmap postImageBitmap = data.getParcelableExtra("postImageBitmap");
+            String postImagePath = data.getStringExtra("postImagePath");
             Bitmap profileImageBitmap = CreateAccountActivity.profilePictureBitmap; // Assuming you have already stored the profile picture bitmap
+
+            // Load the image from the file path
+            Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
 
             // Create a new Post object
             Post newPost = new Post("Tamar", postText, postImageBitmap, 0, profileImageBitmap);
