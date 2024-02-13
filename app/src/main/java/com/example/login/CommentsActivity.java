@@ -22,7 +22,7 @@ public class CommentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comments);
-       EditText commentEditText = findViewById(R.id.commentEditText);
+
 
 //        // Initialize RecyclerView and Adapter
 //        recyclerView = findViewById(R.id.commentsRecyclerView);
