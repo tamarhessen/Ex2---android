@@ -7,4 +7,5 @@
     <item name="loginbtn" type="id" />
     <item name="forgot_password" type="id" />
     <item name="create_btn" type="id" />
+    <item name="tvAuthor" type="id" />
 </resources>
