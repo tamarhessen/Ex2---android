@@ -1,7 +1,7 @@
 package com.example.login.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.login.EditPostDialogFragment;
-import com.example.login.MenuActivity;
-
-import com.example.login.CommentsActivity;
-import com.example.login.FeedActivity;
 import com.example.login.MenuActivity;
 import com.example.login.R;
 import com.example.login.entities.Post;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,12 +28,10 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     private final LayoutInflater mInflater;
     private static List<Post> posts;
     private String currentUserUsername;
-    private Context context;
     private final Context mContext; // Store the context
 
     public PostsListAdapter(Context context, String currentUserUsername) {
         mInflater = LayoutInflater.from(context);
-        this.context = context;
         this.currentUserUsername = currentUserUsername; // Initialize the current user's username
         mContext = context; // Initialize the context
     }
@@ -52,7 +44,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final PostViewHolder holder, int position) {
         if (posts != null && !posts.isEmpty()) {
             final Post current = posts.get(posts.size() - position - 1);  // Reverse the position
             holder.tvAuthor.setText(current.getAuthor());
@@ -74,8 +66,8 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 @Override
                 public void onClick(View v) {
                     // Start MenuActivity
-                    Intent intent = new Intent(context, MenuActivity.class);
-                    context.startActivity(intent);
+                    Intent intent = new Intent(mContext, MenuActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
             holder.likeButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +75,6 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 public void onClick(View v) {
                     // Toggle the liked status
                     current.setLiked(!current.isLiked());
-
 
                     // Update the number of likes
                     int currentLikes = current.getLikes();
@@ -107,9 +98,6 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 }
             });
 
-        }
-    }
-
             // Check if the current post matches your username
             if (current.getAuthor().equals(currentUserUsername)) {
                 // Show edit and delete buttons
@@ -122,7 +110,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     public void onClick(View v) {
                         // Create and show the EditPostDialogFragment
                         EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostsListAdapter.this);
-                        dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "EditPostDialogFragment");
+                        dialogFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(), "EditPostDialogFragment");
                     }
                 });
                 holder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -148,15 +136,15 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 holder.editButton.setVisibility(View.GONE);
                 holder.deleteButton.setVisibility(View.GONE);
             }
-            if (current.getTimestamp() == "") {
-                holder.time.setText(getCurrentTime());
-            }
 
-            else{
-                holder.time.setText(String.valueOf(current.getTimestamp()));
+            if (current.getTimestamp().equals("")) {
+                holder.time.setText(getCurrentTime());
+            } else {
+                holder.time.setText(current.getTimestamp());
             }
         }
     }
+
     private String getCurrentTime() {
         long currentTimeMillis = System.currentTimeMillis();
         Date currentTime = new Date(currentTimeMillis);
@@ -164,6 +152,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         return sdf.format(currentTime);
     }
+
     public void setPosts(List<Post> posts) {
         this.posts = posts;
         notifyDataSetChanged();
@@ -206,7 +195,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private final Button editButton;
         private final Button deleteButton;
         private final TextView time;
-        private ImageView shareButton;
+        private final ImageView shareButton;
         private final ImageView commentButton;
 
         private PostViewHolder(View itemView) {
