@@ -9,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Post {
     @PrimaryKey(autoGenerate = true)
@@ -20,6 +23,7 @@ public class Post {
     private Bitmap profilepic;
     private boolean liked;
     private long timestamp;
+    private List<String> comments;
 
     public Post() {
         // Default constructor
@@ -32,6 +36,7 @@ public class Post {
         this.likes = likes;
         this.profilepic = profilepic;
         this.liked=false;
+        comments = new ArrayList<>();
         this.timestamp = timestamp;
     }
 
@@ -112,5 +117,26 @@ public class Post {
     }
 
 
+
+    public void addComment(String newComment) {
+        comments.add(newComment);
+    }
+
+    public void editComment(int index, String editedComment) {
+        if (index >= 0 && index < comments.size()) {
+            comments.set(index, editedComment);
+        }
+    }
+
+    public void deleteComment(int index) {
+        if (index >= 0 && index < comments.size()) {
+            comments.remove(index);
+        }
+    }
+
+
+    public List<String> getComments() {
+        return comments;
+    }
 }
 

@@ -1,7 +1,7 @@
 package com.example.login.adapters;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.EditPostDialogFragment;
+import com.example.login.MenuActivity;
+
+import com.example.login.CommentsActivity;
+import com.example.login.FeedActivity;
 import com.example.login.MenuActivity;
 import com.example.login.R;
 import com.example.login.entities.Post;
@@ -31,11 +35,13 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     private static List<Post> posts;
     private String currentUserUsername;
     private Context context;
+    private final Context mContext; // Store the context
 
     public PostsListAdapter(Context context, String currentUserUsername) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
         this.currentUserUsername = currentUserUsername; // Initialize the current user's username
+        mContext = context; // Initialize the context
     }
 
     @NonNull
@@ -78,6 +84,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     // Toggle the liked status
                     current.setLiked(!current.isLiked());
 
+
                     // Update the number of likes
                     int currentLikes = current.getLikes();
                     current.setLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
@@ -89,6 +96,19 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     }
                 }
             });
+            // Handle click event of the comments button
+            // Uncommented code to start CommentsActivity
+            holder.commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Start MenuActivity
+                    Intent intent = new Intent(mContext, MenuActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+
+        }
+    }
 
             // Check if the current post matches your username
             if (current.getAuthor().equals(currentUserUsername)) {
@@ -187,6 +207,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private final Button deleteButton;
         private final TextView time;
         private ImageView shareButton;
+        private final ImageView commentButton;
 
         private PostViewHolder(View itemView) {
             super(itemView);
@@ -196,6 +217,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             profilePic = itemView.findViewById(R.id.profilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
+            commentButton = itemView.findViewById(R.id.commentButton);
             shareButton = itemView.findViewById(R.id.shareButton);
             cardView = itemView.findViewById(R.id.cardView);
             editButton = itemView.findViewById(R.id.editButton);
