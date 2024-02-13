@@ -107,9 +107,10 @@ public class Post {
         Date date = new Date(timestamp);
 
         // Format the date using SimpleDateFormat
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd, MMM, yyyy", Locale.getDefault());
         return sdf.format(date);
     }
+
 
 }
 

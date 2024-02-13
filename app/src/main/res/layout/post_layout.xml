@@ -117,18 +117,20 @@
             android:id="@+id/likeButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/like" />
+            android:background="@drawable/like_button_background"
+            android:scaleType="center"
+            android:src="@drawable/not_liked" />
 
+        <!-- Number of Likes -->
         <TextView
             android:id="@+id/tvLikes"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:text="0"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
 
         <!-- Comment Button -->
         <ImageButton
@@ -136,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/comment" />
+            android:src="@drawable/comment_" />
 
         <!-- Share Button -->
         <ImageButton
@@ -145,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/share" />
+            android:src="@drawable/share_" />
         <TextView
             android:id="@+id/postTime"
             android:layout_width="wrap_content"

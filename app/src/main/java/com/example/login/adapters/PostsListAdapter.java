@@ -1,19 +1,16 @@
 package com.example.login.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.EditPostDialogFragment;
@@ -85,8 +82,14 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     int currentLikes = current.getLikes();
                     current.setLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
                     holder.tvLikes.setText(String.valueOf(current.getLikes()));
+                    if (current.isLiked()) {
+                        holder.likeButton.setImageResource(R.drawable.liked);
+                    } else {
+                        holder.likeButton.setImageResource(R.drawable.not_liked);
+                    }
                 }
             });
+
             // Check if the current post matches your username
             if (current.getAuthor().equals(currentUserUsername)) {
                 // Show edit and delete buttons
