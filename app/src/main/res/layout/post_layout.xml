@@ -134,6 +134,7 @@
 
         <!-- Comment Button -->
         <ImageButton
+            android:id="@+id/commentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
