@@ -24,7 +24,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
 
     private final LayoutInflater mInflater;
     private List<Post> posts;
-    private final Context mContext; // Store the context
+  private final Context mContext; // Store the context
 
     public PostsListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -63,12 +63,11 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 }
             });
             // Handle click event of the comments button
-            // Uncommented code to start CommentsActivity
             holder.commentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Start MenuActivity
-                    Intent intent = new Intent(mContext, MenuActivity.class);
+                    Intent intent = new Intent(mContext, CommentsActivity.class);
                     mContext.startActivity(intent);
                 }
             });
