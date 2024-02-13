@@ -24,8 +24,11 @@ public class FeedActivity extends AppCompatActivity {
     private static final int REQUEST_NEW_POST = 1;
     private Button menuButton;
     private Button newPostButton;
+    private Button whatsNewButton;
     private RecyclerView lstPosts;
     private PostsListAdapter adapter;
+    private String username;
+    private static boolean isAdapterInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,15 @@ public class FeedActivity extends AppCompatActivity {
         // Find the menu button and set click listener
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
+        whatsNewButton = findViewById(R.id.whatsNewButton);
+        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+        Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
+        profilePictureImageView.setImageBitmap(profilePictureBitmap);
+        List<UserCredentials.User> userList = UserCredentials.getUsers();
+        for (UserCredentials.User user : userList) {
+            username = user.getUsername();
+            // Perform any operations with userDisplayName if needed
+        }
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,13 +62,20 @@ public class FeedActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
-
+        whatsNewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
+            }
+        });
 
         // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
-        adapter = new PostsListAdapter(this);
+        adapter = new PostsListAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
+
 
         // Create sample posts
         // Load posts from JSON file and pass them to the adapter
@@ -80,12 +99,10 @@ public class FeedActivity extends AppCompatActivity {
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");
             Bitmap profileImageBitmap = CreateAccountActivity.profilePictureBitmap; // Assuming you have already stored the profile picture bitmap
-
-            // Load the image from the file path
             Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
-
+            long currentTimeMillis = System.currentTimeMillis();
             // Create a new Post object
-            Post newPost = new Post("Tamar", postText, postImageBitmap, 0, profileImageBitmap);
+            Post newPost = new Post(username, postText, postImageBitmap, 0, profileImageBitmap,currentTimeMillis);
 
             // Add the new post to the adapter
             adapter.addPost(newPost);
@@ -93,38 +110,5 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+
 }
-
-
-
-//    private List<Post> loadPostsFromJson() {
-//        List<Post> posts = new ArrayList<>();
-//        try {
-//            // Load JSON data from file
-//            InputStream inputStream = getAssets().open("posts.json");
-//            int size = inputStream.available();
-//            byte[] buffer = new byte[size];
-//            inputStream.read(buffer);
-//            inputStream.close();
-//            String json = new String(buffer, StandardCharsets.UTF_8);
-//
-//            // Parse JSON array
-//            // Parse JSON array
-//            JSONArray jsonArray = new JSONArray(json);
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                String author = jsonObject.getString("author");
-//                String content = jsonObject.getString("content");
-//                int pic = jsonObject.getInt("pic");
-//                int likes = jsonObject.getInt("likes");
-//                int profilePic = jsonObject.getInt("profilepic");
-//                Post post = new Post(author, content, pic, likes, profilePic);
-//                posts.add(post);
-//            }
-//
-//        } catch (IOException | JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return posts;
-//    }
-

@@ -39,8 +39,8 @@ public class JsonParser {
                 String profileDrawableName = jsonObject.getString("profileDrawableId");
                 int profileDrawableId = context.getResources().getIdentifier(profileDrawableName, "drawable", context.getPackageName());
                 Bitmap profilePic = BitmapFactory.decodeResource(context.getResources(), profileDrawableId);
-
-                Post post = new Post(author, content, pic, likes, profilePic);
+                long timestamp = jsonObject.getLong("timestamp");
+                Post post = new Post(author, content, pic, likes, profilePic,timestamp);
                 posts.add(post);
             }
         } catch (IOException | JSONException e) {

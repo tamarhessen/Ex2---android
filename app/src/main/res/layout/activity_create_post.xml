@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- CardView to display the selected image -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/postImageView"
+        <!-- CardView to display the selected image -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            android:src="@color/white" /> <!-- Set a placeholder image here -->
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/postImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@color/white" /> <!-- Set a placeholder image here -->
 
-    <!-- Button to select an image -->
-    <Button
-        android:id="@+id/selectImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Image"/>
+        </androidx.cardview.widget.CardView>
 
-    <!-- EditText for post text -->
-    <EditText
-        android:id="@+id/postEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Write your post here..."
-        android:gravity="top"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        <!-- Button to select an image -->
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Image" />
 
-    <!-- Button to submit the post -->
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post"
-        android:layout_gravity="end"/>
-</LinearLayout>
+        <!-- EditText for post text -->
+        <EditText
+            android:id="@+id/postEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="top"
+            android:hint="Write your post here..." />
+
+        <!-- Button to submit the post -->
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Post" />
+    </LinearLayout>
+</ScrollView>

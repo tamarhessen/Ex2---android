@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +22,14 @@ public class Post {
     private Bitmap pic;
     private Bitmap profilepic;
     private boolean liked;
+    private long timestamp;
     private List<String> comments;
 
     public Post() {
         // Default constructor
     }
 
-    public Post(String author, String content, Bitmap pic, int likes, Bitmap profilepic) {
+    public Post(String author, String content, Bitmap pic, int likes, Bitmap profilepic,long timestamp) {
         this.author = author;
         this.content = content;
         this.pic = pic;
@@ -32,6 +37,7 @@ public class Post {
         this.profilepic = profilepic;
         this.liked=false;
         comments = new ArrayList<>();
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -92,6 +98,25 @@ public class Post {
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
+
+    public String getTimestamp() {
+        return convertTimestampToString(timestamp);
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public static String convertTimestampToString(long timestamp) {
+        // Convert the timestamp to a Date object
+        Date date = new Date(timestamp);
+
+        // Format the date using SimpleDateFormat
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd, MMM, yyyy", Locale.getDefault());
+        return sdf.format(date);
+    }
+
+
 
     public void addComment(String newComment) {
         comments.add(newComment);
