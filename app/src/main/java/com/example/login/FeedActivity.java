@@ -28,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
     private RecyclerView lstPosts;
     private PostsListAdapter adapter;
     private String username;
+    private static boolean isAdapterInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +72,10 @@ public class FeedActivity extends AppCompatActivity {
 
         // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
-        adapter = new PostsListAdapter(this,username);
+        adapter = new PostsListAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
+
 
         // Create sample posts
         // Load posts from JSON file and pass them to the adapter
@@ -106,6 +108,7 @@ public class FeedActivity extends AppCompatActivity {
             adapter.addPost(newPost);
         }
     }
+
 
 
 }

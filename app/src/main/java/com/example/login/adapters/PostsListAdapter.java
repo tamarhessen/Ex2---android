@@ -2,6 +2,7 @@ package com.example.login.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.EditPostDialogFragment;
+import com.example.login.MenuActivity;
 import com.example.login.R;
 import com.example.login.entities.Post;
 
@@ -29,7 +31,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         implements EditPostDialogFragment.OnPostEditedListener {
 
     private final LayoutInflater mInflater;
-    private List<Post> posts;
+    private static List<Post> posts;
     private String currentUserUsername;
     private Context context;
 
@@ -65,6 +67,14 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 holder.cardView.setVisibility(View.GONE);
             }
             holder.tvLikes.setText(String.valueOf(current.getLikes()));
+            holder.shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Start MenuActivity
+                    Intent intent = new Intent(context, MenuActivity.class);
+                    context.startActivity(intent);
+                }
+            });
             holder.likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,6 +183,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
         private final Button editButton;
         private final Button deleteButton;
         private final TextView time;
+        private ImageView shareButton;
 
         private PostViewHolder(View itemView) {
             super(itemView);
@@ -182,6 +193,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             profilePic = itemView.findViewById(R.id.profilePic);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
+            shareButton = itemView.findViewById(R.id.shareButton);
             cardView = itemView.findViewById(R.id.cardView);
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
