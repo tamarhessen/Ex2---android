@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.login.CommentsActivity;
 import com.example.login.EditPostDialogFragment;
 import com.example.login.MenuActivity;
 import com.example.login.R;
@@ -93,7 +95,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                 @Override
                 public void onClick(View v) {
                     // Start MenuActivity
-                    Intent intent = new Intent(mContext, MenuActivity.class);
+                    Intent intent = new Intent(mContext, CommentsActivity.class);
                     mContext.startActivity(intent);
                 }
             });
