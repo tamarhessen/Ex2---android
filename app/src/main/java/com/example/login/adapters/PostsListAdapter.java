@@ -1,7 +1,5 @@
 package com.example.login.adapters;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.CommentsActivity;
-import com.example.login.FeedActivity;
-import com.example.login.MenuActivity;
 import com.example.login.R;
 import com.example.login.entities.Post;
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     private List<Post> posts;
   private final Context mContext; // Store the context
 
-    public PostsListAdapter(Context context) {
+    public PostsListAdapter(Context context, String username) {
         mInflater = LayoutInflater.from(context);
         mContext = context; // Initialize the context
     }
