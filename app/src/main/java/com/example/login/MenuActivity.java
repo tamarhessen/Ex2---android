@@ -1,8 +1,11 @@
 package com.example.login;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +18,8 @@ import java.util.List;
 public class MenuActivity extends AppCompatActivity {
     private Button homeButton;
     private Button logout;
+
+    private Button settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +28,9 @@ public class MenuActivity extends AppCompatActivity {
         Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
         Button homeButton = findViewById(R.id.homeimg);
         Button logOutButton = findViewById(R.id.logOutBtn);
+        Button settingsButton = findViewById(R.id.settings);
         profilePictureImageView.setImageBitmap(profilePictureBitmap);
         List<UserCredentials.User> userList = UserCredentials.getUsers();
-
         TextView displayNameTextView = findViewById(R.id.displayName);
         String userDisplayName="";
         for (UserCredentials.User user : userList) {
@@ -55,6 +60,15 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 // Finish the current activity if needed
                 finish();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the FeedActivity when the home button is clicked
+                Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
 
