@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,15 +23,28 @@ public class CommentsActivity extends AppCompatActivity {
     private EditText commentEditText;
     private Button addCommentButton;
     private Button deleteButton;
+    private String username;
+    private Bitmap profilePicBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comments);
 
+        // Get profile picture bitmap from CreateAccountActivity
+        profilePicBitmap = CreateAccountActivity.profilePictureBitmap;
+
+        // Get username from UserCredentials
+        List<UserCredentials.User> userList = UserCredentials.getUsers();
+        if (!userList.isEmpty()) {
+            username = userList.get(0).getUsername(); // Assuming there is only one user for simplicity
+        } else {
+            username = "Default User"; // Set a default username if no user is found
+        }
+
         // Initialize RecyclerView and Adapter
         recyclerView = findViewById(R.id.commentsRecyclerView);
-        adapter = new CommentsAdapter();
+        adapter = new CommentsAdapter(this, profilePicBitmap, username); // Provide context, profile picture, and username
 
         // Set layout manager to RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,9 +54,6 @@ public class CommentsActivity extends AppCompatActivity {
 
         // Initialize comments list
         comments = new ArrayList<>();
-
-        // Populate comments list with data
-        populateComments();
 
         // Get references to EditText and Add button
         commentEditText = findViewById(R.id.commentEditText);
@@ -57,17 +68,11 @@ public class CommentsActivity extends AppCompatActivity {
                 if (!newComment.isEmpty()) {
                     comments.add(newComment);
                     adapter.setComments(comments); // Update the RecyclerView
-                    commentEditText.setText(""); // Clear the EditText
+                    commentEditText.setText("");
                 }
             }
         });
-
-
     }
 
-    // Method to populate comments list with data
-    private void populateComments() {
-        // Add comments to the adapter
-        adapter.setComments(comments);
-    }
+    // No need to populate comments here since it's done in the adapter
 }

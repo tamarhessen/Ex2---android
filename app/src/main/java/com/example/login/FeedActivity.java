@@ -28,7 +28,6 @@ public class FeedActivity extends AppCompatActivity {
     private RecyclerView lstPosts;
     private PostsListAdapter adapter;
     private String username;
-    private static boolean isAdapterInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

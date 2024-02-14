@@ -1,7 +1,8 @@
 package com.example.login.adapters;
 
-import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.login.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
     private List<String> comments;
+    private String username;
+    private Bitmap profilePictureBitmap;
+    private Context context; // Added for AlertDialog
 
     // Constructor
-    public CommentsAdapter() {
+    public CommentsAdapter(Context context, Bitmap profilePictureBitmap, String username) {
+        this.context = context;
+        this.profilePictureBitmap = profilePictureBitmap;
+        this.username = username+":";
         this.comments = new ArrayList<>();
     }
 
@@ -58,11 +69,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, final int position) {
         final String comment = comments.get(position);
-
-        holder.userNameTextView.setText(getAuthor());
-
-        holder.profileImageView.setImageBitmap(getProfilepic());
         holder.textViewComment.setText(comment);
+        holder.userNameTextView.setText(username);
+        holder.profileImageView.setImageBitmap(profilePictureBitmap);
 
         // Set click listener for the delete button
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +88,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditDialog(position, holder.itemView);
+                showEditDialog(position);
             }
         });
     }
@@ -90,12 +99,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
     // Method to show an edit dialog
-    private void showEditDialog(final int position, View itemView) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+    private void showEditDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Edit Comment");
 
         // Set up the input
-        final EditText input = new EditText(itemView.getContext());
+        final EditText input = new EditText(context);
         input.setText(comments.get(position));
         builder.setView(input);
 
