@@ -56,9 +56,6 @@ public class UserCredentials {
             return password;
         }
 
-        public Bitmap getProfilePicturePath() {
-            return profilePicture;
-        }
         public String getDisplayName(){
             return displayName;
         }
