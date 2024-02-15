@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,8 +13,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.login.adapters.BitmapResourceManager;
 import com.example.login.adapters.PostsListAdapter;
 import com.example.login.entities.Post;
 
@@ -46,6 +47,10 @@ public class FeedActivity extends AppCompatActivity {
             username = user.getUsername();
             // Perform any operations with userDisplayName if needed
         }
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        // Disable swipe-to-refresh functionality
+        swipeRefreshLayout.setEnabled(false);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,9 +96,7 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("FeedActivity", "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
         if (requestCode == REQUEST_NEW_POST && resultCode == RESULT_OK && data != null) {
-            Log.d("FeedActivity", "Adding new post");
             // Retrieve post data from NewPostActivity
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");

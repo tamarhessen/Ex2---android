@@ -30,7 +30,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
     private final LayoutInflater mInflater;
     private static List<Post> posts;
     private String currentUserUsername;
-    private final Context mContext; // Store the context
+    private final Context mContext;
 
     public PostsListAdapter(Context context, String currentUserUsername) {
         mInflater = LayoutInflater.from(context);

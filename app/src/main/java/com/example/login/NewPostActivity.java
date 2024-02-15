@@ -133,8 +133,6 @@ public class NewPostActivity extends AppCompatActivity {
         return file.getAbsolutePath();
     }
 
-
-    // Method to submit the post
     // Method to submit the post
     private void submitPost() {
         // Get the post text from EditText
