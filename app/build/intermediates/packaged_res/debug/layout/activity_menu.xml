@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-4dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/homeimg"
+                    android:layout_width="74dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/home" />
+
+                <ImageView
+                    android:id="@+id/videoimg"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/video"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp" />
+
+                <ImageView
+                    android:id="@+id/peopleimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/people"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"/>
+
+                <ImageView
+                    android:id="@+id/storeimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/store"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"/>
+
+                <ImageView
+                    android:id="@+id/bellimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bell"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"/>
+
+                <Button
+                    android:id="@+id/menuimg"
+                    android:layout_width="63dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu" />
+
+            </LinearLayout>
+            <View
+                android:id="@+id/line"
+                android:layout_width="380dp"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray">
+
+            </View>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="73dp"
+                    android:text="Menu"
+                    android:textSize="40dp" />
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="-100dp"
+                    android:src="@drawable/search" />
+                <ImageView
+                    android:id="@+id/settings"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/settings" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/image_profile_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/facebook_logo"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text=" Name"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="380dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/facebook_text_color"/>
+
+                <TextView
+                    android:id="@+id/memories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="30dp"
+                    android:text="  memories"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/saved"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/memories"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Saved"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/Groups"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/saved"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Groups"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/Video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Groups"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Video"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/Marketplace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Video"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Marketplace"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/findfriends"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Marketplace"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  findfriends"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/Feeds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/findfriends"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Feeds"
+                    android:background="@drawable/grey_border_button"/>
+                <TextView
+                    android:id="@+id/Events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Feeds"
+                    android:layout_marginTop="10dp"
+                    android:textSize="30dp"
+                    android:text="  Events"
+                    android:background="@drawable/grey_border_button"/>
+
+                <Button
+                    android:id="@+id/logOutBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:text="Log Out"
+                    android:textSize="20dp">
+
+                </Button>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:verticalScrollbarPosition="right"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
+
