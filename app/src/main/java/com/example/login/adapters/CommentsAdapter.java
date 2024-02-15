@@ -103,7 +103,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Edit Comment");
 
-        // Set up the input
         final EditText input = new EditText(context);
         input.setText(comments.get(position));
         builder.setView(input);
