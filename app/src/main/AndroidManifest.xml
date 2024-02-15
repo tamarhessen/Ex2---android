@@ -20,6 +20,9 @@
             android:name=".MenuActivity"
             android:exported="false"/>
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"/>
+        <activity
             android:name=".FeedActivity"
             android:exported="false"/>
 

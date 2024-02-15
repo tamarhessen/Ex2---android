@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Log In</string>
     <string name="Log_In">Log In</string>
+    <string name="back">Back</string>
+    <string name="settings_button">Settings Button</string>
+    <string name="settings_title">Settings</string>
+    <string name="apply">Apply</string>
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>
