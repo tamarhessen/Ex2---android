@@ -11,15 +11,18 @@ color white
 drawable bell
 drawable bigger_icon
 drawable blue_border_button
+drawable chat_background
 drawable comment
 drawable comment_
 drawable facebook_logo
 drawable facebookwriting
 drawable grey_border_button
 drawable home
+drawable ic_back
 drawable ic_close
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable image
 drawable img
 drawable img_1
 drawable img_10
@@ -33,6 +36,7 @@ drawable img_17
 drawable img_18
 drawable img_19
 drawable img_2
+drawable img_20
 drawable img_3
 drawable img_4
 drawable img_5
@@ -63,6 +67,8 @@ id Marketplace
 id Video
 id addCommentButton
 id addbtn
+id applyButton
+id backButton2
 id bellimg
 id bottomLayout
 id btn_select_image
@@ -78,6 +84,7 @@ id commentTextView
 id commentsRecyclerView
 id contentEditText
 id create_btn
+id darkModeSwitch
 id deleteButton
 id displayName
 id displayNameTextView
@@ -146,6 +153,7 @@ layout activity_login
 layout activity_login_layout
 layout activity_main
 layout activity_menu
+layout activity_settings
 layout comments
 layout edit_post_dialog
 layout one_comment
@@ -156,6 +164,11 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 string Log_In
 string app_name
+string apply
+string back
+string dark_mode
+string settings_button
+string settings_title
 style Base.Theme.LogIn
 style Theme.LogIn
 xml backup_rules

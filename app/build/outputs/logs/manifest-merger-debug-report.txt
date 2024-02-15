@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-46:12
-INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-46:12
-INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-46:12
-INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-46:12
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-49:12
+INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-49:12
+INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-49:12
+INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:3:1-49:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\user\.gradle\caches\transforms-3\0b1b1a158da0668ca4bdcd3e34d70499\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\user\.gradle\caches\transforms-3\2a6e68506650abc6faf7ed06ed00b784\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\user\.gradle\caches\transforms-3\306ded7b38c7bfba460aa9647dc0f275\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -61,8 +61,8 @@ ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\Androi
 	android:name
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:5:22-77
 application
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-44:19
-INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-44:19
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-47:19
+INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-47:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\user\.gradle\caches\transforms-3\0b1b1a158da0668ca4bdcd3e34d70499\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\user\.gradle\caches\transforms-3\0b1b1a158da0668ca4bdcd3e34d70499\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\user\.gradle\caches\transforms-3\2a6e68506650abc6faf7ed06ed00b784\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -113,46 +113,52 @@ ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\Androi
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:21:13-37
 	android:name
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:20:13-41
-activity#com.example.login.FeedActivity
+activity#com.example.login.SettingsActivity
 ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:22:9-24:39
 	android:exported
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:24:13-37
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:23:13-41
-activity#com.example.login.CreateAccountActivity
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:26:9-28:40
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:23:13-45
+activity#com.example.login.FeedActivity
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:25:9-27:39
 	android:exported
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:28:13-37
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:27:13-50
-activity#com.example.login.CommentsActivity
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:26:13-41
+activity#com.example.login.CreateAccountActivity
 ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:29:9-31:40
 	android:exported
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:31:13-37
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:30:13-45
-activity#com.example.login.LogInActivity
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:30:13-50
+activity#com.example.login.CommentsActivity
 ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:32:9-34:40
 	android:exported
 		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:34:13-37
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:33:13-42
-activity#com.example.login.MainActivity
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:35:9-43:20
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:33:13-45
+activity#com.example.login.LogInActivity
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:35:9-37:40
 	android:exported
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:37:13-36
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:37:13-37
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:36:13-41
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:36:13-42
+activity#com.example.login.MainActivity
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:38:9-46:20
+	android:exported
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:40:13-36
+	android:name
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:39:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:38:13-42:29
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:41:13-45:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:39:17-69
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:42:17-69
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:39:25-66
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:42:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:41:17-77
+ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:44:17-77
 	android:name
-		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:41:27-74
+		ADDED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:44:27-74
 uses-sdk
 INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml

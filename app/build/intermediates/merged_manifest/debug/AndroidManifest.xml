@@ -36,6 +36,9 @@
             android:name="com.example.login.MenuActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.login.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.login.FeedActivity"
             android:exported="false" />
         <activity

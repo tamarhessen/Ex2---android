@@ -18,6 +18,11 @@
     <item name="username" type="id"/>
     <string name="Log_In">Log In</string>
     <string name="app_name">Log In</string>
+    <string name="apply">Apply</string>
+    <string name="back">Back</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="settings_button">Settings Button</string>
+    <string name="settings_title">Settings</string>
     <style name="Base.Theme.LogIn" parent="Theme.Material3.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/facebook_text_color</item>
