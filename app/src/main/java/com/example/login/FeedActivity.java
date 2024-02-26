@@ -1,15 +1,12 @@
 package com.example.login;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,100 +14,129 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.login.adapters.PostsListAdapter;
 import com.example.login.entities.Post;
+import com.example.login.network.RetrofitClient;
+import com.example.login.network.PostService;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FeedActivity extends AppCompatActivity {
+
     private static final int REQUEST_NEW_POST = 1;
     private Button menuButton;
     private Button newPostButton;
-    private Button whatsNewButton;
     private RecyclerView lstPosts;
     private PostsListAdapter adapter;
     private String username;
+    private PostService postService;
+    private String currentUserUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        // Find the menu button and set click listener
+        postService = RetrofitClient.getClient().create(PostService.class);
+
+        // Initialize views
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
-        whatsNewButton = findViewById(R.id.whatsNewButton);
-        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-        Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
-        profilePictureImageView.setImageBitmap(profilePictureBitmap);
-        List<UserCredentials.User> userList = UserCredentials.getUsers();
-        for (UserCredentials.User user : userList) {
-            username = user.getUsername();
-            // Perform any operations with userDisplayName if needed
-        }
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
-
-        // Disable swipe-to-refresh functionality
-        swipeRefreshLayout.setEnabled(false);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the MenuActivity when the button is clicked
-                Intent intent = new Intent(FeedActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-        });
-        newPostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
-                startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
-            }
-        });
-        whatsNewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
-                startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
-            }
-        });
-
-        // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
+        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        currentUserUsername = username;
+        // Initialize adapter
         adapter = new PostsListAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
+        // Fetch posts from server
+        fetchPosts();
 
-        // Create sample posts
-        // Load posts from JSON file and pass them to the adapter
+        // Set click listeners
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FeedActivity.this, MenuActivity.class));
+            }
+        });
 
-        List<Post> posts = JsonParser.parseJson(this);
+        newPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(FeedActivity.this, NewPostActivity.class), REQUEST_NEW_POST);
+            }
+        });
 
-
-        // Pass the list of posts to the adapter
-        adapter.setPosts(posts);
-
+        // Handle swipe-to-refresh
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPosts();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
-    // This method will be called when returning from NewPostActivity
+    // Method to fetch posts from the server
+    private void fetchPosts() {
+        Call<List<Post>> call = postService.getPosts();
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    List<Post> posts = response.body();
+                    adapter.setPosts(posts);
+                } else {
+                    // Handle error
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+
+    // Method to handle the result from NewPostActivity
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_NEW_POST && resultCode == RESULT_OK && data != null) {
             // Retrieve post data from NewPostActivity
             String postText = data.getStringExtra("postText");
-            String postImagePath = data.getStringExtra("postImagePath");
-            Bitmap profileImageBitmap = CreateAccountActivity.profilePictureBitmap; // Assuming you have already stored the profile picture bitmap
-            Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
-            long currentTimeMillis = System.currentTimeMillis();
-            // Create a new Post object
-            Post newPost = new Post(username, postText, postImageBitmap, 0, profileImageBitmap,currentTimeMillis);
+            Bitmap postImageBitmap = (Bitmap) data.getParcelableExtra("postImageBitmap");
 
-            // Add the new post to the adapter
-            adapter.addPost(newPost);
+            // Create a new post on the server
+            createPost(postText, postImageBitmap);
         }
     }
 
+    // Method to create a new post on the server
+    private void createPost(String postText, Bitmap postImageBitmap) {
+        // Assuming you have the current user's username stored in a variable called username
+        Post newPost = new Post(currentUserUsername, postText, postImageBitmap, 0, null, System.currentTimeMillis());
+        Call<Void> call = postService.createPost(newPost);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Post created successfully
+                    // Fetch posts again to update the list
+                    fetchPosts();
+                } else {
+                    // Handle error
+                }
+            }
 
-
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
 }

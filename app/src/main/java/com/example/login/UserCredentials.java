@@ -2,14 +2,16 @@ package com.example.login;
 
 import android.graphics.Bitmap;
 
+import com.example.login.model.SignUpRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserCredentials {
     private static List<User> users = new ArrayList<>();
 
-    public static void addUser(String username, String password, Bitmap profilePicture,String displayName) {
-        users.add(new User(username, password, profilePicture,displayName));
+    public static void addUser(SignUpRequest signUpRequest, Bitmap profilePicture) {
+        users.add(new User(signUpRequest.getUsername(), signUpRequest.getPassword(), profilePicture, signUpRequest.getDisplayName()));
     }
 
     public static boolean checkCredentials(String username, String password) {
@@ -39,13 +41,13 @@ public class UserCredentials {
         private String username;
         private String password;
         private Bitmap profilePicture;
-        private String displayName;// New field
+        private String displayName;
 
         public User(String username, String password, Bitmap profilePicture, String displayName) {
             this.username = username;
             this.password = password;
             this.profilePicture = profilePicture;
-            this.displayName=displayName;
+            this.displayName = displayName;
         }
 
         public String getUsername() {
@@ -56,7 +58,7 @@ public class UserCredentials {
             return password;
         }
 
-        public String getDisplayName(){
+        public String getDisplayName() {
             return displayName;
         }
     }

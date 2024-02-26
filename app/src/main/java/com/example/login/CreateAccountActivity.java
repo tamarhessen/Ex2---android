@@ -7,9 +7,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,7 +18,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.login.UserCreatePost;
+import com.example.login.network.WebServiceAPI;
+import com.example.login.network.RetrofitClient;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateAccountActivity extends Activity {
 
@@ -33,6 +45,7 @@ public class CreateAccountActivity extends Activity {
     private EditText editTextDisplayName;
     private ImageView imageViewProfilePicture;
     private String displayName;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +61,14 @@ public class CreateAccountActivity extends Activity {
         buttonSignUp = findViewById(R.id.btn_sign_up);
         buttonSelectImage = findViewById(R.id.btn_select_image);
         imageViewProfilePicture = findViewById(R.id.image_profile_picture);
-
-
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5000/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
-
             }
         });
 
@@ -119,93 +133,113 @@ public class CreateAccountActivity extends Activity {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
-        String displayName = editTextDisplayName.getText().toString().trim();
+        displayName = editTextDisplayName.getText().toString().trim();
         boolean agreeTerms = checkBoxTermsConditions.isChecked();
         boolean pictureUploaded = (imageViewProfilePicture.getDrawable() != null);
         profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
-
-
+        String profilePic = bitmapToBase64(profilePictureBitmap);
+        Log.d("CreateAccountActivity", profilePic);
 
         // Clear any previous error messages
         clearErrors();
-        if (UserCredentials.isUsernameExists(username)) {
-            // Username already exists, show an error message
-            editTextUsername.setError("Username already exists");
-            editTextUsername.requestFocus();
-            return;
-        }
-        // Validate user input
-        if (username.isEmpty()) {
-            editTextUsername.setError("Username is required");
-            editTextUsername.requestFocus();
-            return;
-        }
 
-        // Validate password
-        if (password.isEmpty()) {
-            editTextPassword.setError("Password is required");
-            editTextPassword.requestFocus();
-            return;
+        // Validate input
+        if (!validateInput(password, confirmPassword, pictureUploaded, agreeTerms)) {
+            return; // Validation failed
         }
+        UserCreateToken userCreateToken = new UserCreateToken(username, password);
+        // Create an instance of UserCreatePost and populate it with data
+        UserCreatePost userCreatePost = new UserCreatePost(username, password, displayName, profilePic);
+
+        // Create an instance of WebServiceAPI
+        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+
+        // Make network request to create a user
+        Call<Void> call = webServiceAPI.createUser(userCreatePost);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message
+                    Toast.makeText(CreateAccountActivity.this, "Sign-up successful", Toast.LENGTH_SHORT).show();
+                    // Proceed to login activity
+                    Intent intent = new Intent(CreateAccountActivity.this, LogInActivity.class);
+                    startActivity(intent);
+                    finish(); // Optional: finish the current activity to remove it from the back stack
+                } else {
+                    // Handle error
+                    Toast.makeText(CreateAccountActivity.this, "Failed to create user", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Toast.makeText(CreateAccountActivity.this, "Network request failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    private String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,100,100,false);
+        bitmap1.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+
+    private boolean validateInput(String password, String confirmPassword, boolean pictureUploaded, boolean agreeTerms) {
+        // Validate password
         if (password.length() < 8) {
             editTextPassword.setError("Password must be at least 8 characters long");
             editTextPassword.requestFocus();
-            return;
+            return false;
         }
         if (!password.matches(".*[a-zA-Z].*")) {
             editTextPassword.setError("Password must contain at least one letter");
             editTextPassword.requestFocus();
-            return;
+            return false;
         }
         if (!password.matches(".*\\d.*")) {
             editTextPassword.setError("Password must contain at least one digit");
             editTextPassword.requestFocus();
-            return;
+            return false;
         }
 
         // Validate confirm password
-        if (confirmPassword.isEmpty()) {
-            editTextConfirmPassword.setError("Confirm Password is required");
-            editTextConfirmPassword.requestFocus();
-            return;
-        }
         if (!confirmPassword.equals(password)) {
             editTextConfirmPassword.setError("Passwords do not match");
             editTextConfirmPassword.requestFocus();
-            return;
+            return false;
         }
 
         // Validate display name
         if (displayName.isEmpty()) {
             editTextDisplayName.setError("Display name is required");
             editTextDisplayName.requestFocus();
-            return;
-        }
-        if (!pictureUploaded) {
-            // No picture uploaded, show an error message
-            Toast.makeText(CreateAccountActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
+        // Validate profile picture
+        if (!pictureUploaded) {
+            Toast.makeText(CreateAccountActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Validate terms and conditions agreement
         if (!agreeTerms) {
             Toast.makeText(CreateAccountActivity.this, "Please agree to the terms and conditions", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
-        // Add user to the global list
-        UserCredentials.addUser(username, password, profilePictureBitmap,displayName);
-
-        // Display success message
-        Toast.makeText(CreateAccountActivity.this, "Sign-up successful", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(CreateAccountActivity.this,LogInActivity.class);
-        startActivity(intent);
-        finish();
-        // Optional: finish the current activity to remove it from the back stack
+        return true; // All validations passed
     }
 
     // Method to clear error messages
     private void clearErrors() {
-        editTextUsername.setError(null);
         editTextPassword.setError(null);
         editTextConfirmPassword.setError(null);
         editTextDisplayName.setError(null);
