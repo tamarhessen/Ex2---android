@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/facebook_background">
+
+    <ImageView
+        android:id="@+id/facebook_logo"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/img" />
+
+    <TextView
+        android:id="@+id/signup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/facebook_logo"
+        android:text="Sign Up"
+        android:textColor="@color/facebook_text_color"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signup_title"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Username"
+        android:padding="10dp"
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:layout_below="@id/edit_username"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Password"
+        android:background="@drawable/grey_border_button"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/facebook_text_color" />
+
+    <EditText
+        android:id="@+id/edit_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_password"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="normal"
+        android:hint="Confirm Password"
+
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
+
+    <EditText
+        android:id="@+id/edit_display_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_confirm_password"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Display Name"
+        android:textStyle="normal"
+        android:padding="10dp"
+        android:textColor="@color/facebook_text_color"
+        android:background="@drawable/grey_border_button"/>
+
+    <ImageView
+        android:id="@+id/image_profile_picture"
+        android:layout_width="75dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/edit_display_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:src="@null" />
+
+    <Button
+        android:id="@+id/btn_select_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_profile_picture"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Select Image" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_select_image"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/facebook_blue"
+        android:padding="12dp"
+        android:text="Sign Up"
+        android:textColor="@android:color/white" />
+
+    <CheckBox
+        android:id="@+id/check_terms_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_sign_up"
+        android:layout_marginTop="10dp"
+        android:text="I agree to the terms and conditions"
+        android:textColor="@color/facebook_text_color" /> <!-- Set text color -->
+
+</RelativeLayout>
