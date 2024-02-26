@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.login.JsonParser;
+import com.example.login.facebookdesign.MenuActivity;
 import com.example.login.R;
-import com.example.login.adapters.PostsListAdapter;
-import com.example.login.entities.Post;
+import com.example.login.facebookdesign.PostAdapter;
+import com.example.login.facebookdesign.Post;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class FeedActivity extends AppCompatActivity {
     private Button newPostButton;
     private Button whatsNewButton;
     private RecyclerView lstPosts;
-    private PostsListAdapter adapter;
+    private PostAdapter adapter;
     private String username;
 
     @Override
@@ -40,7 +41,7 @@ public class FeedActivity extends AppCompatActivity {
         ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
         Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
         profilePictureImageView.setImageBitmap(profilePictureBitmap);
-        List<com.example.login.UserCredentials.User> userList = com.example.login.UserCredentials.getUsers();
+        List<com.example.login.facebookdesign.UserCredentials.User> userList = com.example.login.facebookdesign.UserCredentials.getUsers();
         for (UserCredentials.User user : userList) {
             username = user.getUsername();
             // Perform any operations with userDisplayName if needed
@@ -60,21 +61,21 @@ public class FeedActivity extends AppCompatActivity {
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                Intent intent = new Intent(FeedActivity.this, PostActivity.class);
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
         whatsNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                Intent intent = new Intent(FeedActivity.this, PostActivity.class);
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
 
         // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
-        adapter = new PostsListAdapter(this, username);
+        adapter = new PostAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
@@ -82,11 +83,11 @@ public class FeedActivity extends AppCompatActivity {
         // Create sample posts
         // Load posts from JSON file and pass them to the adapter
 
-        List<Post> posts = JsonParser.parseJson(this);
+//        List<Post> posts = JsonParser.parseJson(this);
 
 
         // Pass the list of posts to the adapter
-        adapter.setPosts(posts);
+//        adapter.setPosts(posts);
 
     }
 

@@ -1,8 +1,5 @@
 package com.example.login.facebookdesign;
 
-import static com.example.login.facebookdesign.MainActivity.SIM;
-import static com.example.login.facebookdesign.MainActivity.baseURL;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -37,21 +34,16 @@ public class LogInActivity extends AppCompatActivity {
     private Button createButton;
     private Button loginButton;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs",
-                Context.MODE_PRIVATE);
+
         // Initialize views
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
         createButton = findViewById(R.id.create_btn);
         loginButton = findViewById(R.id.loginbtn);
-        Bitmap profilePictureBitmap = getIntent().getParcelableExtra("profilePictureBitmap");
-
 
         // Set click listener for the "Create Account" button
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -73,64 +65,36 @@ public class LogInActivity extends AppCompatActivity {
                 Gson gson = new GsonBuilder()
                         .setLenient()
                         .create();
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5000/api/")
                         .addConverterFactory(GsonConverterFactory.create(gson)).build();
                 WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-                UserCreateToken userCreateToken =
-                        new UserCreateToken(username,
-                                password);
+                UserCreateToken userCreateToken = new UserCreateToken(username, password);
                 Call<String> call = webServiceAPI.getToken(userCreateToken);
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        if(response.isSuccessful()){
-                            Intent intent = new Intent(getApplicationContext(),UsersActivity.class);
+                        if (response.isSuccessful()) {
+                            Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
                             String tokenNow = response.body();
-                            intent.putExtra("Token",tokenNow);
-                            intent.putExtra("Username",username);
+                            intent.putExtra("Token", tokenNow);
+                            intent.putExtra("Username", username);
                             // Save the user information during login
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("username", username; // Store the username
-                            editor.putString("token",tokenNow); // Store the token
+                            editor.putString("username", username); // Store the username
+                            editor.putString("token", tokenNow); // Store the token
                             editor.apply();
-                            SIM.logIn(username);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(LogInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogInActivity.this, "Username or password incorrect", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-
+                        Toast.makeText(LogInActivity.this, "Network request failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-            });
-        signupButton.setOnClickListener(v -> {
-                                               Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                                               startActivity(intent);
-                                           });
-        settings.setOnClickListener(v -> {
-                                               Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                                               startActivity(intent);
-                                           });
-                                       }
-                // Check if the credentials exist
-                boolean credentialsExist = checkCredentials(username, password);
-
-                if (credentialsExist) {
-                    // Credentials exist, proceed to login
-                    Toast.makeText(LogInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    // Start the FeedActivity
-                    Intent intent = new Intent(LogInActivity.this, FeedActivity.class);
-
-                    startActivity(intent);
-                    finish();
-                } else {
-                    // Credentials do not exist, show an error message
-                    Toast.makeText(LogInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -160,6 +124,4 @@ public class LogInActivity extends AppCompatActivity {
         }
         return false; // Credentials do not match
     }
-
-
 }

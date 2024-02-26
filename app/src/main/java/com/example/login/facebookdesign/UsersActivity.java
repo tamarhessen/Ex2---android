@@ -2,7 +2,6 @@ package com.example.login.facebookdesign;
 
 import static com.example.login.facebookdesign.MainActivity.baseURL;
 import static com.example.login.facebookdesign.MainActivity.defaultPfp;
-import static com.example.login.facebookdesign.SettingsActivity.applyDarkMode;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -21,7 +20,6 @@ import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -32,10 +30,7 @@ import com.example.login.R;
 import com.example.login.network.WebServiceAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;

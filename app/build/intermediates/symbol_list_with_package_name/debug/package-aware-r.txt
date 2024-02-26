@@ -3276,6 +3276,7 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnAdd
 id btn_add_friend
 id btn_more
 id btn_select_image
@@ -3443,6 +3444,7 @@ id ivPic
 id jumpToEnd
 id jumpToStart
 id labeled
+id last_massage
 id layout
 id left
 id leftToRight
@@ -3459,6 +3461,7 @@ id list_item
 id logOutBtn
 id loginbtn
 id logo
+id logoutItem
 id lstPosts
 id m3_side_sheet
 id marquee
@@ -3585,6 +3588,7 @@ id postTime
 id pressed
 id profileImageView
 id profilePic
+id profile_image
 id profile_picture
 id progress_circular
 id progress_horizontal
@@ -3631,6 +3635,7 @@ id select_dialog_listview
 id selected
 id selection_type
 id settings
+id settingsItem
 id shareButton
 id sharedValueSet
 id sharedValueUnset
@@ -3877,8 +3882,10 @@ layout activity_login_layout
 layout activity_main
 layout activity_menu
 layout activity_settings
+layout activity_users
 layout comments
 layout custom_dialog
+layout custom_list_item
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar
@@ -3959,6 +3966,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu menu_main
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description

@@ -13,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.login.MenuActivity;
-import com.example.login.facebookdesign.EditPostDialogFragment;
 import com.example.login.R;
+import com.example.login.facebookdesign.MenuActivity;
+import com.example.login.facebookdesign.EditPostDialogFragment;
+
 import com.example.login.facebookdesign.Post;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

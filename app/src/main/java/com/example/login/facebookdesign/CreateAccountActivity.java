@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.login.facebookdesign.LogInActivity;
 import com.example.login.R;
+import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.network.WebServiceAPI;
 import com.example.login.network.RetrofitClient;
 
@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateAccountActivity extends Activity {
 
@@ -45,6 +46,7 @@ public class CreateAccountActivity extends Activity {
     private EditText editTextDisplayName;
     private ImageView imageViewProfilePicture;
     private String displayName;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,10 @@ public class CreateAccountActivity extends Activity {
         buttonSignUp = findViewById(R.id.btn_sign_up);
         buttonSelectImage = findViewById(R.id.btn_select_image);
         imageViewProfilePicture = findViewById(R.id.image_profile_picture);
-
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5000/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +140,6 @@ public class CreateAccountActivity extends Activity {
         profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
         String profilePic = bitmapToBase64(profilePictureBitmap);
         Log.d("CreateAccountActivity", profilePic);
-        UserCreatePost userCreatePost = new UserCreatePost(username, password, profilePic, displayName);
 
         // Clear any previous error messages
         clearErrors();
@@ -144,14 +148,12 @@ public class CreateAccountActivity extends Activity {
         if (!validateInput(password, confirmPassword, pictureUploaded, agreeTerms)) {
             return; // Validation failed
         }
+        UserCreateToken userCreateToken = new UserCreateToken(username, password);
+        // Create an instance of UserCreatePost and populate it with data
+        UserCreatePost userCreatePost = new UserCreatePost(username, password, displayName, profilePic);
 
-        // Create Retrofit instance
-        Retrofit retrofit = RetrofitClient.getClient();
+        // Create an instance of WebServiceAPI
         WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-
-        // Log the URL
-        String url = retrofit.baseUrl().toString() + "create";
-        Log.d("CreateAccountActivity", "URL: " + url);
 
         // Make network request to create a user
         Call<Void> call = webServiceAPI.createUser(userCreatePost);
@@ -178,6 +180,7 @@ public class CreateAccountActivity extends Activity {
             }
         });
     }
+
 
 
     private String bitmapToBase64(Bitmap bitmap) {

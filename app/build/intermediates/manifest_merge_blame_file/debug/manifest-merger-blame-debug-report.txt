@@ -11,21 +11,21 @@
 11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 11-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:5:5-80
 11-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:5:22-77
-12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-12-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:22:5-79
-12-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:22:22-76
-13    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-13-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:23:5-77
-13-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:23:22-74
-14    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
-14-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:24:5-68
-14-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:24:22-65
-15    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-15-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:5-82
-15-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:22-79
-16    <uses-permission android:name="android.permission.INTERNET" />
-16-->[com.google.android.gms:play-services-cloud-messaging:17.1.0] C:\Users\user\.gradle\caches\transforms-3\eeeb33bf18927b63310bc9b602559480\transformed\play-services-cloud-messaging-17.1.0\AndroidManifest.xml:8:5-67
-16-->[com.google.android.gms:play-services-cloud-messaging:17.1.0] C:\Users\user\.gradle\caches\transforms-3\eeeb33bf18927b63310bc9b602559480\transformed\play-services-cloud-messaging-17.1.0\AndroidManifest.xml:8:22-64
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-67
+12-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:22:5-79
+13-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:22:22-76
+14    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+14-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:23:5-77
+14-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:23:22-74
+15    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+15-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:24:5-68
+15-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:24:22-65
+16    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+16-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:5-82
+16-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\user\.gradle\caches\transforms-3\2528efb3496bf498bfc74c58a0c9c386\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:22-79
 17
 18    <permission
 18-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-3\87f22283ee55c8414d476f8251d5c8dc\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
@@ -39,85 +39,85 @@
 22-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-3\87f22283ee55c8414d476f8251d5c8dc\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 23
 24    <application
-24-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:6:5-47:19
+24-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:7:5-48:19
 25        android:allowBackup="true"
-25-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:7:9-35
+25-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:8:9-35
 26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 26-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-3\87f22283ee55c8414d476f8251d5c8dc\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 27        android:dataExtractionRules="@xml/data_extraction_rules"
-27-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:8:9-65
+27-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:9:9-65
 28        android:debuggable="true"
 29        android:extractNativeLibs="true"
 30        android:fullBackupContent="@xml/backup_rules"
-30-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:9:9-54
+30-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:10:9-54
 31        android:icon="@drawable/logo_huge"
-31-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:10:9-43
+31-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:11:9-43
 32        android:label="Facebook"
-32-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:11:9-33
+32-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:12:9-33
 33        android:roundIcon="@drawable/logo_huge"
-33-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:12:9-48
+33-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:13:9-48
 34        android:supportsRtl="true"
-34-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:13:9-35
+34-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:14:9-35
 35        android:testOnly="true"
 36        android:theme="@style/Theme.LogIn" >
-36-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:14:9-43
+36-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:15:9-43
 37        <activity
-37-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:16:9-18:39
-38            android:name="com.example.login.NewPostActivity"
-38-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:17:13-44
+37-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:17:9-19:39
+38            android:name="com.example.login.facebookdesign.PostActivity"
+38-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:18:13-56
 39            android:exported="false" />
-39-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:18:13-37
+39-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:19:13-37
 40        <activity
-40-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:19:9-21:39
-41            android:name="com.example.login.MenuActivity"
-41-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:20:13-41
+40-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:20:9-22:39
+41            android:name="com.example.login.facebookdesign.MenuActivity"
+41-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:21:13-56
 42            android:exported="false" />
-42-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:21:13-37
+42-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:22:13-37
 43        <activity
-43-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:22:9-24:39
+43-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:23:9-25:39
 44            android:name="com.example.login.facebookdesign.SettingsActivity"
-44-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:23:13-60
+44-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:24:13-60
 45            android:exported="false" />
-45-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:24:13-37
+45-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:25:13-37
 46        <activity
-46-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:25:9-27:39
+46-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:26:9-28:39
 47            android:name="com.example.login.facebookdesign.FeedActivity"
-47-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:26:13-56
+47-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:27:13-56
 48            android:exported="false" />
-48-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:27:13-37
+48-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:28:13-37
 49        <activity
-49-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:29:9-31:40
+49-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:30:9-32:40
 50            android:name="com.example.login.facebookdesign.CreateAccountActivity"
-50-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:30:13-65
+50-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:31:13-65
 51            android:exported="false" />
-51-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:31:13-37
+51-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:32:13-37
 52        <activity
-52-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:32:9-34:40
-53            android:name="com.example.login.CommentsActivity"
-53-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:33:13-45
+52-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:33:9-35:40
+53            android:name="com.example.login.facebookdesign.CommentsActivity"
+53-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:34:13-60
 54            android:exported="false" />
-54-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:34:13-37
+54-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:35:13-37
 55        <activity
-55-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:35:9-37:40
-56            android:name="com.example.login.LogInActivity"
-56-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:36:13-42
+55-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:36:9-38:40
+56            android:name="com.example.login.facebookdesign.LogInActivity"
+56-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:37:13-57
 57            android:exported="false" />
-57-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:37:13-37
+57-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:38:13-37
 58        <activity
-58-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:38:9-46:20
-59            android:name="com.example.login.MainActivity"
-59-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:39:13-41
+58-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:39:9-47:20
+59            android:name="com.example.login.facebookdesign.MainActivity"
+59-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:40:13-56
 60            android:exported="true" >
-60-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:40:13-36
+60-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:41:13-36
 61            <intent-filter>
-61-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:41:13-45:29
+61-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:42:13-46:29
 62                <action android:name="android.intent.action.MAIN" />
-62-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:42:17-69
-62-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:42:25-66
+62-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:43:17-69
+62-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:43:25-66
 63
 64                <category android:name="android.intent.category.LAUNCHER" />
-64-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:44:17-77
-64-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:44:27-74
+64-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:45:17-77
+64-->C:\Users\user\AndroidStudioProjects\Ex2---android\app\src\main\AndroidManifest.xml:45:27-74
 65            </intent-filter>
 66        </activity>
 67

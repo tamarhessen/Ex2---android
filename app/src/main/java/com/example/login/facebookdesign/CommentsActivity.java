@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
-import com.example.login.adapters.CommentsAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class CommentsActivity extends AppCompatActivity {
 
     private List<String> comments;
     private RecyclerView recyclerView;
-    private CommentsAdapter adapter;
+
     private EditText commentEditText;
     private Button addCommentButton;
     private Button deleteButton;
@@ -45,13 +45,13 @@ public class CommentsActivity extends AppCompatActivity {
 
         // Initialize RecyclerView and Adapter
         recyclerView = findViewById(R.id.commentsRecyclerView);
-        adapter = new CommentsAdapter(this, profilePicBitmap, username); // Provide context, profile picture, and username
+
 
         // Set layout manager to RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Set adapter to RecyclerView
-        recyclerView.setAdapter(adapter);
+
 
         // Initialize comments list
         comments = new ArrayList<>();
@@ -68,7 +68,7 @@ public class CommentsActivity extends AppCompatActivity {
                 String newComment = commentEditText.getText().toString();
                 if (!newComment.isEmpty()) {
                     comments.add(newComment);
-                    adapter.setComments(comments); // Update the RecyclerView
+
                     commentEditText.setText("");
                 }
             }

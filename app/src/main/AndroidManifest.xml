@@ -3,6 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,10 +15,10 @@
         android:theme="@style/Theme.LogIn"
         tools:targetApi="31">
         <activity
-            android:name=".NewPostActivity"
+            android:name=".facebookdesign.PostActivity"
             android:exported="false"/>
         <activity
-            android:name=".MenuActivity"
+            android:name=".facebookdesign.MenuActivity"
             android:exported="false"/>
         <activity
             android:name=".facebookdesign.SettingsActivity"
@@ -30,13 +31,13 @@
             android:name=".facebookdesign.CreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".CommentsActivity"
+            android:name=".facebookdesign.CommentsActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".facebookdesign.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".facebookdesign.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

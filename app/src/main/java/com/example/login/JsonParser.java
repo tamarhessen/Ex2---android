@@ -3,7 +3,7 @@ package com.example.login;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.example.login.entities.Post;
+import com.example.login.facebookdesign.Post;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

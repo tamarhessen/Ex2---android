@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.login.R;
 
 import java.util.List;
 

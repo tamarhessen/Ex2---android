@@ -24,6 +24,10 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xxhdpi\\ic_close.png"
     },
     {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_users.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_users.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_login.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_login.xml"
     },
@@ -66,6 +70,10 @@
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.login.app-merged_res-39:/layout_activity_main.xml.flat",
+        "source": "com.example.login.app-main-41:/layout/activity_main.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher.webp.flat",
@@ -112,6 +120,10 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-ldpi\\ic_launcher_foreground.png"
     },
     {
+        "merged": "com.example.login.app-merged_res-39:/layout-land_activity_main.xml.flat",
+        "source": "com.example.login.app-main-41:/layout-land/activity_main.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
@@ -120,16 +132,20 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\not_liked.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher.webp"
-    },
-    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_like.png.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\like.png"
     },
     {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_14.png.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_14.png"
+    },
+    {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\menu\\menu_main.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_main.xml.flat",
@@ -268,10 +284,6 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xhdpi\\ic_back.png"
     },
     {
-        "merged": "com.example.login.app-merged_res-39:/layout_profile_page.xml.flat",
-        "source": "com.example.login.app-main-41:/layout/profile_page.xml"
-    },
-    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_comment.png.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\comment.png"
     },
@@ -362,6 +374,14 @@
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_6.png.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_6.png"
+    },
+    {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_custom_list_item.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\custom_list_item.xml"
+    },
+    {
+        "merged": "com.example.login.app-merged_res-39:/layout_activity_login.xml.flat",
+        "source": "com.example.login.app-main-41:/layout/activity_login.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_9.png.flat",

@@ -2,7 +2,6 @@ package com.example.login.facebookdesign;//package com.example.whatsappdesign;
 
 import static com.example.login.facebookdesign.MainActivity.SIM;
 import static com.example.login.facebookdesign.MainActivity.baseURL;
-import static com.example.login.facebookdesign.UsersActivity.currentConnectedUsername;
 import static com.example.login.facebookdesign.UsersActivity.token;
 
 import static java.util.Collections.reverse;
@@ -11,9 +10,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,8 +18,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.example.login.facebookdesign.CommentPostDao;
-import com.example.login.facebookdesign.CommentPost;
 import com.example.login.network.WebServiceAPI;
 
 public class CommentAPI {
