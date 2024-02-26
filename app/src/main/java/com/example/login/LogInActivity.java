@@ -2,7 +2,9 @@ package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,7 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.login.network.WebServiceAPI;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -20,8 +32,6 @@ public class LogInActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button createButton;
     private Button loginButton;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +43,6 @@ public class LogInActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         createButton = findViewById(R.id.create_btn);
         loginButton = findViewById(R.id.loginbtn);
-        Bitmap profilePictureBitmap = getIntent().getParcelableExtra("profilePictureBitmap");
-
 
         // Set click listener for the "Create Account" button
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -53,22 +61,39 @@ public class LogInActivity extends AppCompatActivity {
                 // Get the entered username and password
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5000/api/")
+                        .addConverterFactory(GsonConverterFactory.create(gson)).build();
+                WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+                UserCreateToken userCreateToken = new UserCreateToken(username, password);
+                Call<String> call = webServiceAPI.getToken(userCreateToken);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.isSuccessful()) {
+                            Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+                            String tokenNow = response.body();
+                            intent.putExtra("Token", tokenNow);
+                            intent.putExtra("Username", username);
+                            // Save the user information during login
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("username", username); // Store the username
+                            editor.putString("token", tokenNow); // Store the token
+                            editor.apply();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LogInActivity.this, "Username or password incorrect", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                // Check if the credentials exist
-                boolean credentialsExist = checkCredentials(username, password);
-
-                if (credentialsExist) {
-                    // Credentials exist, proceed to login
-                    Toast.makeText(LogInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    // Start the FeedActivity
-                    Intent intent = new Intent(LogInActivity.this, FeedActivity.class);
-
-                    startActivity(intent);
-                    finish();
-                } else {
-                    // Credentials do not exist, show an error message
-                    Toast.makeText(LogInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(LogInActivity.this, "Network request failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -98,6 +123,4 @@ public class LogInActivity extends AppCompatActivity {
         }
         return false; // Credentials do not match
     }
-
-
 }
