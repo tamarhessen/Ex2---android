@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.login.app-mergeDebugResources-30:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.example.login.app-mergeDebugResources-37:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
                     "source": "C:\\Users\\user\\.gradle\\caches\\transforms-3\\87f22283ee55c8414d476f8251d5c8dc\\transformed\\core-1.9.0\\res\\values-en-rXC\\values-en-rXC.xml",
