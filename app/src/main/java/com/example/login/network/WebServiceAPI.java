@@ -3,6 +3,7 @@ package com.example.login.network;
 import com.example.login.facebookdesign.Comment;
 import com.example.login.facebookdesign.CommentToSend;
 import com.example.login.facebookdesign.OnlyUsername;
+import com.example.login.facebookdesign.Post;
 import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.facebookdesign.UserCreateToken;
@@ -18,6 +19,12 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface WebServiceAPI {
+
+
+    @POST("Posts")
+    Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
+                                  @Header("Authorization") String authHeader);
+
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);
 
@@ -31,15 +38,15 @@ public interface WebServiceAPI {
     @GET("Chats")
     Call<List<User>> getUsers(@Header("Authorization") String authHeader);
 
-    @POST("Chats")
-    Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
-                                  @Header("Authorization") String authHeader);
 
-    @GET("Chats/{id}/Messages")
+
+    @GET("Posts/{id}/Comments")
     Call<List<Comment>> getComments(@Path("id") int id,
                                     @Header("Authorization") String authHeader);
 
-    @POST("Chats/{id}/Messages")
+    @POST("Posts/{id}/Comments")
     Call<Void> postComment(@Path("id") int id,@Body CommentToSend comment,
                            @Header("Authorization") String authHeader);
+
+
 }
