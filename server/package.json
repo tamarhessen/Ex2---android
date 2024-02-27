@@ -12,6 +12,7 @@
   },
   "scripts": {
     "windows": "SET NODE_ENV=local && node app.js",
-    "linux": "export NODE_ENV=local && node app.js"
+    "linux": "export NODE_ENV=local && node app.js",
+    "start": "node app.js"
   }
 }

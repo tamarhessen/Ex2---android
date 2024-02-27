@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@TypeConverters({ListStringConverter.class, BitmapConverter.class})
 public class Post {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -99,9 +101,11 @@ public class Post {
         this.liked = liked;
     }
 
-    public String getTimestamp() {
-        return convertTimestampToString(timestamp);
+    public long getTimestamp() {
+        return timestamp;
     }
+
+
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
@@ -138,5 +142,10 @@ public class Post {
     public List<String> getComments() {
         return comments;
     }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
+    }
+
 }
 

@@ -48,5 +48,7 @@ public interface WebServiceAPI {
     Call<Void> postComment(@Path("id") int id,@Body CommentToSend comment,
                            @Header("Authorization") String authHeader);
 
+    @GET("Posts")
+    Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
 
 }
