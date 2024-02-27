@@ -189,7 +189,7 @@ public class UsersActivity extends AppCompatActivity {
             public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
                 if(response.isSuccessful()) {
                     UserCreatePost user = response.body();
-                    setAsImage(user.getProfilePic(), pfpCurrentLoggedIn);
+//                    setAsImage(user.getProfilePic(), pfpCurrentLoggedIn);
                     displayNameCurrentLoggedIn.setText(user.getDisplayName());
                 }
             }

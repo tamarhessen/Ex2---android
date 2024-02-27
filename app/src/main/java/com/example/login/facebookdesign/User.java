@@ -1,5 +1,7 @@
 package com.example.login.facebookdesign;
 
+import android.graphics.Bitmap;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -40,10 +42,10 @@ public class User {
     class UserNoPassword {
         private String username;
         private String displayName;
-        private String profilePic;
+        private Bitmap profilePic;
 
 
-        public UserNoPassword(String username, String displayName, String profilePic) {
+        public UserNoPassword(String username, String displayName, Bitmap profilePic) {
             this.username = username;
             this.displayName = displayName;
             this.profilePic = profilePic;
@@ -65,11 +67,11 @@ public class User {
             this.displayName = displayName;
         }
 
-        public String getProfilePic() {
+        public Bitmap getProfilePic() {
             return profilePic;
         }
 
-        public void setProfilePic(String profilePic) {
+        public void setProfilePic(Bitmap profilePic) {
             this.profilePic = profilePic;
         }
     }

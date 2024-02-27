@@ -41,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
             // Perform any operations with userDisplayName if needed
         }
 
+
 // Now you can use the displayName TextView
 // For example, you can set its text using setText method
         if (displayNameTextView != null) {
