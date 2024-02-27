@@ -29,6 +29,7 @@ public class FeedActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private String username;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
