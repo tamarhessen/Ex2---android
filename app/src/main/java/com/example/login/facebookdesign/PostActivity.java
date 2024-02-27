@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,27 +21,23 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.login.entities.Post;
-import com.example.login.network.PostService;
-import com.example.login.network.RetrofitClient;
+import com.example.login.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class NewPostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView postImageView;
+    private static CommentsViewModel viewModel;
     private EditText postEditText;
     private Button selectImageButton;
     private Button submitButton;
+    public static String talkingUser;
 
     private Uri imageUri;
 
@@ -54,6 +51,7 @@ public class NewPostActivity extends AppCompatActivity {
         postEditText = findViewById(R.id.postEditText);
         selectImageButton = findViewById(R.id.selectImageButton);
         submitButton = findViewById(R.id.submitButton);
+
 
         // Set click listener for selecting image
         selectImageButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +89,7 @@ public class NewPostActivity extends AppCompatActivity {
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
                         } else {
-                            Toast.makeText(NewPostActivity.this, "Camera not available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostActivity.this, "Camera not available", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
@@ -155,38 +153,32 @@ public class NewPostActivity extends AppCompatActivity {
 
         // Check if both post text and image are available
         if (!TextUtils.isEmpty(postText) || postImageBitmap != null) {
-            // Create a new Post object
-            Post post = new Post();
-            post.setContent(postText);
-            // Set other properties of the post as needed
-
-            // Create Retrofit instance
-            PostService postService = RetrofitClient.getClient().create(PostService.class);
-
-            // Call the createPost method
-            Call<Void> call = postService.createPost(post);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        // Post created successfully
-                        Toast.makeText(NewPostActivity.this, "Post created successfully", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        // Handle error
-                        Toast.makeText(NewPostActivity.this, "Failed to create post", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    // Handle failure
-                    Toast.makeText(NewPostActivity.this, "Failed to create post: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (postImageBitmap != null) {
+                // Save the post image bitmap to a file
+                String imagePath = saveBitmapToFile(postImageBitmap);
+                // Pass the post text and image file path back to the calling activity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("postText", postText);
+                resultIntent.putExtra("postImagePath", imagePath);
+                // Set the result to indicate successful submission
+                setResult(RESULT_OK, resultIntent);
+            } else {
+                // If no image is selected, pass only the post text
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("postText", postText);
+                setResult(RESULT_OK, resultIntent);
+            }
+            finish(); // Finish the activity
         } else {
             // Show a toast message if either post text or image is missing
-            Toast.makeText(NewPostActivity.this, "Please select an image and write something", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostActivity.this, "Please select an image and write something", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void update(){
+        Log.d("update_abcde","update");
+        if (viewModel != null) {
+            viewModel.refresh();
         }
     }
 }

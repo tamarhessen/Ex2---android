@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.login.R;
 import com.example.login.network.WebServiceAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package com.example.login.entities;
+package com.example.login.facebookdesign;
 
 import android.graphics.Bitmap;
 

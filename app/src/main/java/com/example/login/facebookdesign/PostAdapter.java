@@ -1,53 +1,41 @@
-package com.example.login.adapters;
+package com.example.login.facebookdesign;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.login.CommentsActivity;
-import com.example.login.EditPostDialogFragment;
-import com.example.login.MenuActivity;
 import com.example.login.R;
-import com.example.login.entities.Post;
-import com.example.login.network.PostService;
-import com.example.login.network.RetrofitClient;
+import com.example.login.facebookdesign.MenuActivity;
+import com.example.login.facebookdesign.EditPostDialogFragment;
 
+import com.example.login.facebookdesign.Post;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.PostViewHolder>
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
         implements EditPostDialogFragment.OnPostEditedListener {
 
     private final LayoutInflater mInflater;
     private static List<Post> posts;
     private String currentUserUsername;
     private final Context mContext;
-    private final PostService postService;
 
-    public PostsListAdapter(Context context, String currentUserUsername) {
+    public PostAdapter(Context context, String currentUserUsername) {
         mInflater = LayoutInflater.from(context);
-        this.currentUserUsername = currentUserUsername;
-        mContext = context;
-        postService = RetrofitClient.getClient().create(PostService.class); // Initialize PostService
+        this.currentUserUsername = currentUserUsername; // Initialize the current user's username
+        mContext = context; // Initialize the context
     }
 
     @NonNull
@@ -123,7 +111,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
                     @Override
                     public void onClick(View v) {
                         // Create and show the EditPostDialogFragment
-                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostsListAdapter.this);
+                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostAdapter.this);
                         dialogFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(), "EditPostDialogFragment");
                     }
                 });
@@ -196,35 +184,6 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListAdapter.Post
             posts.set(editedPostIndex, post);
             notifyItemChanged(posts.size() - editedPostIndex - 1);
         }
-    }
-
-    public void createPost(String postText, Bitmap postImageBitmap) {
-        // Create a new Post object with the provided text and image
-        Post newPost = new Post(currentUserUsername, postText, postImageBitmap, 0, null, System.currentTimeMillis());
-
-        // Make an API call to create the post
-        Call<Void> createPostCall = postService.createPost(newPost);
-        createPostCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // Post created successfully
-                    // Refresh the UI or perform any necessary actions
-                    Toast.makeText(mContext, "Post created successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Post creation failed
-                    // Handle error
-                    Toast.makeText(mContext, "Failed to create post", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // Error making API call
-                // Handle failure
-                Toast.makeText(mContext, "Failed to create post: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {

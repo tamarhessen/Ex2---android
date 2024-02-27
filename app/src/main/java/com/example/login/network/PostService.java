@@ -1,5 +1,5 @@
 package com.example.login.network;
-import com.example.login.entities.Post;
+import com.example.login.facebookdesign.Post;
 
 import java.util.List;
 

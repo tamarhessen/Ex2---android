@@ -1,8 +1,8 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import android.graphics.Bitmap;
 
-import com.example.login.model.SignUpRequest;
+import com.example.login.facebookdesign.SignUpRequest;
 
 import java.util.ArrayList;
 import java.util.List;

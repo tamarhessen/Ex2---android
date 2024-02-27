@@ -1,25 +1,23 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.login.adapters.PostsListAdapter;
-import com.example.login.entities.Post;
+import com.example.login.JsonParser;
+import com.example.login.facebookdesign.MenuActivity;
+import com.example.login.R;
+import com.example.login.facebookdesign.PostAdapter;
+import com.example.login.facebookdesign.Post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
@@ -28,7 +26,7 @@ public class FeedActivity extends AppCompatActivity {
     private Button newPostButton;
     private Button whatsNewButton;
     private RecyclerView lstPosts;
-    private PostsListAdapter adapter;
+    private PostAdapter adapter;
     private String username;
 
     @Override
@@ -40,21 +38,14 @@ public class FeedActivity extends AppCompatActivity {
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
         whatsNewButton = findViewById(R.id.whatsNewButton);
-        UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        userViewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                // Assuming you have a method to retrieve the profile picture from the User object
-                byte[] profilePictureData = user.getProfilePictureData();
-                if (profilePictureData != null) {
-                    // Convert byte array to Bitmap
-                    Bitmap profilePictureBitmap = BitmapFactory.decodeByteArray(profilePictureData, 0, profilePictureData.length);
-                    // Display the profile picture in ImageView
-                    ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-                    profilePictureImageView.setImageBitmap(profilePictureBitmap);
-                }
-            }
-        });
+        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+        Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
+        profilePictureImageView.setImageBitmap(profilePictureBitmap);
+        List<com.example.login.facebookdesign.UserCredentials.User> userList = com.example.login.facebookdesign.UserCredentials.getUsers();
+        for (UserCredentials.User user : userList) {
+            username = user.getUsername();
+            // Perform any operations with userDisplayName if needed
+        }
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
 
         // Disable swipe-to-refresh functionality
@@ -70,21 +61,21 @@ public class FeedActivity extends AppCompatActivity {
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                Intent intent = new Intent(FeedActivity.this, PostActivity.class);
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
         whatsNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FeedActivity.this, NewPostActivity.class);
+                Intent intent = new Intent(FeedActivity.this, PostActivity.class);
                 startActivityForResult(intent, REQUEST_NEW_POST); // Start activity for result
             }
         });
 
         // Set up RecyclerView and adapter
         lstPosts = findViewById(R.id.lstPosts);
-        adapter = new PostsListAdapter(this, username);
+        adapter = new PostAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
@@ -92,11 +83,11 @@ public class FeedActivity extends AppCompatActivity {
         // Create sample posts
         // Load posts from JSON file and pass them to the adapter
 
-        List<Post> posts = JsonParser.parseJson(this);
+//        List<Post> posts = JsonParser.parseJson(this);
 
 
         // Pass the list of posts to the adapter
-        adapter.setPosts(posts);
+//        adapter.setPosts(posts);
 
     }
 

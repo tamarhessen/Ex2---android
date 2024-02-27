@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.login.UserCreatePost;
+import com.example.login.R;
+import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.network.WebServiceAPI;
 import com.example.login.network.RetrofitClient;
 

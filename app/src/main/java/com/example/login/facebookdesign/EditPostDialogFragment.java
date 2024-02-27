@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.facebookdesign;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.login.entities.Post;
+import com.example.login.R;
+import com.example.login.facebookdesign.Post;
 
 import java.io.IOException;
 
