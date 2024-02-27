@@ -1,5 +1,5 @@
 package com.example.login.model;
-
+import com.example.login.UserRepository;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.login.User;
-import com.example.login.model.UserRepository;
+
 
 public class UserViewModel extends AndroidViewModel {
 
