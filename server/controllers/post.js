@@ -16,12 +16,24 @@ async function getPosts(req, res) {
 
 
 async function createPost(req, res) {
-    const post = await postService.createPost(req.user.username, req.body.username);
-    if (!post) {
-        return res.status(404).json({ error: 'User not found' });
+    try {
+        // Assuming postService.createPost returns a Promise
+        const post = await postService.createPost(req.user.username, req.body.username);
+
+        // Check if post is null or undefined
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Send the post object in the response
+        res.json(post);
+    } catch (error) {
+        // Handle any errors that occur during the asynchronous operation
+        console.error('Error creating post:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    res.json(post);
 }
+
 
 async function getPostById(req, res) {
     const post = await postService.getPostById(req.params.postId);

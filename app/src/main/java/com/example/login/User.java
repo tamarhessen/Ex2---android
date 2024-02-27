@@ -5,12 +5,15 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 @Entity(tableName = "user")
-@TypeConverters({User.UserNoPasswordConverter.class, User.CommentDetailsConverter.class})
 public class User {
 
     @PrimaryKey(autoGenerate = false)
     private int id;
+
+    @TypeConverters(UserNoPasswordConverter.class)
     private UserNoPassword user;
+
+    @TypeConverters(CommentDetailsConventor.class)
     private CommentDetails lastComment;
 
     public User(int id, UserNoPassword user, CommentDetails lastComment) {
@@ -107,15 +110,5 @@ public class User {
         public void setContent(String content) {
             this.content = content;
         }
-    }
-
-    // Type converter for UserNoPassword
-    public static class UserNoPasswordConverter {
-        // Implement conversion methods if needed
-    }
-
-    // Type converter for CommentDetails
-    public static class CommentDetailsConverter {
-        // Implement conversion methods if needed
     }
 }

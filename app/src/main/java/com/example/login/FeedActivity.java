@@ -1,6 +1,8 @@
 package com.example.login;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +10,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,6 +20,7 @@ import com.example.login.adapters.PostsListAdapter;
 import com.example.login.entities.Post;
 import com.example.login.network.RetrofitClient;
 import com.example.login.network.PostService;
+import com.example.login.network.WebServiceAPI;
 
 import java.util.List;
 
@@ -33,14 +38,17 @@ public class FeedActivity extends AppCompatActivity {
     private String username;
     private PostService postService;
     private String currentUserUsername;
+    private UserViewModel userViewModel;
+    private WebServiceAPI webServiceAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        webServiceAPI = RetrofitClient.getClient().create(WebServiceAPI.class);
 
         postService = RetrofitClient.getClient().create(PostService.class);
-
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         // Initialize views
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
@@ -52,9 +60,10 @@ public class FeedActivity extends AppCompatActivity {
         adapter = new PostsListAdapter(this, username);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
-
+        String token = getIntent().getStringExtra("Token");
         // Fetch posts from server
         fetchPosts();
+        fetchUserData(token);
 
         // Set click listeners
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +72,22 @@ public class FeedActivity extends AppCompatActivity {
                 startActivity(new Intent(FeedActivity.this, MenuActivity.class));
             }
         });
+        userViewModel.getUserLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    // Update UI with user data
+                    User.UserNoPassword userNoPassword = user.getUser();
+                    if (userNoPassword != null) {
+                        String profilePictureBase64 = userNoPassword.getProfilePic();
+                        Bitmap profilePictureBitmap = decodeBase64ToBitmap(profilePictureBase64);
+                        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+                        profilePictureImageView.setImageBitmap(profilePictureBitmap);
+                    }
+                }
+            }
+        });
+
 
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,4 +164,44 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
+    public Bitmap decodeBase64ToBitmap(String base64String) {
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+    private void fetchUserData(String token) {
+        // Make a network request to fetch user data using the token
+        // Assuming you have a method in your WebServiceAPI to fetch user data
+        // Pass the token as a parameter
+        webServiceAPI.getUserData(token).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    // User data fetched successfully
+                    User user = response.body();
+
+                    // Update UI with user data
+                    if (user != null) {
+                        User.UserNoPassword userNoPassword = user.getUser();
+                        if (userNoPassword != null) {
+                            String profilePictureBase64 = userNoPassword.getProfilePic();
+                            Bitmap profilePictureBitmap = decodeBase64ToBitmap(profilePictureBase64);
+                            ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+                            profilePictureImageView.setImageBitmap(profilePictureBitmap);
+                        }
+                    }
+                } else {
+                    // Handle unsuccessful response
+                    // Show an error message or retry logic
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                // Handle network failure
+                // Show an error message or retry logic
+            }
+        });
+    }
+
+
 }

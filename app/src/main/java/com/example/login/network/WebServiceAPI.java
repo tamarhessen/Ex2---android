@@ -1,15 +1,17 @@
 package com.example.login.network;
 import android.net.Credentials;
 
-import com.example.login.Comment;
 import com.example.login.CommentToSend;
 import com.example.login.OnlyUsername;
+import com.example.login.User;
 import com.example.login.UserCreatePost;
 import com.example.login.UserDataFromAdd;
 import com.example.login.entities.Post;
 import com.example.login.UserCreateToken;
 import com.example.login.UserCredentials;
 import com.example.login.model.SignUpRequest;
+
+import org.w3c.dom.Comment;
 
 import java.util.List;
 import retrofit2.Call;
@@ -45,4 +47,7 @@ public interface WebServiceAPI {
 
     @POST("Posts/{id}/Comments")
     Call<Void> postComment(@Path("id") int id, @Body CommentToSend comment, @Header("Authorization") String authHeader);
+    // Define the method to fetch user data
+    @GET("user/data")
+    Call<User> getUserData(@Header("Authorization") String token);
 }
