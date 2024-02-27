@@ -1,4 +1,7 @@
 package com.example.login.facebookdesign;
+
+import android.graphics.Bitmap;
+
 public class UserCreatePost {
     private String username,password,displayName,profilePic;
 

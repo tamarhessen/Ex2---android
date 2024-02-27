@@ -1,39 +1,20 @@
-// controllers file
+//controllers file
 const postService = require('../services/post');
-const { join } = require("path");
+const {join} = require("path");
 
 // Post Controllers
 async function getPosts(req, res) {
-    // Check if req.user exists and has the username property
-    if (req.user && req.user.username) {
-        const posts = await postService.getPosts(req.user.username);
-        res.json(posts);
-    } else {
-        // Handle the case where req.user or req.user.username is undefined
-        res.status(400).json({ error: 'User information not available' });
-    }
+    const posts = await postService.getPosts(req.user.username);
+    res.json(posts);
 }
-
 
 async function createPost(req, res) {
-    try {
-        // Assuming postService.createPost returns a Promise
-        const post = await postService.createPost(req.user.username, req.body.username);
-
-        // Check if post is null or undefined
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        // Send the post object in the response
-        res.json(post);
-    } catch (error) {
-        // Handle any errors that occur during the asynchronous operation
-        console.error('Error creating post:', error);
-        res.status(500).json({ error: 'Internal server error' });
+    const post = await postService.createPost(req.user.username, req.body.username);
+    if (!post) {
+        return res.status(404).json({ error: 'User not found' });
     }
+    res.json(post);
 }
-
 
 async function getPostById(req, res) {
     const post = await postService.getPostById(req.params.postId);
@@ -50,7 +31,6 @@ async function deletePost(req, res) {
     }
     res.json(post);
 }
-
 async function editPost(req, res) {
     const post = await postService.editPost(req.params.postId);
     if (!post) {
@@ -58,7 +38,6 @@ async function editPost(req, res) {
     }
     res.json(post);
 }
-
 async function likePost(req, res) {
     const post = await postService.likePost(req.params.postId);
     if (!post) {
@@ -66,7 +45,6 @@ async function likePost(req, res) {
     }
     res.json(post);
 }
-
 async function createComment(req, res) {
     const comment = await postService.createComment(req.params.postId, {
         senderUsername: req.user.username,
@@ -81,11 +59,10 @@ async function createComment(req, res) {
 async function getCommentsByPostId(req, res) {
     const comments = await postService.getCommentsByPostId(req.params.postId);
     if(!comments) {
-        return res.status(404).json({ error: 'Post not found' });
+        return res.status(404)({error:'Post not found'});
     }
     res.json(comments);
 }
-
 async function deleteComment(req, res) {
     const comments = await postService.deleteComment(req.params.commentId);
     if (!comments) {
@@ -93,14 +70,14 @@ async function deleteComment(req, res) {
     }
     res.json(comment);
 }
-
 async function editComment(req, res) {
     const comments = await postService.editComment(req.params.commentId);
     if(!comments) {
-        return res.status(404).json({ error: 'Comment not found' });
+        return res.status(404).json({error:'Comment not found'});
     }
     res.json(comments);
 }
+
 
 // Token Controller
 async function generateToken(req, res) {
@@ -130,8 +107,13 @@ async function registerUser(req, res) {
 }
 
 async function redirectHome(req, res) {
+    res.sendFile(join(__dirname,'..', 'public', 'index.html'));
+}
+async function redirectHome(req, res) {
     res.redirect('/');
 }
+
+
 
 module.exports = {
     getPosts,
@@ -148,4 +130,5 @@ module.exports = {
     registerUser,
     redirectHome,
     likePost,
+    redirectHome 
 };
