@@ -24,4 +24,12 @@ public class UserDataFromAdd {
     public void setUser(User.UserNoPassword user) {
         this.user = user;
     }
+
+    public String getDisplayName() {
+        return this.user.getDisplayName();
+    }
+
+    public String getProfilePic() {
+        return this.user.getProfilePic().toString();
+    }
 }
