@@ -1,24 +1,37 @@
 package com.example.login.facebookdesign;
+import static com.example.login.facebookdesign.MainActivity.baseURL;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.login.JsonParser;
-import com.example.login.facebookdesign.MenuActivity;
 import com.example.login.R;
 import com.example.login.facebookdesign.PostAdapter;
 import com.example.login.facebookdesign.Post;
+import com.example.login.network.WebServiceAPI;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedActivity extends AppCompatActivity {
     private static final int REQUEST_NEW_POST = 1;
@@ -26,6 +39,7 @@ public class FeedActivity extends AppCompatActivity {
     private Button newPostButton;
     private Button whatsNewButton;
     private RecyclerView lstPosts;
+    private UserDB userDB;
     private PostAdapter adapter;
     private String username;
 
@@ -39,14 +53,41 @@ public class FeedActivity extends AppCompatActivity {
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
         whatsNewButton = findViewById(R.id.whatsNewButton);
+        userDB = Room.databaseBuilder(getApplicationContext(), UserDB.class, "UserDB").build();
+        LocalDB.userDB = userDB;
+        Intent activityIntent = getIntent();
         ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-        Bitmap profilePictureBitmap = CreateAccountActivity.profilePictureBitmap;
-        profilePictureImageView.setImageBitmap(profilePictureBitmap);
-        List<com.example.login.facebookdesign.UserCredentials.User> userList = com.example.login.facebookdesign.UserCredentials.getUsers();
-        for (UserCredentials.User user : userList) {
-            username = user.getUsername();
-            // Perform any operations with userDisplayName if needed
+        if (activityIntent != null) {
+            username = activityIntent.getStringExtra("Username");
+//            byte[] profilePictureByteArray = activityIntent.getByteArrayExtra("ProfilePicture");
+//            Bitmap profilePictureBitmap = BitmapFactory.decodeByteArray(profilePictureByteArray, 0, profilePictureByteArray.length);
+//            profilePictureImageView.setImageBitmap(profilePictureBitmap);
+//
+//            // Fetch user details from web service
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(baseURL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+//            Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + activityIntent.getStringExtra("Token"));
+//            call.enqueue(new Callback<UserCreatePost>() {
+//
+//                    @Override
+//                    public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
+//                        if(response.isSuccessful()) {
+//                            UserCreatePost user = response.body();
+//
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<UserCreatePost> call, Throwable t) {
+//                    // Handle failure
+//                }
+//            });
         }
+
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
 
         // Disable swipe-to-refresh functionality
@@ -84,11 +125,11 @@ public class FeedActivity extends AppCompatActivity {
         // Create sample posts
         // Load posts from JSON file and pass them to the adapter
 
-//        List<Post> posts = JsonParser.parseJson(this);
+        List<Post> posts = JsonParser.parseJson(this);
 
 
         // Pass the list of posts to the adapter
-//        adapter.setPosts(posts);
+        adapter.setPosts(posts);
 
     }
 

@@ -1,7 +1,11 @@
 package com.example.login.facebookdesign;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static com.example.login.network.RetrofitClient.BASE_URL;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +22,28 @@ import com.example.login.facebookdesign.MenuActivity;
 import com.example.login.facebookdesign.EditPostDialogFragment;
 
 import com.example.login.facebookdesign.Post;
+import com.example.login.network.WebServiceAPI;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
         implements EditPostDialogFragment.OnPostEditedListener {
+
 
     private final LayoutInflater mInflater;
     private static List<Post> posts;
     private String currentUserUsername;
+    public static String token;
     private final Context mContext;
 
     public PostAdapter(Context context, String currentUserUsername) {
@@ -185,6 +199,38 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             notifyItemChanged(posts.size() - editedPostIndex - 1);
         }
     }
+    // Method to add a new post to the server
+    // Method to add a new post to the server
+//    private void addPostToServer(OnlyUsername onlyUsername) {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(BASE_URL) // Replace BASE_URL with your server's base URL
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class); // Define WebServiceAPI interface according to your server's API
+//
+//        // Make a POST request to your server to add the post
+//        Call<Void> call = webServiceAPI.addPost(onlyUsername, "dd"); // Define addPost method in your WebServiceAPI interface
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    // Post added successfully
+//                    Log.d(TAG, "Post added successfully");
+//                } else {
+//                    // Handle error
+//                    Log.e(TAG, "Failed to add post: " + response.message());
+//                }
+//            }
+
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                // Handle failure
+//                Log.e(TAG, "Failed to add post: " + t.getMessage());
+//            }
+//        });
+
+
+
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvAuthor;
