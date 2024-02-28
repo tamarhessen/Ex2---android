@@ -161,6 +161,7 @@ public class FeedActivity extends AppCompatActivity {
                                 long currentTimeMillis = System.currentTimeMillis();
                                 Post newPost = new Post(displayName, postText, postImageBitmap, 0, profileImageBitmap, currentTimeMillis);
                                 adapter.addPost(newPost);
+
                             }
                         }
                     } else {

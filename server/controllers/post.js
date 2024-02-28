@@ -68,8 +68,9 @@ async function deleteComment(req, res) {
     if (!comments) {
         return res.status(404).json({ error: 'post not found' });
     }
-    res.json(comment);
+    res.json(comment); // Should be res.json(comments);
 }
+
 async function editComment(req, res) {
     const comments = await postService.editComment(req.params.commentId);
     if(!comments) {
