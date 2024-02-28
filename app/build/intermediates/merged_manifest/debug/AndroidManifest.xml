@@ -53,6 +53,9 @@
             android:name="com.example.login.facebookdesign.CommentsActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.login.facebookdesign.MyProfileActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.login.facebookdesign.LogInActivity"
             android:exported="false" />
         <activity
