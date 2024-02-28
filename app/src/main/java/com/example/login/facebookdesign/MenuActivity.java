@@ -24,6 +24,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button logoutButton;
     private Button settingsButton;
     private ImageView profilePictureImageView;
+    private Button profilePictureButton;
     private TextView displayNameTextView;
     private String username;
 
@@ -43,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        profilePictureButton = findViewById(R.id.btn_profile_picture);
         profilePictureImageView = findViewById(R.id.image_profile_picture);
         homeButton = findViewById(R.id.homeimg);
         logoutButton = findViewById(R.id.logOutBtn);
@@ -118,7 +120,14 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+        profilePictureButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuActivity.this, MyProfileActivity.class);
+            intent.putExtra("Username", username);
+//            intent.putExtra("ProfilePicture", profilePictureImageView); // Pass the profile picture byte array
+            startActivity(intent);
 
+
+        });
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

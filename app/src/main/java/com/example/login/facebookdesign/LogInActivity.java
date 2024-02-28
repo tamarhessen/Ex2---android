@@ -78,6 +78,7 @@ public class LogInActivity extends AppCompatActivity {
                             String tokenNow = response.body();
                             intent.putExtra("Token", tokenNow);
                             intent.putExtra("Username", username);
+
                             // Save the user information during login
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();

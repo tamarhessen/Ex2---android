@@ -3278,10 +3278,13 @@ id bounceEnd
 id bounceStart
 id btnAdd
 id btn_add_friend
+id btn_edit_profile
 id btn_more
+id btn_profile_picture
 id btn_select_image
 id btn_send_message
 id btn_sign_up
+id btn_to_story
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3953,6 +3956,7 @@ layout mtrl_picker_text_input_date
 layout mtrl_picker_text_input_date_range
 layout mtrl_search_bar
 layout mtrl_search_view
+layout my_profile_page
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big

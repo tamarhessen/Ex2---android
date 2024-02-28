@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
+
+
+    <!-- User's Name -->
+
+    <!-- Profile Picture -->
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="29dp"
+        android:textColor="@android:color/black"
+
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="20dp"
+
+        android:padding="2dp" />
+
+
+
+    <!-- Number of Friends -->
+    <TextView
+        android:id="@+id/num_of_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_picture"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:text="0"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+    <!-- Number of Friends -->
+    <!-- Button for Adding Friend -->
+
+    <TextView
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_picture"
+        android:layout_marginStart="-69dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/btn_to_story"
+        android:text="friends"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_to_story"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/friends"
+        android:layout_marginTop="10dp"
+        android:text=" + Add to story" />
+    <!-- Button for Sending Message -->
+
+
+    <!-- Button for Viewing Photos -->
+
+    <!-- List of Friends -->
+    <Button
+        android:id="@+id/btn_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_edit"
+        android:layout_below="@id/friends"
+        android:layout_marginStart="19dp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="9dp"
+        android:layout_toEndOf="@id/btn_to_story"
+        android:backgroundTint="@color/light_grey"
+        android:text="Edit profile" />
+
+    <Button
+        android:id="@+id/btn_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/friends"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="9dp"
+        android:layout_toEndOf="@id/btn_edit_profile"
+        android:text="..."
+        android:backgroundTint="@color/light_grey"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        /> <!-- Set the shape of the button here -->
+    />
+    <TextView
+        android:id="@+id/Friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_more"
+        android:text="Friends"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Friends"
+        android:layout_marginTop="5dp" />
+
+    <!-- List of Posts -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_posts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycler_friends"
+        android:layout_marginTop="20dp" />
+
+    <!-- Add more views as needed -->
+
+</RelativeLayout>

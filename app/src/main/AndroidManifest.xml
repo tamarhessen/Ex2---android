@@ -34,11 +34,15 @@
             android:name=".facebookdesign.CommentsActivity"
             android:exported="false" />
         <activity
+            android:name=".facebookdesign.MyProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".facebookdesign.LogInActivity"
             android:exported="false" />
         <activity
             android:name=".facebookdesign.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
