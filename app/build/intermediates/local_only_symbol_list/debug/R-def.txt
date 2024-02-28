@@ -74,10 +74,13 @@ id bellimg
 id bottomLayout
 id btnAdd
 id btn_add_friend
+id btn_edit_profile
 id btn_more
+id btn_profile_picture
 id btn_select_image
 id btn_send_message
 id btn_sign_up
+id btn_to_story
 id cardView
 id check_terms_conditions
 id chooseImageButton
@@ -168,6 +171,7 @@ layout activity_users
 layout comments
 layout custom_list_item
 layout edit_post_dialog
+layout my_profile_page
 layout one_comment
 layout post_layout
 layout profile_page

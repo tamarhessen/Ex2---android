@@ -6,52 +6,53 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.login.R;
 import com.example.login.network.WebServiceAPI;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MenuActivity extends AppCompatActivity {
-    private Button homeButton;
-    private Button logoutButton;
-    private Button settingsButton;
+public class MyProfileActivity  extends AppCompatActivity {
+
     private ImageView profilePictureImageView;
-    private Button profilePictureButton;
     private TextView displayNameTextView;
     private String username;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.my_profile_page);
+        profilePictureImageView = findViewById(R.id.profile_picture);
+        displayNameTextView = findViewById(R.id.user_name);
 
-        // Initialize views
-        initViews();
+        // Assuming you have initialized RecyclerViews for friends and posts
+        RecyclerView recyclerViewFriends = findViewById(R.id.recycler_friends);
+        RecyclerView recyclerViewPosts = findViewById(R.id.recycler_posts);
 
+        // Set layout manager for RecyclerViews
+        recyclerViewFriends.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
         // Fetch user data
         fetchUserData();
+//        // Create adapters for RecyclerViews and set them
+//        FriendsAdapter friendsAdapter = new FriendsAdapter(/* pass data here if needed */);
+//        recyclerViewFriends.setAdapter(friendsAdapter);
 
-        // Set click listeners for buttons
-        setClickListeners();
+//        PostAdapter postsAdapter = new PostAdapter(/* pass data here if needed */);
+//        recyclerViewPosts.setAdapter(postsAdapter);
+
+        // Add more initialization code as needed for buttons, text views, etc.
     }
-
-    private void initViews() {
-        profilePictureButton = findViewById(R.id.btn_profile_picture);
-        profilePictureImageView = findViewById(R.id.image_profile_picture);
-        homeButton = findViewById(R.id.homeimg);
-        logoutButton = findViewById(R.id.logOutBtn);
-        settingsButton = findViewById(R.id.settings);
-        displayNameTextView = findViewById(R.id.displayName);
-    }
-
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
@@ -102,39 +103,4 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    private void setClickListeners() {
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // Navigate back to the previous activity
-            }
-        });
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the LogInActivity when the logout button is clicked
-                Intent intent = new Intent(MenuActivity.this, LogInActivity.class);
-                startActivity(intent);
-                // Finish the current activity if needed
-                finish();
-            }
-        });
-        profilePictureButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MenuActivity.this, MyProfileActivity.class);
-            intent.putExtra("Username", username);
-//            intent.putExtra("ProfilePicture", profilePictureImageView); // Pass the profile picture byte array
-            startActivity(intent);
-
-
-        });
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the SettingsActivity when the settings button is clicked
-                Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 }

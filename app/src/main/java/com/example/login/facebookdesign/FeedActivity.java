@@ -40,6 +40,7 @@ public class FeedActivity extends AppCompatActivity {
     private UserDB userDB;
     private PostAdapter adapter;
     private String username;
+    private Button profilePictureButton;
 
     private byte[] profilePictureByteArray;
 
@@ -67,6 +68,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        profilePictureButton = findViewById(R.id.btn_profile_picture);
         menuButton = findViewById(R.id.menubtn);
         newPostButton = findViewById(R.id.addbtn);
         whatsNewButton = findViewById(R.id.whatsNewButton);
@@ -138,6 +140,14 @@ public class FeedActivity extends AppCompatActivity {
         newPostButton.setOnClickListener(v -> startActivityForResult(new Intent(FeedActivity.this, PostActivity.class), REQUEST_NEW_POST));
 
         whatsNewButton.setOnClickListener(v -> startActivityForResult(new Intent(FeedActivity.this, PostActivity.class), REQUEST_NEW_POST));
+        profilePictureButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FeedActivity.this,MyProfileActivity.class);
+            intent.putExtra("Username", username);
+            intent.putExtra("ProfilePicture", profilePictureByteArray); // Pass the profile picture byte array
+            startActivity(intent);
+
+
+        });
     }
 
     private void loadSamplePosts() {

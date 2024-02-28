@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
 
-    <!-- Cover Photo -->
-    <ImageView
-        android:id="@+id/cover_photo"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
 
-        android:scaleType="centerCrop" />
+    <!-- User's Name -->
 
     <!-- Profile Picture -->
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="29dp"
+        android:textColor="@android:color/black"
+
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/profile_picture"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="20dp"
 
         android:padding="2dp" />
 
-    <!-- User's Name -->
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="20dp"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"/>
+
 
     <!-- Number of Friends -->
     <TextView
         android:id="@+id/num_of_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_name"
+        android:layout_below="@id/profile_picture"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:text="0"
@@ -54,10 +54,10 @@
         android:id="@+id/friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_name"
+        android:layout_below="@id/profile_picture"
         android:layout_marginStart="-69dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/btn_add_friend"
+        android:layout_toEndOf="@id/btn_to_story"
         android:text="friends"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
@@ -66,10 +66,9 @@
         android:id="@+id/btn_to_story"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_below="@id/friends"
         android:layout_marginTop="10dp"
-        android:text="Add Friend" />
+        android:text=" + Add to story" />
     <!-- Button for Sending Message -->
 
 
@@ -77,15 +76,17 @@
 
     <!-- List of Friends -->
     <Button
-        android:id="@+id/btn_send_message"
+        android:id="@+id/btn_edit_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/message"
+        android:drawableLeft="@android:drawable/ic_menu_edit"
         android:layout_below="@id/friends"
         android:layout_marginStart="19dp"
+        android:textColor="@android:color/black"
         android:layout_marginTop="9dp"
-        android:layout_toEndOf="@id/btn_add_friend"
-        android:text="Message" />
+        android:layout_toEndOf="@id/btn_to_story"
+        android:backgroundTint="@color/light_grey"
+        android:text="Edit profile" />
 
     <Button
         android:id="@+id/btn_more"
@@ -95,7 +96,7 @@
         android:textColor="@android:color/black"
         android:layout_marginStart="19dp"
         android:layout_marginTop="9dp"
-        android:layout_toEndOf="@id/btn_send_message"
+        android:layout_toEndOf="@id/btn_edit_profile"
         android:text="..."
         android:backgroundTint="@color/light_grey"
         android:textStyle="bold"
