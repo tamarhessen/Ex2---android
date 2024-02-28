@@ -151,7 +151,7 @@ public final class UserDB_Impl extends UserDB {
   protected Map<Class<?>, List<Class<?>>> getRequiredTypeConverters() {
     final HashMap<Class<?>, List<Class<?>>> _typeConvertersMap = new HashMap<Class<?>, List<Class<?>>>();
     _typeConvertersMap.put(UserDao.class, UserDao_Impl.getRequiredConverters());
-    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_UserDB_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -191,7 +191,7 @@ public final class UserDB_Impl extends UserDB {
     } else {
       synchronized(this) {
         if(_commentPostDao == null) {
-          _commentPostDao = new CommentPostDao_Impl(this);
+          _commentPostDao = new CommentPostDao_UserDB_Impl(this);
         }
         return _commentPostDao;
       }
