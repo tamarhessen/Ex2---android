@@ -41,6 +41,9 @@ public class FeedActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private String username;
 
+    private byte[] profilePictureByteArray;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,7 @@ public class FeedActivity extends AppCompatActivity {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             username = activityIntent.getStringExtra("Username");
-            byte[] profilePictureByteArray = activityIntent.getByteArrayExtra("ProfilePicture");
+            profilePictureByteArray = activityIntent.getByteArrayExtra("ProfilePicture");
             if (profilePictureByteArray != null) {
                 Bitmap profilePictureBitmap = BitmapFactory.decodeByteArray(profilePictureByteArray, 0, profilePictureByteArray.length);
                 ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
@@ -99,7 +102,7 @@ public class FeedActivity extends AppCompatActivity {
                     UserCreatePost user = response.body();
                     ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
 
-setAsImage(user.getProfilePic(), profilePictureImageView);
+                    setAsImage(user.getProfilePic(), profilePictureImageView);
                 }
             }
 
@@ -122,7 +125,15 @@ setAsImage(user.getProfilePic(), profilePictureImageView);
     }
 
     private void setClickListeners() {
-        menuButton.setOnClickListener(v -> startActivity(new Intent(FeedActivity.this, MenuActivity.class)));
+
+        menuButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FeedActivity.this, MenuActivity.class);
+            intent.putExtra("Username", username);
+            intent.putExtra("ProfilePicture", profilePictureByteArray); // Pass the profile picture byte array
+            startActivity(intent);
+
+
+        });
 
         newPostButton.setOnClickListener(v -> startActivityForResult(new Intent(FeedActivity.this, PostActivity.class), REQUEST_NEW_POST));
 
@@ -137,15 +148,68 @@ setAsImage(user.getProfilePic(), profilePictureImageView);
     // This method will be called when returning from NewPostActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap profileImageBitmap = null;
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_NEW_POST && resultCode == RESULT_OK && data != null) {
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");
-            Bitmap profileImageBitmap = CreateAccountActivity.profilePictureBitmap;
-            Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
-            long currentTimeMillis = System.currentTimeMillis();
-            Post newPost = new Post(username, postText, postImageBitmap, 0, profileImageBitmap, currentTimeMillis);
-            adapter.addPost(newPost);
+            Intent activityIntent = getIntent();
+
+            username = activityIntent.getStringExtra("Username");
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.baseURL)
+                    .addConverterFactory(GsonConverterFactory.create()).build();
+            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
+            Call<UserCreatePost> call = webServiceAPI.getUser(username,
+                    "Bearer " + activityIntent.getStringExtra("Token"));
+            call.enqueue(new Callback<UserCreatePost>() {
+                @Override
+                public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
+                    if (response.isSuccessful()) {
+                        UserCreatePost user = response.body();
+                        // Update views with fetched data
+                        if (user != null) {
+                            String displayMane= user.getDisplayName();
+
+                            // Set profile picture
+                            String profilePic = user.getProfilePic();
+                            if (profilePic != null && !profilePic.equals(MainActivity.defaultPfp)) {
+                                byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                Bitmap profileImageBitmap = decodedByte;
+                                Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
+                                long currentTimeMillis = System.currentTimeMillis();
+                                Post newPost = new Post(displayMane, postText, postImageBitmap, 0, profileImageBitmap,currentTimeMillis);
+
+                                // Add the new post to the adapter
+                                adapter.addPost(newPost);
+                            }
+                        }
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserCreatePost> call, Throwable t) {
+
+                }
+            });
+
         }
     }
+
+    private void updateViews(UserCreatePost user) {
+        if (user != null) {
+            String displayMane= user.getDisplayName();
+
+            // Set profile picture
+            String profilePic = user.getProfilePic();
+            if (profilePic != null && !profilePic.equals(MainActivity.defaultPfp)) {
+                byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                Bitmap postImageBitmap = decodedByte;
+            }
+        }
+    }
+
 }

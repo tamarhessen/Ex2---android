@@ -45,6 +45,12 @@
           <theme>@style/Theme.LogIn</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/my_profile_page.xml">
+        <config>
+          <state>portrait</state>
+          <theme>@style/Theme.LogIn</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/one_comment.xml">
         <config>
           <theme>@style/Theme.LogIn</theme>
@@ -72,48 +78,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c51e6979-e5df-46de-bd9d-43b1517d81cd" name="Changes" comment="c1">
-      <change afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/config/.env.local" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/middleware/authenticateToken.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/middleware/errorHandler.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/models/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/config/.env.local" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/controllers/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/middleware/authenticateToken.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/middleware/errorHandler.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/models/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/routes/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/server/services/post.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/services/post.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/my_profile_page.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/merged_res_blame_folder/debug/out/single/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/merged_res_blame_folder/debug/out/single/debug.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/runtime_symbol_list/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/runtime_symbol_list/debug/R.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/stable_resource_ids_file/debug/stableIds.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/stable_resource_ids_file/debug/stableIds.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/FeedActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/FeedActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/LogInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/LogInActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/MenuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/MenuActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/PostAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/PostAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/UserCreatePost.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/UserCreatePost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/UsersActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/UsersActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/google-services.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +286,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1708962873897</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL‎-00003" summary="c1">
+      <option name="closed" value="true" />
+      <created>1709053752176</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL‎-00003" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1709053752176</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

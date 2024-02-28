@@ -1,11 +1,13 @@
 package com.example.login.facebookdesign;
 
 import static com.example.login.facebookdesign.MainActivity.baseURL;
+import static com.example.login.facebookdesign.MainActivity.defaultPfp;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.login.facebookdesign.CommentsActivity;
-import com.example.login.facebookdesign.EditPostDialogFragment;
-import com.example.login.facebookdesign.MenuActivity;
 import com.example.login.R;
-import com.example.login.facebookdesign.Post;
 import com.example.login.network.WebServiceAPI;
-
+import android.content.Intent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
         implements EditPostDialogFragment.OnPostEditedListener {
@@ -178,27 +177,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             posts = new ArrayList<>();
         }
 
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
-//                .addConverterFactory(GsonConverterFactory.create()).build();
-//        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-//        Call<UserCreatePost> call = webServiceAPI.getUser(currentUserUsername,
-//                "Bearer "+activityIntent.getStringExtra("Token"));
-//        call.enqueue(new Callback<UserCreatePost>() {
-//            @Override
-//            public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
-//                if(response.isSuccessful()) {
-//                    UserCreatePost user = response.body();
-//                    ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-//
-//                    setAsImage(user.getProfilePic(), profilePictureImageView);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserCreatePost> call, Throwable t) {
-//
-//            }
-//        });
+
+
         posts.add(post);
         notifyDataSetChanged();
     }
