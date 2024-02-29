@@ -75,7 +75,7 @@ public class UsersAPI {
 
                     Toast.makeText(context,"Added "+username,
                             Toast.LENGTH_SHORT).show();
-                    Log.d("creating_chat_abcdef", "creating");
+                    Log.d("creating_abcdef", "creating");
                     if(SIM != null) {
                         Log.d("creatingnon_null_abcdef", "creating");
                     }

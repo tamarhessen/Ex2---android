@@ -21,9 +21,15 @@ import retrofit2.http.Path;
 public interface WebServiceAPI {
 
 
-    @POST("Posts")
+
+    @POST("api/Posts") // Route for creating a new post
     Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
                                   @Header("Authorization") String authHeader);
+
+    @POST("Posts") // Route for creating a new post
+    Call<Void> createPost(@Body Post post, @Header("Authorization") String authHeader);
+    @GET("api/Posts") // Route for getting posts
+    Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
 
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);

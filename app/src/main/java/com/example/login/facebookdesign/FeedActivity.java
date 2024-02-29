@@ -11,6 +11,8 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,7 @@ public class FeedActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private String username;
     private Button profilePictureButton;
-
+private WebServiceAPI webServiceAPI;
     private byte[] profilePictureByteArray;
 
 
@@ -56,7 +58,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // Set up RecyclerView and adapter
         setUpRecyclerView();
-
+initWebServiceAPI();
         // Fetch username and profile picture
         fetchUserData();
 
@@ -92,9 +94,6 @@ public class FeedActivity extends AppCompatActivity {
                 profilePictureImageView.setImageBitmap(profilePictureBitmap);
             }
         }
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
         Call<UserCreatePost> call = webServiceAPI.getUser(username,
                 "Bearer "+activityIntent.getStringExtra("Token"));
         call.enqueue(new Callback<UserCreatePost>() {
@@ -125,7 +124,13 @@ public class FeedActivity extends AppCompatActivity {
         }
 
     }
-
+    private void initWebServiceAPI() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MainActivity.baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
+    }
     private void setClickListeners() {
 
         menuButton.setOnClickListener(v -> {
@@ -155,6 +160,7 @@ public class FeedActivity extends AppCompatActivity {
         adapter.setPosts(posts);
     }
 
+
     // This method will be called when returning from NewPostActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -166,9 +172,6 @@ public class FeedActivity extends AppCompatActivity {
             Intent activityIntent = getIntent();
 
             username = activityIntent.getStringExtra("Username");
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.baseURL)
-                    .addConverterFactory(GsonConverterFactory.create()).build();
-            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
             Call<UserCreatePost> call = webServiceAPI.getUser(username,
                     "Bearer " + activityIntent.getStringExtra("Token"));
             call.enqueue(new Callback<UserCreatePost>() {
@@ -178,7 +181,7 @@ public class FeedActivity extends AppCompatActivity {
                         UserCreatePost user = response.body();
                         // Update views with fetched data
                         if (user != null) {
-                            String displayMane= user.getDisplayName();
+                            String displayName = user.getDisplayName();
 
                             // Set profile picture
                             String profilePic = user.getProfilePic();
@@ -188,25 +191,44 @@ public class FeedActivity extends AppCompatActivity {
                                 Bitmap profileImageBitmap = decodedByte;
                                 Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
                                 long currentTimeMillis = System.currentTimeMillis();
-                                Post newPost = new Post(displayMane, postText, postImageBitmap, 0, profileImageBitmap,currentTimeMillis);
+                                Post newPost = new Post(displayName, postText, postImageBitmap, 0, profileImageBitmap, currentTimeMillis);
+
+                                // Send a POST request to add the new post to the server
+                                Call<Void> call2 = webServiceAPI.createPost(newPost, "Bearer " + activityIntent.getStringExtra("Token"));
 
                                 // Add the new post to the adapter
+                                call2.enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if (response.isSuccessful()) {
+                                            // Post added successfully
+                                            // Now update the UI or take other actions as needed
+                                        } else {
+                                            Toast.makeText(FeedActivity.this, "Failed to add post", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                        Toast.makeText(FeedActivity.this, "Failed to connect", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 adapter.addPost(newPost);
                             }
                         }
                     } else {
-
+                        // Handle unsuccessful response
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserCreatePost> call, Throwable t) {
-
+                    // Handle failure
                 }
             });
-
         }
     }
+
 
     private void updateViews(UserCreatePost user) {
         if (user != null) {

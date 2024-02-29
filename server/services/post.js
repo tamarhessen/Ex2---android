@@ -30,23 +30,17 @@ async function getPosts(username) {
     return result;
 }
 
-async function createPost(username, targetUsername) {
-    if(username===targetUsername) {
-        return null;
-    }
+async function createPost(username, postData) {
     const user = await User.findOne({ username: username });
     if (!user) {
-        return null;
+        return null; // User not found
     }
-    const targetUser = await User.findOne({ username: targetUsername });
-    if (!targetUser) {
-        return null;
-    }
+
     // Get the ID of the last saved post
     const lastPost = await Post.findOne({}, {}, { sort: { id: -1 } }).lean();
     const lastPostId = lastPost ? lastPost.id : 0;
 
-    // Increment the ID by 1 for the new chat
+    // Increment the ID by 1 for the new post
     const newPostId = lastPostId + 1;
 
     const post = new Post({
@@ -54,26 +48,14 @@ async function createPost(username, targetUsername) {
         text: postData.text,
         picture: postData.picture,
         date: new Date(),
-        users: [username,
-        targetUsername],
-        comments: [],
-        lastComment:null
+        username: username, // Set the username for the post
+        likes: 0, // Initialize likes to 0
+        comments: [] // Initialize comments array
     });
+
     await post.save();
-    const result = {
-        id: post.id,
-        user: {
-            username: targetUser.username,
-            displayName: targetUser.displayName,
-            profilePic: targetUser.profilePic
-        },
-        text: post.text,
-        picture: post.picture,
-        date: post.date,
-        likes: post.likes,
-        lastComment: post.lastComment
-    };
-    return result;
+
+    return post; // Return the newly created post object
 }
 
 async function getPostById(postId) {

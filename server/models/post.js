@@ -5,6 +5,9 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
+        minlength: 3,
+        maxlength: 20
     },
     password: {
         type: String,
@@ -24,17 +27,15 @@ const UserSchema = new Schema({
 const CommentSchema = new Schema({
     id: {
         type: Number,
-        integer: true
+        required: true
     },
     created: {
         type: Date,
         default: Date.now
     },
     sender: {
-        username:{
-            type:String,
-            required:true
-        },
+        type: String,
+        required: true
     },
     content: {
         type: String,
@@ -45,31 +46,29 @@ const CommentSchema = new Schema({
 const PostSchema = new Schema({
     id: {
         type: Number,
-        integer: true
+        required: true
     },
-    Creator: {
-        username:{
-            type:String,
-            required:true
-        },
-    },
-    Comments: [{
-        type: CommentSchema,
-        nullable: true
-    }],
-    PostImg:{
+    creator: {
         type: String,
-        nullable:true
+        required: true
     },
-    PostText:{
-        type:String,
-        nullable:true
+    comments: [{
+        type: CommentSchema,
+        default: null
+    }],
+    postImg: {
+        type: String,
+        default: null
     },
-    PostLikes:{
+    postText: {
+        type: String,
+        default: null
+    },
+    postLikes: {
         type: Number,
-        integer: true
+        default: 0
     },
-    IsPostLiked:{
+    isPostLiked: {
         type: Boolean,
         required: true
     }

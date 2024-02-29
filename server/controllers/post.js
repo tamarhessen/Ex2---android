@@ -9,12 +9,27 @@ async function getPosts(req, res) {
 }
 
 async function createPost(req, res) {
-    const post = await postService.createPost(req.user.username, req.body.username);
-    if (!post) {
-        return res.status(404).json({ error: 'User not found' });
+    try {
+        // Check if req.body is defined and contains the necessary properties
+        if (!req.body) {
+            return res.status(400).json({ error: 'Invalid request format' });
+        }
+
+        // Create the post directly without associating it with a specific user
+        const post = await postService.createPost(req.body);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Failed to create post' });
+        }
+
+        res.json(post);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    res.json(post);
 }
+
+
 
 async function getPostById(req, res) {
     const post = await postService.getPostById(req.params.postId);

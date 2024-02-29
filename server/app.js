@@ -27,8 +27,8 @@ mongoose.connect("mongodb://localhost:27017/", {
 });
 
 // Routes
-const postRoutes = require('./routes/post'); // Import the chat routes
-app.use('/', postRoutes); // Mount the chat routes on the root path
+const postRoutes = require('./routes/post'); // Import the post routes
+app.use('/', postRoutes); // Mount the post routes on the root path
 
 // Start the server
 const PORT_MONGO = process.env.PORT_MONGO || 5000; // Default port is 5000

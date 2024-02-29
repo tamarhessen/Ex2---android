@@ -151,11 +151,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.deleteButton.setVisibility(View.GONE);
             }
 
-            if (current.getTimestamp().equals("")) {
-                holder.time.setText(getCurrentTime());
+            if (current.getTimestamp() == 0L) {
+                holder.time.setText(getCurrentTime()); // Assuming getCurrentTime() returns the current time as a String
             } else {
-                holder.time.setText(current.getTimestamp());
+                String timestampString = Post.convertTimestampToString(current.getTimestamp());
+                holder.time.setText(timestampString);
             }
+
         }
     }
 
