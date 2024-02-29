@@ -23,18 +23,14 @@ const UserSchema = new Schema({
     }
 });
 
-
 const CommentSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     created: {
         type: Date,
         default: Date.now
     },
     sender: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User', // Reference to the User model
         required: true
     },
     content: {
@@ -44,17 +40,14 @@ const CommentSchema = new Schema({
 });
 
 const PostSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     creator: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User', // Reference to the User model
         required: true
     },
     comments: [{
-        type: CommentSchema,
-        default: null
+        type: Schema.Types.ObjectId,
+        ref: 'Comment' // Reference to the Comment model
     }],
     postImg: {
         type: String,
@@ -76,11 +69,10 @@ const PostSchema = new Schema({
 
 const FriendsSchema = new Schema({
     FriendList: [{
-        type: String,
-        nullable: true
+        type: Schema.Types.ObjectId,
+        ref: 'User' // Reference to the User model
     }]
-})
-
+});
 
 const Post = mongoose.model('Post', PostSchema);
 const Comment = mongoose.model('Comment', CommentSchema);

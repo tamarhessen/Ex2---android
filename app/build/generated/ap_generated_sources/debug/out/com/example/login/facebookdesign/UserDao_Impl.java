@@ -34,23 +34,28 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `user` (`id`,`user`,`lastComment`) VALUES (?,?,?)";
+        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`) VALUES (?,?,?,?)";
       }
 
       @Override
       protected void bind(@NonNull final SupportSQLiteStatement statement, final User entity) {
         statement.bindLong(1, entity.getId());
-        final String _tmp = UserNoPasswordConverter.toString(entity.getUser());
-        if (_tmp == null) {
+        if (entity.getUsername() == null) {
           statement.bindNull(2);
         } else {
-          statement.bindString(2, _tmp);
+          statement.bindString(2, entity.getUsername());
         }
-        final String _tmp_1 = CommentDetailsConventor.toString(entity.getLastComment());
-        if (_tmp_1 == null) {
+        final String _tmp = UserNoPasswordConverter.toString(entity.getUser());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, _tmp_1);
+          statement.bindString(3, _tmp);
+        }
+        final String _tmp_1 = CommentDetailsConventor.toString(entity.lastComment);
+        if (_tmp_1 == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, _tmp_1);
         }
       }
     };
@@ -58,25 +63,30 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `user` SET `id` = ?,`user` = ?,`lastComment` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ? WHERE `id` = ?";
       }
 
       @Override
       protected void bind(@NonNull final SupportSQLiteStatement statement, final User entity) {
         statement.bindLong(1, entity.getId());
-        final String _tmp = UserNoPasswordConverter.toString(entity.getUser());
-        if (_tmp == null) {
+        if (entity.getUsername() == null) {
           statement.bindNull(2);
         } else {
-          statement.bindString(2, _tmp);
+          statement.bindString(2, entity.getUsername());
         }
-        final String _tmp_1 = CommentDetailsConventor.toString(entity.getLastComment());
-        if (_tmp_1 == null) {
+        final String _tmp = UserNoPasswordConverter.toString(entity.getUser());
+        if (_tmp == null) {
           statement.bindNull(3);
         } else {
-          statement.bindString(3, _tmp_1);
+          statement.bindString(3, _tmp);
         }
-        statement.bindLong(4, entity.getId());
+        final String _tmp_1 = CommentDetailsConventor.toString(entity.lastComment);
+        if (_tmp_1 == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, _tmp_1);
+        }
+        statement.bindLong(5, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
@@ -138,6 +148,7 @@ public final class UserDao_Impl implements UserDao {
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+      final int _cursorIndexOfUsername = CursorUtil.getColumnIndexOrThrow(_cursor, "username");
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
       final List<User> _result = new ArrayList<User>(_cursor.getCount());
@@ -145,6 +156,12 @@ public final class UserDao_Impl implements UserDao {
         final User _item;
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId);
+        final String _tmpUsername;
+        if (_cursor.isNull(_cursorIndexOfUsername)) {
+          _tmpUsername = null;
+        } else {
+          _tmpUsername = _cursor.getString(_cursorIndexOfUsername);
+        }
         final User.UserNoPassword _tmpUser;
         final String _tmp;
         if (_cursor.isNull(_cursorIndexOfUser)) {
@@ -161,7 +178,7 @@ public final class UserDao_Impl implements UserDao {
           _tmp_1 = _cursor.getString(_cursorIndexOfLastComment);
         }
         _tmpLastComment = CommentDetailsConventor.fromString(_tmp_1);
-        _item = new User(_tmpId,_tmpUser,_tmpLastComment);
+        _item = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment);
         _result.add(_item);
       }
       return _result;
@@ -181,12 +198,19 @@ public final class UserDao_Impl implements UserDao {
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+      final int _cursorIndexOfUsername = CursorUtil.getColumnIndexOrThrow(_cursor, "username");
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
       final User _result;
       if (_cursor.moveToFirst()) {
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId);
+        final String _tmpUsername;
+        if (_cursor.isNull(_cursorIndexOfUsername)) {
+          _tmpUsername = null;
+        } else {
+          _tmpUsername = _cursor.getString(_cursorIndexOfUsername);
+        }
         final User.UserNoPassword _tmpUser;
         final String _tmp;
         if (_cursor.isNull(_cursorIndexOfUser)) {
@@ -203,7 +227,7 @@ public final class UserDao_Impl implements UserDao {
           _tmp_1 = _cursor.getString(_cursorIndexOfLastComment);
         }
         _tmpLastComment = CommentDetailsConventor.fromString(_tmp_1);
-        _result = new User(_tmpId,_tmpUser,_tmpLastComment);
+        _result = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment);
       } else {
         _result = null;
       }

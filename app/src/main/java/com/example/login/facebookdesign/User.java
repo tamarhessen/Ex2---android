@@ -12,11 +12,13 @@ public class User {
 
     @PrimaryKey(autoGenerate = false)
     private int id;
+    private String username; // Change to String type
     private UserNoPassword user;
-    private CommentDetails lastComment;
+    public CommentDetails lastComment; // Make it public
 
-    public User(int id, UserNoPassword user, CommentDetails lastComment) {
+    public User(int id, String username, UserNoPassword user, CommentDetails lastComment) {
         this.id = id;
+        this.username = username;
         this.user = user;
         this.lastComment = lastComment;
     }
@@ -31,6 +33,10 @@ public class User {
         return id;
     }
 
+    public String getUsername() {
+        return username; // Add getter method for username
+    }
+
     public UserNoPassword getUser() {
         return user;
     }
@@ -39,11 +45,11 @@ public class User {
         return lastComment;
     }
 
-    class UserNoPassword {
+    // Static nested class for user details without password
+    public static class UserNoPassword {
         private String username;
         private String displayName;
         private Bitmap profilePic;
-
 
         public UserNoPassword(String username, String displayName, Bitmap profilePic) {
             this.username = username;
@@ -51,6 +57,7 @@ public class User {
             this.profilePic = profilePic;
         }
 
+        // Getter and setter methods
         public String getUsername() {
             return username;
         }
@@ -76,7 +83,8 @@ public class User {
         }
     }
 
-    class CommentDetails{
+    // Static nested class for comment details
+    public static class CommentDetails {
         private int id;
         private String created;
         private String content;
@@ -87,6 +95,7 @@ public class User {
             this.content = content;
         }
 
+        // Getter and setter methods
         public int getId() {
             return id;
         }
