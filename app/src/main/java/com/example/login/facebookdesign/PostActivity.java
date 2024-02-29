@@ -1,4 +1,6 @@
 package com.example.login.facebookdesign;
+import static com.example.login.facebookdesign.UsersActivity.currentConnectedUsername;
+import static com.example.login.facebookdesign.UsersActivity.setAsImage;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.login.R;
 
@@ -38,7 +41,7 @@ public class PostActivity extends AppCompatActivity {
     private Button selectImageButton;
     private Button submitButton;
     public static String talkingUser;
-
+    private int id;
     private Uri imageUri;
 
     @Override
@@ -51,7 +54,6 @@ public class PostActivity extends AppCompatActivity {
         postEditText = findViewById(R.id.postEditText);
         selectImageButton = findViewById(R.id.selectImageButton);
         submitButton = findViewById(R.id.submitButton);
-
 
         // Set click listener for selecting image
         selectImageButton.setOnClickListener(new View.OnClickListener() {

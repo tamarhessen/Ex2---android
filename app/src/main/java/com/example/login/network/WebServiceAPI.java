@@ -11,19 +11,29 @@ import com.example.login.facebookdesign.UserDataFromAdd;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface WebServiceAPI {
 
 
+    // Modified method for adding a post with an image
+    @Multipart
     @POST("Posts")
-    Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
-                                  @Header("Authorization") String authHeader);
+    Call<Post> addPostWithImage(@Part("post") Post post,
+                                           @Part MultipartBody.Part image,
+                                           @Header("Authorization") String authHeader);
+    @POST("Posts")
+    Call<Post> addPost(@Body Post post,
+                       @Header("Authorization") String authHeader);
+
 
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);
@@ -48,5 +58,7 @@ public interface WebServiceAPI {
     Call<Void> postComment(@Path("id") int id,@Body CommentToSend comment,
                            @Header("Authorization") String authHeader);
 
+    @GET("Posts")
+    Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
 
 }

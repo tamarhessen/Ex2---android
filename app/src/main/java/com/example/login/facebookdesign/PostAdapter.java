@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.login.R;
 import com.example.login.network.WebServiceAPI;
 import android.content.Intent;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
         implements EditPostDialogFragment.OnPostEditedListener {
 
@@ -42,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private static List<Post> posts;
     private String currentUserUsername;
     private final Context mContext;
+    private Retrofit retrofit;
 
     public PostAdapter(Context context, String currentUserUsername) {
         mInflater = LayoutInflater.from(context);
@@ -108,6 +112,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 public void onClick(View v) {
                     // Start MenuActivity
                     Intent intent = new Intent(mContext, CommentsActivity.class);
+                    intent.putExtra("Username", currentUserUsername);
                     mContext.startActivity(intent);
                 }
             });
@@ -172,15 +177,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         notifyDataSetChanged();
     }
 
-    public void addPost(Post post) {
+   public void addPost(Post post) {
         if (posts == null) {
             posts = new ArrayList<>();
         }
 
-
-
         posts.add(post);
         notifyDataSetChanged();
+
     }
 
     @Override
