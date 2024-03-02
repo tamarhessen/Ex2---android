@@ -11,14 +11,9 @@ function authenticateToken(req, res, next) {
     }
 
     try {
-        // Verify the token using the secret key
-        const secretKey = process.env.JWT_SECRET_KEY; // Use environment variable for secret key
-        if (!secretKey) {
-            throw new Error('JWT secret key not found');
-        }
-
-        // Verify the token and attach decoded payload to the request object
-        req.user = jwt.verify(token, secretKey);
+        const key = 'your-secret-key'
+        // Verify the token and attach it to the request object
+        req.user = jwt.verify(token, key);
 
         // Proceed to the next middleware or route handler
         next();
@@ -29,3 +24,4 @@ function authenticateToken(req, res, next) {
 }
 
 module.exports = authenticateToken;
+

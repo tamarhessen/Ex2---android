@@ -1,6 +1,19 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
+
+const FriendsSchema = new Schema({
+    FriendList: [{
+        type: String,
+        nullable: true
+    }],
+    PendingList: [{
+        type:String,
+        nullable: true
+    }]
+});
+
 const UserSchema = new Schema({
     username: {
         type: String,
@@ -17,6 +30,10 @@ const UserSchema = new Schema({
     profilePic: {
         type: String,
         required: true
+    },
+    friends: {
+        type: FriendsSchema,
+        nullable: true
     }
 });
 
@@ -48,10 +65,8 @@ const PostSchema = new Schema({
         integer: true
     },
     Creator: {
-        username:{
-            type:String,
-            required:true
-        },
+        type:String,
+        required:true
     },
     Comments: [{
         type: CommentSchema,
@@ -69,18 +84,12 @@ const PostSchema = new Schema({
         type: Number,
         integer: true
     },
-    IsPostLiked:{
-        type: Boolean,
-        required: true
-    }
-});
-
-const FriendsSchema = new Schema({
-    FriendList: [{
-        type: String,
+    PeopleLiked: [{
+        type:String,
         nullable: true
     }]
-})
+});
+
 
 
 const Post = mongoose.model('Post', PostSchema);
