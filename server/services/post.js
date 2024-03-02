@@ -2,6 +2,7 @@ const { Post, Comment, User, Friends } = require('../models/post.js');
 const jwt = require('jsonwebtoken');
 
 let postId = 0;
+let commentId = 0;
 
 async function generateToken(user) {
     const { username, password } = user
@@ -177,8 +178,14 @@ async function deleteFriend(userId, friendId) {
     return user.friends;
 }
 
-async function getAllPostsByUserId(userId) {
+async function getAllPostsByUserId(userId, realUser) {
+    const user = await User.findOne({username: userId});
+    if (!user.friends.FriendList.includes(realUser)) {
+        console.log("you aren\'t friends");
+        return null
+    }
     const posts = await Post.find({Creator: userId})
+
     if (!posts) {
         console.log('couldn\'t find posts');
         return null
@@ -216,7 +223,7 @@ async function updateUserById(userId, newUsername, newImg, newDisplayName, newPa
     if (newPassword) {
         user.password = newPassword;
     }
-    user.save();
+    await user.save();
     return user;
 }
 
@@ -231,8 +238,100 @@ async function likePost(postId, username){
     } else {
         post.PeopleLiked = [...post.PeopleLiked, username];
     }
-    post.save();
+    await post.save();
     return post;
+}
+
+async function createComment(postId, username, commentText){
+    const post = await Post.findOne({id: postId});
+    if (!post) {
+        console.log('could\'t find post');
+        return null
+    }
+    const lastComment = await Comment.findOne({}, {}, { sort: { id: -1 } }).lean();
+    const lastCommentId = lastComment ? lastComment.id : 0;
+    console.log("hola")
+    const newCommentId = lastCommentId + 1;
+    let newComment = new Comment({
+        id: newCommentId,
+        creator: username,
+        content: commentText
+    })
+    await newComment.save();
+    post.Comments = [...post.Comments, newComment];
+    await post.save();
+    return post;
+
+}
+
+async function editComment(postId, username, commentText, commentId){
+    const post = await Post.findOne({id: postId});
+    if (!post) {
+        console.log('could\'t find post');
+        return null
+    }
+    const comment = await Comment.findOne({id: commentId});
+    if (!comment) {
+        console.log('could\'t find comment');
+        return null
+    }
+    if (username !== comment.creator) {
+        console.log('not your comment');
+        return null
+    }
+    if (commentText) {
+        comment.content = commentText;
+    }
+    post.Comments = post.Comments.filter(comment => {
+        if (comment.id == commentId) {
+            if (commentText) {
+                comment.content = commentText;
+            }
+        }
+        return true;
+    })
+    await post.save()
+    await comment.save()
+    return post
+}
+
+async function deleteComment(postId, username, commentId){
+    const post = await Post.findOne({id: postId});
+    if (!post) {
+        console.log('could\'t find post');
+        return null
+    }
+    const comment = await Comment.findOne({id: commentId});
+    if (!comment) {
+        console.log('could\'t find comment');
+        return null
+    }
+    if (username !== comment.creator) {
+        console.log('not your comment');
+        return null
+    }
+    console.log("hi")
+    const deleteComment = await Comment.findOneAndRemove({id: commentId});
+    console.log("hola")
+    post.Comments = post.Comments.filter(comment => {
+        console.log(commentId, comment.id);
+        return (commentId != comment.id)
+    })
+    console.log("hola2")
+
+    await post.save()
+    console.log("hola3")
+    console.log("hola")
+    return post
+}
+
+async function getCommentsByPostId(postId) {
+    const post = await Post.findOne({id: postId})
+    if (!post) {
+        console.log('couldn\'t find post')
+        return null
+    }
+    return post.Comments;
 }
 
 module.exports = {
@@ -251,6 +350,10 @@ module.exports = {
     getAllPostsByUserId,
     deleteUserById,
     updateUserById,
-    likePost
+    likePost,
+    createComment,
+    editComment,
+    deleteComment,
+    getCommentsByPostId
 };
 

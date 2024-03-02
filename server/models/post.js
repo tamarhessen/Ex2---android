@@ -47,11 +47,9 @@ const CommentSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    sender: {
-        username:{
-            type:String,
-            required:true
-        },
+    creator:{
+        type:String,
+        required:true
     },
     content: {
         type: String,
@@ -63,6 +61,10 @@ const PostSchema = new Schema({
     id: {
         type: Number,
         integer: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
     },
     Creator: {
         type:String,

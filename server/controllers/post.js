@@ -90,7 +90,8 @@ async function deleteFriend(req, res) {
 
 async function getPostsByUserId(req, res) {
     let userId = req.params.id;
-    const result = await postService.getAllPostsByUserId(userId);
+    let realUser = req.user.username;
+    const result = await postService.getAllPostsByUserId(userId, realUser);
     res.json(result);
 }
 
@@ -117,6 +118,37 @@ async function likePost(req, res) {
     res.json(result)
 }
 
+async function createComment(req, res) {
+    let postId = req.params.postId;
+    let username = req.params.id;
+    let commentText = req.body.text;
+    const result = await postService.createComment(postId, username, commentText);
+    res.json(result)
+}
+
+async function editComment(req, res) {
+    let postId = req.params.postId;
+    let commentId = req.params.commentId;
+    let username = req.params.id;
+    let commentText = req.body.text;
+    const result = await postService.editComment(postId, username, commentText, commentId);
+    res.json(result)
+}
+
+async function deleteComment(req,res) {
+    let postId = req.params.postId;
+    let commentId = req.params.commentId;
+    let username = req.params.id;
+    const result = await postService.deleteComment(postId, username, commentId);
+    res.json(result)
+}
+
+async function getCommentsByPostId(req, res) {
+    let postId = req.params.postId;
+    const result = await postService.getCommentsByPostId(postId);
+    res.json(result)
+}
+
 module.exports = {
     generateToken,
     registerUser,
@@ -132,5 +164,9 @@ module.exports = {
     getPostsByUserId,
     deleteUserById,
     updateUserById,
-    likePost
+    likePost,
+    createComment,
+    editComment,
+    deleteComment,
+    getCommentsByPostId
 };
