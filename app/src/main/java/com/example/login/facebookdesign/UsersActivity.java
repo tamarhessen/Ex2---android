@@ -213,4 +213,7 @@ public class UsersActivity extends AppCompatActivity {
     public static void update(){
         viewModel.refresh();
     }
+    public static String getToken() {
+        return token;
+    }
 }

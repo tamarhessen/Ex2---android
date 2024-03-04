@@ -18,28 +18,30 @@ import java.util.List;
 public class Post {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String author;
-    private String content;
+    private String Creator;
+    private String PostText;
     private int likes;
-    private Bitmap pic;
-    private Bitmap profilepic;
-    private boolean liked;
     private long timestamp;
-    private List<String> comments;
+    private String PostImg;
+    private String CreatorImg;
+    private boolean liked;
+    private List<String> Comments;
 
     public Post() {
         // Default constructor
     }
 
-    public Post(String author, String content, Bitmap pic, int likes, Bitmap profilepic,long timestamp) {
-        this.author = author;
-        this.content = content;
-        this.pic = pic;
+    public Post(String creator, String postText, String pic, int likes, String CreatorImg,long timestamp) {
+        this.Creator = creator;
+        this.PostText = postText;
+        this.PostImg
+                = pic;
         this.likes = likes;
-        this.profilepic = profilepic;
+        this.CreatorImg = CreatorImg;
         this.liked=false;
-        comments = new ArrayList<>();
+        Comments = new ArrayList<>();
         this.timestamp = timestamp;
+        this.id=0;
     }
 
     public int getId() {
@@ -50,20 +52,20 @@ public class Post {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getPostText() {
+        return PostText;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPostText(String postText) {
+        this.PostText = postText;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getCreator() {
+        return Creator;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setCreator(String creator) {
+        this.Creator = creator;
     }
 
     public int getLikes() {
@@ -74,21 +76,24 @@ public class Post {
         this.likes = likes;
     }
 
-    public Bitmap getPic() {
-
-        return pic;
+    public String getPostImg
+            () {
+        return PostImg
+                ;
     }
 
-    public void setPic(Bitmap pic) {
-        this.pic = pic;
+    public void setPostImg
+            (String pic) {
+        this.PostImg
+                = pic;
     }
 
-    public Bitmap getProfilepic() {
-        return profilepic;
+    public String getCreatorImg() {
+        return CreatorImg;
     }
 
-    public void setProfilepic(Bitmap profilepic) {
-        this.profilepic = profilepic;
+    public void setCreatorImg(String CreatorImg) {
+        this.CreatorImg = CreatorImg;
     }
 
 
@@ -123,28 +128,28 @@ public class Post {
 
 
     public void addComment(String newComment) {
-        comments.add(newComment);
+        Comments.add(newComment);
     }
 
     public void editComment(int index, String editedComment) {
-        if (index >= 0 && index < comments.size()) {
-            comments.set(index, editedComment);
+        if (index >= 0 && index < Comments.size()) {
+            Comments.set(index, editedComment);
         }
     }
 
     public void deleteComment(int index) {
-        if (index >= 0 && index < comments.size()) {
-            comments.remove(index);
+        if (index >= 0 && index < Comments.size()) {
+           Comments.remove(index);
         }
     }
 
 
     public List<String> getComments() {
-        return comments;
+        return Comments;
     }
 
     public void setComments(List<String> comments) {
-        this.comments = comments;
+        this.Comments = comments;
     }
 
 }

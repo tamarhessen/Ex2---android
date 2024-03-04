@@ -8,6 +8,7 @@ import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.facebookdesign.UserCreateToken;
 import com.example.login.facebookdesign.UserDataFromAdd;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -22,13 +24,12 @@ public interface WebServiceAPI {
 
 
 
-    @POST("api/Posts") // Route for creating a new post
+    @POST("posts") // Route for creating a new post
     Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
                                   @Header("Authorization") String authHeader);
-
-    @POST("Posts") // Route for creating a new post
-    Call<Void> createPost(@Body Post post, @Header("Authorization") String authHeader);
-    @GET("api/Posts") // Route for getting posts
+    @POST("users/{id}/posts")
+    Call<Void> createPost(@Path("id") String userId, @Body JsonObject post, @Header("Authorization") String authHeader);
+    @GET("posts") // Route for getting posts
     Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
 
     @POST("Users")

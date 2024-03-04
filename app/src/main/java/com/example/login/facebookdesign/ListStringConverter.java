@@ -15,7 +15,9 @@ public class ListStringConverter {
 
     @TypeConverter
     public static String fromList(List<String> list) {
-        // Convert the List of Strings to a String representation
+        if (list == null) {
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
         for (String item : list) {
             if (sb.length() > 0) {

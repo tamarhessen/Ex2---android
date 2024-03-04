@@ -3,6 +3,8 @@ package com.example.login;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.example.login.facebookdesign.BitmapConverter;
 import com.example.login.facebookdesign.Post;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,12 +37,14 @@ public class JsonParser {
                 String imageDrawableName = jsonObject.getString("imageDrawableId");
                 int imageDrawableId = context.getResources().getIdentifier(imageDrawableName, "drawable", context.getPackageName());
                 Bitmap pic = BitmapFactory.decodeResource(context.getResources(), imageDrawableId);
+                String picString = BitmapConverter.bitmapToString(pic);
                 int likes = jsonObject.getInt("likes");
                 String profileDrawableName = jsonObject.getString("profileDrawableId");
                 int profileDrawableId = context.getResources().getIdentifier(profileDrawableName, "drawable", context.getPackageName());
                 Bitmap profilePic = BitmapFactory.decodeResource(context.getResources(), profileDrawableId);
+                String profilePicString = BitmapConverter.bitmapToString(profilePic);
                 long timestamp = jsonObject.getLong("timestamp");
-                Post post = new Post(author, content, pic, likes, profilePic,timestamp);
+                Post post = new Post(author, content, picString, likes, profilePicString,timestamp);
                 posts.add(post);
             }
         } catch (IOException | JSONException e) {

@@ -29,12 +29,12 @@ public final class PostDB_Impl extends PostDB {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(4) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `Post` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT, `content` TEXT, `likes` INTEGER NOT NULL, `pic` BLOB, `profilepic` BLOB, `liked` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `comments` TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `Post` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Creator` TEXT, `PostText` TEXT, `likes` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `PostImg` TEXT, `CreatorImg` TEXT, `liked` INTEGER NOT NULL, `Comments` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7d2a363d8899166507f79bfa971cb11b')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e0146047b619dfe6372d51c893cc95e9')");
       }
 
       @Override
@@ -85,14 +85,14 @@ public final class PostDB_Impl extends PostDB {
           @NonNull final SupportSQLiteDatabase db) {
         final HashMap<String, TableInfo.Column> _columnsPost = new HashMap<String, TableInfo.Column>(9);
         _columnsPost.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("author", new TableInfo.Column("author", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("content", new TableInfo.Column("content", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("Creator", new TableInfo.Column("Creator", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("PostText", new TableInfo.Column("PostText", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsPost.put("likes", new TableInfo.Column("likes", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("pic", new TableInfo.Column("pic", "BLOB", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("profilepic", new TableInfo.Column("profilepic", "BLOB", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("liked", new TableInfo.Column("liked", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsPost.put("timestamp", new TableInfo.Column("timestamp", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPost.put("comments", new TableInfo.Column("comments", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("PostImg", new TableInfo.Column("PostImg", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("CreatorImg", new TableInfo.Column("CreatorImg", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("liked", new TableInfo.Column("liked", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPost.put("Comments", new TableInfo.Column("Comments", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysPost = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesPost = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoPost = new TableInfo("Post", _columnsPost, _foreignKeysPost, _indicesPost);
@@ -104,7 +104,7 @@ public final class PostDB_Impl extends PostDB {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "7d2a363d8899166507f79bfa971cb11b", "99162876a6c1e6ac741f00c7f22ccd9e");
+    }, "e0146047b619dfe6372d51c893cc95e9", "10f51f88c5663a0b25ec644c65215443");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

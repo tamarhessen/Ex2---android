@@ -60,14 +60,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull final PostViewHolder holder, int position) {
         if (posts != null && !posts.isEmpty()) {
             final Post current = posts.get(posts.size() - position - 1);  // Reverse the position
-            holder.tvAuthor.setText(current.getAuthor());
-            holder.tvContent.setText(current.getContent());
+            holder.tvAuthor.setText(current.getCreator());
+            holder.tvContent.setText(current.getPostText());
 
             // Set the Bitmap objects to the ImageViews in the ViewHolder
-            holder.ivPic.setImageBitmap(current.getPic());
-            holder.profilePic.setImageBitmap(current.getProfilepic());
+            holder.ivPic.setImageBitmap(BitmapConverter.stringToBitmap(current.getPostImg
+                    ()));
+            holder.profilePic.setImageBitmap(BitmapConverter.stringToBitmap(current.getCreatorImg()));
 
-            if (current.getPic() != null) {
+            if (current.getPostImg
+                    () != null) {
                 holder.ivPic.setVisibility(View.VISIBLE);
                 holder.cardView.setVisibility(View.VISIBLE);
             } else {
@@ -113,7 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             });
 
             // Check if the current post matches your username
-            if (current.getAuthor().equals(currentUserUsername)) {
+            if(current.getCreator() != null && current.getCreator().equals(currentUserUsername)) {
                 // Show edit and delete buttons
                 holder.editButton.setVisibility(View.VISIBLE);
                 holder.deleteButton.setVisibility(View.VISIBLE);

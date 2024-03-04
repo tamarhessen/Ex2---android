@@ -1,5 +1,6 @@
 package com.example.login.facebookdesign;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -30,4 +31,8 @@ public interface PostDao {
 
     @Delete
     void delete(Post... posts);
+
+    // New method to fetch all posts as LiveData
+    @Query("SELECT * FROM post")
+    LiveData<List<Post>> indexLiveData();
 }

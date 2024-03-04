@@ -43,8 +43,10 @@ public class EditPostDialogFragment extends DialogFragment {
         imageView = view.findViewById(R.id.postImageView);
 
         // Populate the fields with the current post details
-        editText.setText(post.getContent());
-        imageView.setImageBitmap(post.getPic());
+        editText.setText(post.getPostText());
+
+        imageView.setImageBitmap(BitmapConverter.stringToBitmap(post.getPostImg
+                ()));
 
         // Set click listener for the image view to allow changing the picture
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,7 @@ public class EditPostDialogFragment extends DialogFragment {
                 // Update the post details based on the user's input
                 String updatedContent = editText.getText().toString();
                 // Update the post content
-                post.setContent(updatedContent);
+                post.setPostText(updatedContent);
                 // Notify the listener that the post is edited
                 onPostEditedListener.onPostEdited(post);
                 // Dismiss the dialog
@@ -96,7 +98,8 @@ public class EditPostDialogFragment extends DialogFragment {
                 // Set the chosen image to the image view
                 imageView.setImageURI(imageUri);
                 // Update the post's picture
-                post.setPic(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri));
+                post.setPostImg
+                        (BitmapConverter.bitmapToString(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri)));
             } catch (IOException e) {
                 e.printStackTrace();
             }

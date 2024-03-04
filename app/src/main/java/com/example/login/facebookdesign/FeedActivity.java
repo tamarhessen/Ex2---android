@@ -8,12 +8,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,6 +27,7 @@ import com.example.login.facebookdesign.PostAdapter;
 import com.example.login.facebookdesign.Post;
 import com.example.login.network.WebServiceAPI;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,12 +42,15 @@ public class FeedActivity extends AppCompatActivity {
     private Button newPostButton;
     private Button whatsNewButton;
     private RecyclerView lstPosts;
-    private UserDB userDB;
+
     private PostAdapter adapter;
     private String username;
     private Button profilePictureButton;
-private WebServiceAPI webServiceAPI;
+    private WebServiceAPI webServiceAPI;
     private byte[] profilePictureByteArray;
+    private PostsViewModel postsViewModel;
+    private String token;
+
 
 
 
@@ -52,22 +58,50 @@ private WebServiceAPI webServiceAPI;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
-        // Initialize views
         initViews();
-
         // Set up RecyclerView and adapter
-        setUpRecyclerView();
-initWebServiceAPI();
+
+        initWebServiceAPI();
         // Fetch username and profile picture
         fetchUserData();
+
 
         // Set click listeners
         setClickListeners();
 
         // Load sample posts
-        loadSamplePosts();
+   //     loadSamplePosts();
+        Intent activityIntent = getIntent();
+        if (activityIntent != null) {
+            token = activityIntent.getStringExtra("Token");
+            username = activityIntent.getStringExtra("Username");
+
+            // Initialize ViewModel with token
+            postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+            postsViewModel.setUsername(username);
+            postsViewModel.setToken(token);
+
+            if (profilePictureByteArray != null) {
+                Bitmap profilePictureBitmap = BitmapFactory.decodeByteArray(profilePictureByteArray, 0, profilePictureByteArray.length);
+                postsViewModel.init(username, token, profilePictureBitmap);
+            } else {
+                postsViewModel.init(username, token, null); // Pass null if profile picture is not available
+            }
+        } else {
+            // Handle case where intent is null or token is not provided
+            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
+        }
+
+        // Observe changes in posts data
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                adapter.setPosts(posts);
+            }
+        });
+        setUpRecyclerView();
+        fetchAndDisplayPosts();
     }
+
 
     private void initViews() {
         profilePictureButton = findViewById(R.id.btn_profile_picture);
@@ -86,33 +120,48 @@ initWebServiceAPI();
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
+            String token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
-            profilePictureByteArray = activityIntent.getByteArrayExtra("ProfilePicture");
-            if (profilePictureByteArray != null) {
-                Bitmap profilePictureBitmap = BitmapFactory.decodeByteArray(profilePictureByteArray, 0, profilePictureByteArray.length);
-                ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-                profilePictureImageView.setImageBitmap(profilePictureBitmap);
-            }
-        }
-        Call<UserCreatePost> call = webServiceAPI.getUser(username,
-                "Bearer "+activityIntent.getStringExtra("Token"));
-        call.enqueue(new Callback<UserCreatePost>() {
-            @Override
-            public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
-                if(response.isSuccessful()) {
-                    UserCreatePost user = response.body();
-                    ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
 
-                    setAsImage(user.getProfilePic(), profilePictureImageView);
+            // Initialize the webServiceAPI object
+            initWebServiceAPI();
+
+            Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);
+            call.enqueue(new Callback<UserCreatePost>() {
+                @Override
+                public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
+                    if (response.isSuccessful()) {
+                        UserCreatePost user = response.body();
+                        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+
+                        if (user != null) {
+                            setAsImage(user.getProfilePic(), profilePictureImageView);
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<UserCreatePost> call, Throwable t) {
+                @Override
+                public void onFailure(Call<UserCreatePost> call, Throwable t) {
+                    // Handle failure
+                    Toast.makeText(FeedActivity.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
 
+    private void fetchAndDisplayPosts() {
+        // Observe changes in posts data
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                // Update RecyclerView adapter with fetched posts
+                adapter.setPosts(posts);
+            } else {
+                Toast.makeText(FeedActivity.this, "No posts found", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
     public static void setAsImage(String strBase64, ImageView imageView) {
         if(strBase64.equals(defaultPfp)){
@@ -155,10 +204,10 @@ initWebServiceAPI();
         });
     }
 
-    private void loadSamplePosts() {
-        List<Post> posts = JsonParser.parseJson(this);
-        adapter.setPosts(posts);
-    }
+//    private void loadSamplePosts() {
+//        List<Post> posts = JsonParser.parseJson(this);
+//        adapter.setPosts(posts);
+//    }
 
 
     // This method will be called when returning from NewPostActivity
@@ -172,6 +221,9 @@ initWebServiceAPI();
             Intent activityIntent = getIntent();
 
             username = activityIntent.getStringExtra("Username");
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.baseURL)
+                    .addConverterFactory(GsonConverterFactory.create()).build();
+            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
             Call<UserCreatePost> call = webServiceAPI.getUser(username,
                     "Bearer " + activityIntent.getStringExtra("Token"));
             call.enqueue(new Callback<UserCreatePost>() {
@@ -181,7 +233,8 @@ initWebServiceAPI();
                         UserCreatePost user = response.body();
                         // Update views with fetched data
                         if (user != null) {
-                            String displayName = user.getDisplayName();
+                            Log.d("onResponse", "Successfully fetched user data. Display name: " + username);
+                            String displayMane= user.getDisplayName();
 
                             // Set profile picture
                             String profilePic = user.getProfilePic();
@@ -191,43 +244,39 @@ initWebServiceAPI();
                                 Bitmap profileImageBitmap = decodedByte;
                                 Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
                                 long currentTimeMillis = System.currentTimeMillis();
-                                Post newPost = new Post(displayName, postText, postImageBitmap, 0, profileImageBitmap, currentTimeMillis);
-
-                                // Send a POST request to add the new post to the server
-                                Call<Void> call2 = webServiceAPI.createPost(newPost, "Bearer " + activityIntent.getStringExtra("Token"));
-
+                                String postImage = BitmapConverter.bitmapToString(postImageBitmap);
+                                String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
+                                Post newPost = new Post(displayMane, postText, postImage, 0, profileImage,currentTimeMillis);
+                                postsViewModel.addPost(newPost);
                                 // Add the new post to the adapter
-                                call2.enqueue(new Callback<Void>() {
-                                    @Override
-                                    public void onResponse(Call<Void> call, Response<Void> response) {
-                                        if (response.isSuccessful()) {
-                                            // Post added successfully
-                                            // Now update the UI or take other actions as needed
-                                        } else {
-                                            Toast.makeText(FeedActivity.this, "Failed to add post", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Void> call, Throwable t) {
-                                        Toast.makeText(FeedActivity.this, "Failed to connect", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
                                 adapter.addPost(newPost);
                             }
                         }
                     } else {
-                        // Handle unsuccessful response
+                        Log.e("onResponse", "Failed to fetch user data. Error code: " + response.code());
                     }
                 }
 
                 @Override
+
                 public void onFailure(Call<UserCreatePost> call, Throwable t) {
-                    // Handle failure
+                    Log.e("onFailure", "Failed to fetch user data. Error message: " + t.getMessage());
+
                 }
             });
+
         }
     }
+    private Bitmap decodeProfilePicture(String profilePic) {
+        if (profilePic == null || profilePic.equals(MainActivity.defaultPfp)) {
+            // Return default profile picture or handle accordingly
+            return null;
+        } else {
+            byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+    }
+
 
 
     private void updateViews(UserCreatePost user) {
