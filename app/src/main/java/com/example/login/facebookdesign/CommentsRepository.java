@@ -12,7 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import com.example.login.facebookdesign.CommentPostDao;
+import com.example.login.dataBase.LocalDB;
+import com.example.login.dataBase.UserDB;
 
 public class CommentsRepository {
     private CommentListData commentListData;

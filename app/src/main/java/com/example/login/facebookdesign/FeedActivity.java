@@ -1,6 +1,5 @@
 package com.example.login.facebookdesign;
 
-import static com.example.login.facebookdesign.MainActivity.baseURL;
 import static com.example.login.facebookdesign.MainActivity.defaultPfp;
 
 import android.content.Intent;
@@ -9,25 +8,21 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.login.JsonParser;
 import com.example.login.R;
-import com.example.login.facebookdesign.CreateAccountActivity;
-import com.example.login.facebookdesign.PostAdapter;
-import com.example.login.facebookdesign.Post;
-import com.example.login.network.WebServiceAPI;
+import com.example.login.API.WebServiceAPI;
+import com.example.login.viewModels.PostsViewModel;
+import com.example.login.viewModels.UsersViewModel;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,7 +44,9 @@ public class FeedActivity extends AppCompatActivity {
     private WebServiceAPI webServiceAPI;
     private byte[] profilePictureByteArray;
     private PostsViewModel postsViewModel;
+    private UsersViewModel usersViewModel;
     private String token;
+    private String displayName;
 
 
 
@@ -62,6 +59,7 @@ public class FeedActivity extends AppCompatActivity {
         // Set up RecyclerView and adapter
 
         initWebServiceAPI();
+        usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         // Fetch username and profile picture
         fetchUserData();
 
@@ -70,12 +68,12 @@ public class FeedActivity extends AppCompatActivity {
         setClickListeners();
 
         // Load sample posts
-   //     loadSamplePosts();
+//     loadSamplePosts();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
-
+            displayName = activityIntent.getStringExtra("Display name");
             // Initialize ViewModel with token
             postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
             postsViewModel.setUsername(username);
@@ -87,6 +85,9 @@ public class FeedActivity extends AppCompatActivity {
             } else {
                 postsViewModel.init(username, token, null); // Pass null if profile picture is not available
             }
+
+            // Initialize UsersViewModel
+
         } else {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
@@ -102,7 +103,6 @@ public class FeedActivity extends AppCompatActivity {
         fetchAndDisplayPosts();
     }
 
-
     private void initViews() {
         profilePictureButton = findViewById(R.id.btn_profile_picture);
         menuButton = findViewById(R.id.menubtn);
@@ -112,7 +112,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        adapter = new PostAdapter(this, username);
+        adapter = new PostAdapter(this, username,postsViewModel,displayName);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -121,33 +121,25 @@ public class FeedActivity extends AppCompatActivity {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             String token = activityIntent.getStringExtra("Token");
-            username = activityIntent.getStringExtra("Username");
+            String username = activityIntent.getStringExtra("Username");
+            usersViewModel.setToken(token);
+            usersViewModel.setUserid(username);
 
-            // Initialize the webServiceAPI object
-            initWebServiceAPI();
-
-            Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);
-            call.enqueue(new Callback<UserCreatePost>() {
+            // Trigger the network request to fetch user data
+            usersViewModel.getCurrentUser(username).observe(this, new Observer<UserCreatePost>() {
                 @Override
-                public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
-                    if (response.isSuccessful()) {
-                        UserCreatePost user = response.body();
-                        ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
-
-                        if (user != null) {
-                            setAsImage(user.getProfilePic(), profilePictureImageView);
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserCreatePost> call, Throwable t) {
-                    // Handle failure
-                    Toast.makeText(FeedActivity.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                public void onChanged(UserCreatePost userCreatePost) {
+                    // Display user data or handle the single userCreatePost object as needed
+                    // Example: Set the profile picture
+                    ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
+                    setAsImage(userCreatePost.getProfilePic(), profilePictureImageView);
                 }
             });
         }
     }
+
+
+
 
     private void fetchAndDisplayPosts() {
         // Observe changes in posts data
@@ -185,7 +177,8 @@ public class FeedActivity extends AppCompatActivity {
         menuButton.setOnClickListener(v -> {
             Intent intent = new Intent(FeedActivity.this, MenuActivity.class);
             intent.putExtra("Username", username);
-            intent.putExtra("ProfilePicture", profilePictureByteArray); // Pass the profile picture byte array
+            intent.putExtra("ProfilePicture", profilePictureByteArray);
+            intent.putExtra("DisplayName", displayName);// Pass the profile picture byte array
             startActivity(intent);
 
 
@@ -265,15 +258,6 @@ public class FeedActivity extends AppCompatActivity {
                 }
             });
 
-        }
-    }
-    private Bitmap decodeProfilePicture(String profilePic) {
-        if (profilePic == null || profilePic.equals(MainActivity.defaultPfp)) {
-            // Return default profile picture or handle accordingly
-            return null;
-        } else {
-            byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         }
     }
 

@@ -18,10 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.login.R;
-import com.example.login.facebookdesign.UserCreatePost;
-import com.example.login.network.WebServiceAPI;
-import com.example.login.network.RetrofitClient;
+import com.example.login.API.WebServiceAPI;
+import com.example.login.viewModels.UsersViewModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,7 +34,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CreateAccountActivity extends Activity {
+public class CreateAccountActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -47,6 +49,7 @@ public class CreateAccountActivity extends Activity {
     private ImageView imageViewProfilePicture;
     private String displayName;
     private Retrofit retrofit;
+    private UsersViewModel usersViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +65,9 @@ public class CreateAccountActivity extends Activity {
         buttonSignUp = findViewById(R.id.btn_sign_up);
         buttonSelectImage = findViewById(R.id.btn_select_image);
         imageViewProfilePicture = findViewById(R.id.image_profile_picture);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+        editTextUsername = findViewById(R.id.edit_username);
+        editTextPassword = findViewById(R.id.edit_password);
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +139,7 @@ public class CreateAccountActivity extends Activity {
         displayName = editTextDisplayName.getText().toString().trim();
         boolean agreeTerms = checkBoxTermsConditions.isChecked();
         boolean pictureUploaded = (imageViewProfilePicture.getDrawable() != null);
-        profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
+        Bitmap profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
         String profilePic = bitmapToBase64(profilePictureBitmap);
         Log.d("CreateAccountActivity", profilePic);
 
@@ -148,38 +150,11 @@ public class CreateAccountActivity extends Activity {
         if (!validateInput(password, confirmPassword, pictureUploaded, agreeTerms)) {
             return; // Validation failed
         }
-        UserCreateToken userCreateToken = new UserCreateToken(username, password);
-        // Create an instance of UserCreatePost and populate it with data
-        UserCreatePost userCreatePost = new UserCreatePost(username, password, displayName, profilePic);
-
-        // Create an instance of WebServiceAPI
-        WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-
-        // Make network request to create a user
-        Call<Void> call = webServiceAPI.createUser(userCreatePost);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // Display success message
-                    Toast.makeText(CreateAccountActivity.this, "Sign-up successful", Toast.LENGTH_SHORT).show();
-                    // Proceed to login activity
-                    Intent intent = new Intent(CreateAccountActivity.this, LogInActivity.class);
-                    startActivity(intent);
-                    finish(); // Optional: finish the current activity to remove it from the back stack
-                } else {
-                    // Handle error
-                    Toast.makeText(CreateAccountActivity.this, "Failed to create user", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
-                Toast.makeText(CreateAccountActivity.this, "Network request failed", Toast.LENGTH_SHORT).show();
-            }
-        });
+        UserCreatePost userCreatePost = new UserCreatePost(username,password,displayName,profilePic);
+        // Sign up using ViewModel
+        usersViewModel.add(userCreatePost, this);
     }
+
 
 
 

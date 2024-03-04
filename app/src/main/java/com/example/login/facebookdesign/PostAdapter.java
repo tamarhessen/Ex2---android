@@ -1,13 +1,7 @@
 package com.example.login.facebookdesign;
 
-import static com.example.login.facebookdesign.MainActivity.baseURL;
-import static com.example.login.facebookdesign.MainActivity.defaultPfp;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +14,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
-import com.example.login.network.WebServiceAPI;
-import android.content.Intent;
+import com.example.login.viewModels.PostsViewModel;
+import com.example.login.viewModels.UsersViewModel;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
@@ -41,12 +30,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private final LayoutInflater mInflater;
     private static List<Post> posts;
     private String currentUserUsername;
+    private String currentDisplayName;
     private final Context mContext;
+    private PostsViewModel postsViewModel;
+    private String CurrentDisplayName;
 
-    public PostAdapter(Context context, String currentUserUsername) {
+    public PostAdapter(Context context, String currentUserUsername,PostsViewModel postsViewModel,String currentDisplayName) {
         mInflater = LayoutInflater.from(context);
         this.currentUserUsername = currentUserUsername; // Initialize the current user's username
         mContext = context; // Initialize the context
+        this.postsViewModel=postsViewModel;
+        this.currentDisplayName = currentDisplayName;
     }
 
     @NonNull
@@ -115,7 +109,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             });
 
             // Check if the current post matches your username
-            if(current.getCreator() != null && current.getCreator().equals(currentUserUsername)) {
+            if(current.getCreator() != null && current.getCreator().equals(currentDisplayName)) {
                 // Show edit and delete buttons
                 holder.editButton.setVisibility(View.VISIBLE);
                 holder.deleteButton.setVisibility(View.VISIBLE);
@@ -125,7 +119,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     @Override
                     public void onClick(View v) {
                         // Create and show the EditPostDialogFragment
-                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostAdapter.this);
+                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostAdapter.this,postsViewModel);
                         dialogFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(), "EditPostDialogFragment");
                     }
                 });
@@ -138,10 +132,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                             int postPosition = posts.size() - adapterPosition - 1;
                             if (postPosition >= 0 && postPosition < posts.size()) {
                                 // Remove the post from the list
+                                final Post postToDelete = posts.get(postPosition);
+
+                                // Call the delete method in PostsViewModel to delete the post from the server
+                                postsViewModel.deletePost(postToDelete); // Assuming getId() returns the ID of the post
+
+                                // Remove the post from the list
                                 posts.remove(postPosition);
                                 // Notify the adapter that the item is removed
                                 notifyItemRemoved(adapterPosition);
-                                notifyItemRangeChanged(adapterPosition, getItemCount()); // Update any items that come after the removed one
+                                notifyItemRangeChanged(adapterPosition, getItemCount());
                             }
                         }
                     }

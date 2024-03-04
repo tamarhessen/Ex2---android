@@ -1,8 +1,5 @@
 package com.example.login.facebookdesign;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.login.R;
-import com.example.login.facebookdesign.Post;
+import com.example.login.viewModels.PostsViewModel;
 
 import java.io.IOException;
 
@@ -30,10 +25,12 @@ public class EditPostDialogFragment extends DialogFragment {
     private EditText editText;
     private ImageView imageView;
     private OnPostEditedListener onPostEditedListener;
+    private PostsViewModel postsViewModel;
 
-    public EditPostDialogFragment(Post post, OnPostEditedListener listener) {
+    public EditPostDialogFragment(Post post, OnPostEditedListener listener,PostsViewModel postsViewModel) {
         this.post = post;
         this.onPostEditedListener = listener;
+        this.postsViewModel=postsViewModel;
     }
 
     @Override
@@ -65,8 +62,10 @@ public class EditPostDialogFragment extends DialogFragment {
                 String updatedContent = editText.getText().toString();
                 // Update the post content
                 post.setPostText(updatedContent);
-                // Notify the listener that the post is edited
-                onPostEditedListener.onPostEdited(post);
+
+                // Call the editPost method of the PostViewModel to update the post
+                postsViewModel.editPost(post);
+
                 // Dismiss the dialog
                 dismiss();
             }

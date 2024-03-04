@@ -18,7 +18,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.example.login.network.WebServiceAPI;
+import com.example.login.API.WebServiceAPI;
 
 public class CommentAPI {
     private MutableLiveData<List<Comment>> commentListData;

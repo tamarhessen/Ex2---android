@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.network.WebServiceAPI;
+import com.example.login.API.WebServiceAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -33,6 +32,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button createButton;
     private Button loginButton;
+    private String displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class LogInActivity extends AppCompatActivity {
                             String tokenNow = response.body();
                             intent.putExtra("Token", tokenNow);
                             intent.putExtra("Username", username);
+                            intent.putExtra("Display name", displayName);
 
                             // Save the user information during login
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

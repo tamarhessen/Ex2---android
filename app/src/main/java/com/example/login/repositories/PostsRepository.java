@@ -5,12 +5,11 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.login.facebookdesign.LocalDB;
+import com.example.login.dataBase.LocalDB;
 import com.example.login.facebookdesign.Post;
-import com.example.login.facebookdesign.PostAPI;
-import com.example.login.facebookdesign.PostDB;
+import com.example.login.API.PostAPI;
+import com.example.login.dataBase.PostDB;
 import com.example.login.facebookdesign.PostDao;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -56,11 +55,21 @@ public class PostsRepository {
         dao.insert(post);
     }
 
-    public void delete(Post post) {
-      //  dao.delete(post);
+    public void deletePost(int postId, String authHeader) {
+        postAPI.deletePost(userId,postId, authHeader);
+        //dao.delete(post);
     }
 
     public void reload() {
         // Refresh the data if needed
+    }
+
+
+    public void editPost(int postId,Post updatedPost,String authHeader) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("postText", updatedPost.getPostText());
+        jsonObject.addProperty("postImg", updatedPost.getPostImg
+                ());
+        postAPI.editPost(userId,postId,jsonObject,authHeader);
     }
 }

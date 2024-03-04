@@ -6,10 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.login.R;
-import com.example.login.network.WebServiceAPI;
-import com.example.login.network.RetrofitClient;
-
-import retrofit2.Retrofit;
+import com.example.login.API.WebServiceAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize Retrofit
-        Retrofit retrofit = RetrofitClient.getClient();
+       // Retrofit retrofit = RetrofitClient.getClient();
 
         // Create an instance of the API interface
-        webServiceAPI = retrofit.create(WebServiceAPI.class);
+      //  webServiceAPI = retrofit.create(WebServiceAPI.class);
 
 
         // Start the LoginActivity when the MainActivity is created

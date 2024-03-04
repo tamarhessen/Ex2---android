@@ -27,7 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.network.WebServiceAPI;
+import com.example.login.API.WebServiceAPI;
+import com.example.login.dataBase.LocalDB;
+import com.example.login.dataBase.UserDB;
+import com.example.login.viewModels.UsersViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -55,15 +58,15 @@ public class UsersActivity extends AppCompatActivity {
                 if(result.getResultCode()== Activity.RESULT_OK) {
                     Intent data = result.getData();
                     String username = data.getStringExtra("Username");
-                    List<User> userList = viewModel.get().getValue();
-                    for(User user: userList) {
-                        if(user.getUser().getUsername().equals(username)){
+                    UserCreatePost user = viewModel.getCurrentUser(username).getValue();
+
+                        if(user.getUsername().equals(username)){
                             Toast.makeText(getApplicationContext(),"User already added",
                                     Toast.LENGTH_SHORT).show();
                             return;
-                        }
+
                     }
-                    viewModel.add(username,getApplicationContext());
+                   // viewModel.add(username,getApplicationContext());
 //                    Toast.makeText(getApplicationContext(),errorData.getErrorString(),
 //                            Toast.LENGTH_SHORT).show();
 
@@ -89,10 +92,10 @@ public class UsersActivity extends AppCompatActivity {
 //            users.add(new User("The pro", R.drawable.roundskunk,"Hi","10:00"));
 //        }
 //        users.add(new User("The shmo", R.drawable.boatinthewater2,"YO","10:01"));
-        viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+      //  viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
 //        listView = findViewById(R.id.list_view);
-        adapter = new UserAdapter(getApplicationContext(),viewModel.get().getValue());
-        listView.setAdapter(adapter);
+
+      //  listView.setAdapter(adapter);
 //        settings = findViewById(R.id.settingsButtton);
         addButton = findViewById(R.id.btnAdd);
 //        menuButton = findViewById(R.id.menuButton);
@@ -100,12 +103,12 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(),PostActivity.class);
-                User u = viewModel.get(position);
-                intent.putExtra("username", u.getUser().getUsername());
-                intent.putExtra("displayName", u.getUser().getDisplayName());
-                intent.putExtra("profilePic",u.getUser().getProfilePic());
-                intent.putExtra("id",u.getId());
-                startActivity(intent);
+          //      User u = viewModel.get(position);
+           //     intent.putExtra("username", u.getUser().getUsername());
+           //     intent.putExtra("displayName", u.getUser().getDisplayName());
+            //    intent.putExtra("profilePic",u.getUser().getProfilePic());
+            //    intent.putExtra("id",u.getId());
+            //    startActivity(intent);
             }
 
         });
@@ -122,10 +125,10 @@ public class UsersActivity extends AppCompatActivity {
             launcher.launch(intent);
             viewModel.refresh();
         });
-        viewModel.get().observe(this, users -> {
-            adapter = new UserAdapter(getApplicationContext(),users);
-            listView.setAdapter(adapter);
-        });
+     //   viewModel.get().observe(this, users -> {
+//            adapter = new UserAdapter(getApplicationContext(),users);
+//            listView.setAdapter(adapter);
+//        });
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
