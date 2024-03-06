@@ -40,7 +40,7 @@ public final class PostDao_Impl implements PostDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `Post` (`id`,`Creator`,`PostText`,`likes`,`timestamp`,`PostImg`,`CreatorImg`,`liked`,`Comments`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `Post` (`id`,`Creator`,`PostText`,`PostLikes`,`timestamp`,`PostImg`,`CreatorImg`,`liked`,`PeopleLiked`,`Comments`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -56,7 +56,7 @@ public final class PostDao_Impl implements PostDao {
         } else {
           statement.bindString(3, entity.getPostText());
         }
-        statement.bindLong(4, entity.getLikes());
+        statement.bindLong(4, entity.getPostLikes());
         statement.bindLong(5, entity.getTimestamp());
         if (entity.getPostImg() == null) {
           statement.bindNull(6);
@@ -70,11 +70,17 @@ public final class PostDao_Impl implements PostDao {
         }
         final int _tmp = entity.isLiked() ? 1 : 0;
         statement.bindLong(8, _tmp);
-        final String _tmp_1 = ListStringConverter.fromList(entity.getComments());
+        final String _tmp_1 = ListStringConverter.fromList(entity.getPeopleLiked());
         if (_tmp_1 == null) {
           statement.bindNull(9);
         } else {
           statement.bindString(9, _tmp_1);
+        }
+        final String _tmp_2 = ListStringConverter.fromList(entity.getComments());
+        if (_tmp_2 == null) {
+          statement.bindNull(10);
+        } else {
+          statement.bindString(10, _tmp_2);
         }
       }
     };
@@ -94,7 +100,7 @@ public final class PostDao_Impl implements PostDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `Post` SET `id` = ?,`Creator` = ?,`PostText` = ?,`likes` = ?,`timestamp` = ?,`PostImg` = ?,`CreatorImg` = ?,`liked` = ?,`Comments` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `Post` SET `id` = ?,`Creator` = ?,`PostText` = ?,`PostLikes` = ?,`timestamp` = ?,`PostImg` = ?,`CreatorImg` = ?,`liked` = ?,`PeopleLiked` = ?,`Comments` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -110,7 +116,7 @@ public final class PostDao_Impl implements PostDao {
         } else {
           statement.bindString(3, entity.getPostText());
         }
-        statement.bindLong(4, entity.getLikes());
+        statement.bindLong(4, entity.getPostLikes());
         statement.bindLong(5, entity.getTimestamp());
         if (entity.getPostImg() == null) {
           statement.bindNull(6);
@@ -124,13 +130,19 @@ public final class PostDao_Impl implements PostDao {
         }
         final int _tmp = entity.isLiked() ? 1 : 0;
         statement.bindLong(8, _tmp);
-        final String _tmp_1 = ListStringConverter.fromList(entity.getComments());
+        final String _tmp_1 = ListStringConverter.fromList(entity.getPeopleLiked());
         if (_tmp_1 == null) {
           statement.bindNull(9);
         } else {
           statement.bindString(9, _tmp_1);
         }
-        statement.bindLong(10, entity.getId());
+        final String _tmp_2 = ListStringConverter.fromList(entity.getComments());
+        if (_tmp_2 == null) {
+          statement.bindNull(10);
+        } else {
+          statement.bindString(10, _tmp_2);
+        }
+        statement.bindLong(11, entity.getId());
       }
     };
     this.__preparedStmtOfClear = new SharedSQLiteStatement(__db) {
@@ -218,11 +230,12 @@ public final class PostDao_Impl implements PostDao {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
       final int _cursorIndexOfCreator = CursorUtil.getColumnIndexOrThrow(_cursor, "Creator");
       final int _cursorIndexOfPostText = CursorUtil.getColumnIndexOrThrow(_cursor, "PostText");
-      final int _cursorIndexOfLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "likes");
+      final int _cursorIndexOfPostLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "PostLikes");
       final int _cursorIndexOfTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "timestamp");
       final int _cursorIndexOfPostImg = CursorUtil.getColumnIndexOrThrow(_cursor, "PostImg");
       final int _cursorIndexOfCreatorImg = CursorUtil.getColumnIndexOrThrow(_cursor, "CreatorImg");
       final int _cursorIndexOfLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "liked");
+      final int _cursorIndexOfPeopleLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "PeopleLiked");
       final int _cursorIndexOfComments = CursorUtil.getColumnIndexOrThrow(_cursor, "Comments");
       final List<Post> _result = new ArrayList<Post>(_cursor.getCount());
       while (_cursor.moveToNext()) {
@@ -245,9 +258,9 @@ public final class PostDao_Impl implements PostDao {
           _tmpPostText = _cursor.getString(_cursorIndexOfPostText);
         }
         _item.setPostText(_tmpPostText);
-        final int _tmpLikes;
-        _tmpLikes = _cursor.getInt(_cursorIndexOfLikes);
-        _item.setLikes(_tmpLikes);
+        final int _tmpPostLikes;
+        _tmpPostLikes = _cursor.getInt(_cursorIndexOfPostLikes);
+        _item.setPostLikes(_tmpPostLikes);
         final long _tmpTimestamp;
         _tmpTimestamp = _cursor.getLong(_cursorIndexOfTimestamp);
         _item.setTimestamp(_tmpTimestamp);
@@ -270,14 +283,23 @@ public final class PostDao_Impl implements PostDao {
         _tmp = _cursor.getInt(_cursorIndexOfLiked);
         _tmpLiked = _tmp != 0;
         _item.setLiked(_tmpLiked);
-        final List<String> _tmpComments;
+        final List<String> _tmpPeopleLiked;
         final String _tmp_1;
-        if (_cursor.isNull(_cursorIndexOfComments)) {
+        if (_cursor.isNull(_cursorIndexOfPeopleLiked)) {
           _tmp_1 = null;
         } else {
-          _tmp_1 = _cursor.getString(_cursorIndexOfComments);
+          _tmp_1 = _cursor.getString(_cursorIndexOfPeopleLiked);
         }
-        _tmpComments = ListStringConverter.fromString(_tmp_1);
+        _tmpPeopleLiked = ListStringConverter.fromString(_tmp_1);
+        _item.setPeopleLiked(_tmpPeopleLiked);
+        final List<String> _tmpComments;
+        final String _tmp_2;
+        if (_cursor.isNull(_cursorIndexOfComments)) {
+          _tmp_2 = null;
+        } else {
+          _tmp_2 = _cursor.getString(_cursorIndexOfComments);
+        }
+        _tmpComments = ListStringConverter.fromString(_tmp_2);
         _item.setComments(_tmpComments);
         _result.add(_item);
       }
@@ -300,11 +322,12 @@ public final class PostDao_Impl implements PostDao {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
       final int _cursorIndexOfCreator = CursorUtil.getColumnIndexOrThrow(_cursor, "Creator");
       final int _cursorIndexOfPostText = CursorUtil.getColumnIndexOrThrow(_cursor, "PostText");
-      final int _cursorIndexOfLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "likes");
+      final int _cursorIndexOfPostLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "PostLikes");
       final int _cursorIndexOfTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "timestamp");
       final int _cursorIndexOfPostImg = CursorUtil.getColumnIndexOrThrow(_cursor, "PostImg");
       final int _cursorIndexOfCreatorImg = CursorUtil.getColumnIndexOrThrow(_cursor, "CreatorImg");
       final int _cursorIndexOfLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "liked");
+      final int _cursorIndexOfPeopleLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "PeopleLiked");
       final int _cursorIndexOfComments = CursorUtil.getColumnIndexOrThrow(_cursor, "Comments");
       final Post _result;
       if (_cursor.moveToFirst()) {
@@ -326,9 +349,9 @@ public final class PostDao_Impl implements PostDao {
           _tmpPostText = _cursor.getString(_cursorIndexOfPostText);
         }
         _result.setPostText(_tmpPostText);
-        final int _tmpLikes;
-        _tmpLikes = _cursor.getInt(_cursorIndexOfLikes);
-        _result.setLikes(_tmpLikes);
+        final int _tmpPostLikes;
+        _tmpPostLikes = _cursor.getInt(_cursorIndexOfPostLikes);
+        _result.setPostLikes(_tmpPostLikes);
         final long _tmpTimestamp;
         _tmpTimestamp = _cursor.getLong(_cursorIndexOfTimestamp);
         _result.setTimestamp(_tmpTimestamp);
@@ -351,14 +374,23 @@ public final class PostDao_Impl implements PostDao {
         _tmp = _cursor.getInt(_cursorIndexOfLiked);
         _tmpLiked = _tmp != 0;
         _result.setLiked(_tmpLiked);
-        final List<String> _tmpComments;
+        final List<String> _tmpPeopleLiked;
         final String _tmp_1;
-        if (_cursor.isNull(_cursorIndexOfComments)) {
+        if (_cursor.isNull(_cursorIndexOfPeopleLiked)) {
           _tmp_1 = null;
         } else {
-          _tmp_1 = _cursor.getString(_cursorIndexOfComments);
+          _tmp_1 = _cursor.getString(_cursorIndexOfPeopleLiked);
         }
-        _tmpComments = ListStringConverter.fromString(_tmp_1);
+        _tmpPeopleLiked = ListStringConverter.fromString(_tmp_1);
+        _result.setPeopleLiked(_tmpPeopleLiked);
+        final List<String> _tmpComments;
+        final String _tmp_2;
+        if (_cursor.isNull(_cursorIndexOfComments)) {
+          _tmp_2 = null;
+        } else {
+          _tmp_2 = _cursor.getString(_cursorIndexOfComments);
+        }
+        _tmpComments = ListStringConverter.fromString(_tmp_2);
         _result.setComments(_tmpComments);
       } else {
         _result = null;
@@ -383,11 +415,12 @@ public final class PostDao_Impl implements PostDao {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfCreator = CursorUtil.getColumnIndexOrThrow(_cursor, "Creator");
           final int _cursorIndexOfPostText = CursorUtil.getColumnIndexOrThrow(_cursor, "PostText");
-          final int _cursorIndexOfLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "likes");
+          final int _cursorIndexOfPostLikes = CursorUtil.getColumnIndexOrThrow(_cursor, "PostLikes");
           final int _cursorIndexOfTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "timestamp");
           final int _cursorIndexOfPostImg = CursorUtil.getColumnIndexOrThrow(_cursor, "PostImg");
           final int _cursorIndexOfCreatorImg = CursorUtil.getColumnIndexOrThrow(_cursor, "CreatorImg");
           final int _cursorIndexOfLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "liked");
+          final int _cursorIndexOfPeopleLiked = CursorUtil.getColumnIndexOrThrow(_cursor, "PeopleLiked");
           final int _cursorIndexOfComments = CursorUtil.getColumnIndexOrThrow(_cursor, "Comments");
           final List<Post> _result = new ArrayList<Post>(_cursor.getCount());
           while (_cursor.moveToNext()) {
@@ -410,9 +443,9 @@ public final class PostDao_Impl implements PostDao {
               _tmpPostText = _cursor.getString(_cursorIndexOfPostText);
             }
             _item.setPostText(_tmpPostText);
-            final int _tmpLikes;
-            _tmpLikes = _cursor.getInt(_cursorIndexOfLikes);
-            _item.setLikes(_tmpLikes);
+            final int _tmpPostLikes;
+            _tmpPostLikes = _cursor.getInt(_cursorIndexOfPostLikes);
+            _item.setPostLikes(_tmpPostLikes);
             final long _tmpTimestamp;
             _tmpTimestamp = _cursor.getLong(_cursorIndexOfTimestamp);
             _item.setTimestamp(_tmpTimestamp);
@@ -435,14 +468,23 @@ public final class PostDao_Impl implements PostDao {
             _tmp = _cursor.getInt(_cursorIndexOfLiked);
             _tmpLiked = _tmp != 0;
             _item.setLiked(_tmpLiked);
-            final List<String> _tmpComments;
+            final List<String> _tmpPeopleLiked;
             final String _tmp_1;
-            if (_cursor.isNull(_cursorIndexOfComments)) {
+            if (_cursor.isNull(_cursorIndexOfPeopleLiked)) {
               _tmp_1 = null;
             } else {
-              _tmp_1 = _cursor.getString(_cursorIndexOfComments);
+              _tmp_1 = _cursor.getString(_cursorIndexOfPeopleLiked);
             }
-            _tmpComments = ListStringConverter.fromString(_tmp_1);
+            _tmpPeopleLiked = ListStringConverter.fromString(_tmp_1);
+            _item.setPeopleLiked(_tmpPeopleLiked);
+            final List<String> _tmpComments;
+            final String _tmp_2;
+            if (_cursor.isNull(_cursorIndexOfComments)) {
+              _tmp_2 = null;
+            } else {
+              _tmp_2 = _cursor.getString(_cursorIndexOfComments);
+            }
+            _tmpComments = ListStringConverter.fromString(_tmp_2);
             _item.setComments(_tmpComments);
             _result.add(_item);
           }

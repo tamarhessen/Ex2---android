@@ -30,7 +30,7 @@ public interface WebServiceAPI {
     Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
                                   @Header("Authorization") String authHeader);
     @POST("users/{id}/posts")
-    Call<Void> createPost(@Path("id") String userId, @Body JsonObject post, @Header("Authorization") String authHeader);
+    Call<Post> createPost(@Path("id") String userId, @Body JsonObject post, @Header("Authorization") String authHeader);
     @GET("posts") // Route for getting posts
     Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
 
@@ -48,6 +48,8 @@ public interface WebServiceAPI {
     Call<List<User>> getUsers(@Header("Authorization") String authHeader);
 
 
+    @POST("posts/{id}") // Route for liking a post
+    Call<Void> likePost(@Path("id") int postId, @Header("Authorization") String authHeader);
 
     @GET("Posts/{id}/Comments")
     Call<List<Comment>> getComments(@Path("id") int id,
@@ -58,10 +60,10 @@ public interface WebServiceAPI {
                            @Header("Authorization") String authHeader);
     @DELETE("users/{id}/posts/{pid}") // Route for deleting a post
     Call<Void> deletePost( @Path("pid") int postId, @Header("Authorization") String authHeader);
-    @PUT("users/{id}/posts/{pid}") // Route for editing a post (using PUT method)
+    @PUT("users/{id}/posts/{pid}")
     Call<Void> editPost(@Path("id") String userId, @Path("pid") int postId, @Body JsonObject post, @Header("Authorization") String authHeader);
-    @PATCH("users/{id}/posts/{pid}") // Route for editing a post (using PATCH method)
-    Call<Void> editPostPatch(@Path("id") String userId, @Path("pid") int postId, @Body JsonObject post, @Header("Authorization") String authHeader);
 
+    @PATCH("users/{id}/posts/{pid}")
+    Call<Void> editPostPatch(@Path("id") String userId, @Path("pid") int postId, @Body JsonObject post, @Header("Authorization") String authHeader);
 
 }

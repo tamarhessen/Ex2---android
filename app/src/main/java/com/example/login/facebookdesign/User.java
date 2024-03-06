@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.util.List;
+
 @Entity(tableName = "user")
 @TypeConverters({UserNoPasswordConverter.class, CommentDetailsConventor.class})
 public class User {
@@ -14,7 +16,7 @@ public class User {
     private int id;
     private String username; // Change to String type
     private UserNoPassword user;
-    public CommentDetails lastComment; // Make it public
+    public CommentDetails lastComment;
 
     public User(int id, String username, UserNoPassword user, CommentDetails lastComment) {
         this.id = id;

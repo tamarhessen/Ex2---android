@@ -39,7 +39,7 @@ public class PostsRepository {
 
     public LiveData<List<Post>> getAll() {
         // Make API call to fetch posts
-        postAPI.get();
+        postAPI.get(userId);
 
         // Return LiveData
         return postListData;
@@ -48,8 +48,14 @@ public class PostsRepository {
     public void add(Post post) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", post.getPostText());
-        jsonObject.addProperty("postImg", post.getPostImg
-                ());
+        if(post.getPostImg()!=null) {
+            jsonObject.addProperty("postImg", post.getPostImg
+
+                    ());
+        }
+        else {
+            jsonObject.addProperty("postImg", "");
+        }
 
         postAPI.createPost(userId, jsonObject, token);
         dao.insert(post);
@@ -71,5 +77,18 @@ public class PostsRepository {
         jsonObject.addProperty("postImg", updatedPost.getPostImg
                 ());
         postAPI.editPost(userId,postId,jsonObject,authHeader);
+        dao.update(updatedPost);
+
+    }
+    public void likepost(int postId,String token,Post post){
+        postAPI.likePost(postId,token, post);
+    }
+
+    public LiveData<List<Post>> refreshPosts() {
+        postAPI.get(userId);
+
+        // Return LiveData
+        return postListData;
+
     }
 }

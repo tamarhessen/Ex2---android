@@ -3278,9 +3278,11 @@ id bounceEnd
 id bounceStart
 id btnAdd
 id btn_add_friend
+id btn_cancel
 id btn_edit_profile
 id btn_more
 id btn_profile_picture
+id btn_save
 id btn_select_image
 id btn_send_message
 id btn_sign_up
@@ -3290,6 +3292,7 @@ id cache_measures
 id callMeasure
 id cancel_button
 id cardView
+id card_profile_picture
 id carryVelocity
 id center
 id centerCrop
@@ -3379,6 +3382,8 @@ id edit_confirm_password
 id edit_display_name
 id edit_password
 id edit_query
+id edit_text_display_name
+id edit_text_username
 id edit_username
 id elastic
 id embed
@@ -3905,6 +3910,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout edit_post_dialog
+layout edit_profile_dialog
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

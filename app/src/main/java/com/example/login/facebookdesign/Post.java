@@ -2,6 +2,7 @@ package com.example.login.facebookdesign;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.SavedStateHandle;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -20,28 +21,31 @@ public class Post {
     private int id;
     private String Creator;
     private String PostText;
-    private int likes;
+    private int PostLikes;
     private long timestamp;
     private String PostImg;
     private String CreatorImg;
     private boolean liked;
+    private List<String> PeopleLiked;
+
     private List<String> Comments;
 
     public Post() {
         // Default constructor
     }
 
-    public Post(String creator, String postText, String pic, int likes, String CreatorImg,long timestamp) {
+    public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,long timestamp) {
         this.Creator = creator;
         this.PostText = postText;
         this.PostImg
                 = pic;
-        this.likes = likes;
+        this.PostLikes = likes;
         this.CreatorImg = CreatorImg;
         this.liked=false;
         Comments = new ArrayList<>();
         this.timestamp = timestamp;
-        this.id=0;
+        this.PeopleLiked=peopleLiked;
+
     }
 
     public int getId() {
@@ -59,7 +63,12 @@ public class Post {
     public void setPostText(String postText) {
         this.PostText = postText;
     }
-
+    public List<String> getPeopleLiked() {
+        return PeopleLiked;
+    }
+    public void setPeopleLiked(List<String> peopleLiked){
+        this.PeopleLiked=peopleLiked;
+    }
     public String getCreator() {
         return Creator;
     }
@@ -68,12 +77,12 @@ public class Post {
         this.Creator = creator;
     }
 
-    public int getLikes() {
-        return likes;
+    public int getPostLikes() {
+        return PostLikes;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setPostLikes(int likes) {
+        this.PostLikes = likes;
     }
 
     public String getPostImg
@@ -150,6 +159,19 @@ public class Post {
 
     public void setComments(List<String> comments) {
         this.Comments = comments;
+    }
+
+    public List<String> getLikedUsers() {
+        // Initialize an empty list to store liked users
+        List<String> likedUsers = new ArrayList<>();
+
+        // If the post is liked, add the creator to the list of liked users
+        if (liked) {
+            likedUsers.add(Creator);
+        }
+
+        // Return the list of liked users
+        return likedUsers;
     }
 
 }

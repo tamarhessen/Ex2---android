@@ -58,7 +58,7 @@ public class UsersActivity extends AppCompatActivity {
                 if(result.getResultCode()== Activity.RESULT_OK) {
                     Intent data = result.getData();
                     String username = data.getStringExtra("Username");
-                    UserCreatePost user = viewModel.getCurrentUser(username).getValue();
+                    UserCreatePost user = viewModel.getCurrentUser(username,token).getValue();
 
                         if(user.getUsername().equals(username)){
                             Toast.makeText(getApplicationContext(),"User already added",

@@ -22,17 +22,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>
         implements EditPostDialogFragment.OnPostEditedListener {
 
     private final LayoutInflater mInflater;
-    private static List<Post> posts;
+    private List<Post> posts;
     private String currentUserUsername;
     private String currentDisplayName;
     private final Context mContext;
     private PostsViewModel postsViewModel;
+
     private String CurrentDisplayName;
 
     public PostAdapter(Context context, String currentUserUsername,PostsViewModel postsViewModel,String currentDisplayName) {
@@ -41,6 +43,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         mContext = context; // Initialize the context
         this.postsViewModel=postsViewModel;
         this.currentDisplayName = currentDisplayName;
+        this.posts = new ArrayList<>();
     }
 
     @NonNull
@@ -53,25 +56,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull final PostViewHolder holder, int position) {
         if (posts != null && !posts.isEmpty()) {
-            final Post current = posts.get(posts.size() - position - 1);  // Reverse the position
+            final Post current = posts.get(position);
             holder.tvAuthor.setText(current.getCreator());
             holder.tvContent.setText(current.getPostText());
 
             // Set the Bitmap objects to the ImageViews in the ViewHolder
-            holder.ivPic.setImageBitmap(BitmapConverter.stringToBitmap(current.getPostImg
-                    ()));
-            holder.profilePic.setImageBitmap(BitmapConverter.stringToBitmap(current.getCreatorImg()));
-
-            if (current.getPostImg
-                    () != null) {
+            if (!Objects.equals(current.getPostImg(), "")) {
                 holder.ivPic.setVisibility(View.VISIBLE);
                 holder.cardView.setVisibility(View.VISIBLE);
+                holder.ivPic.setImageBitmap(BitmapConverter.stringToBitmap(current.getPostImg()));
             } else {
                 holder.ivPic.setVisibility(View.GONE);
                 holder.cardView.setVisibility(View.GONE);
             }
 
-            holder.tvLikes.setText(String.valueOf(current.getLikes()));
+            holder.profilePic.setImageBitmap(BitmapConverter.stringToBitmap(current.getCreatorImg()));
+            if (current.isLiked()) {
+                holder.likeButton.setImageResource(R.drawable.liked);
+            } else {
+                holder.likeButton.setImageResource(R.drawable.not_liked);
+            }
+
+            holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
             holder.shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,14 +93,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     current.setLiked(!current.isLiked());
 
                     // Update the number of likes
-                    int currentLikes = current.getLikes();
-                    current.setLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
-                    holder.tvLikes.setText(String.valueOf(current.getLikes()));
+                    int currentLikes = current.getPostLikes();
+                    current.setPostLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
+                    holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
+                    postsViewModel.likePost(current.getId(), postsViewModel.getToken(),current);
                     if (current.isLiked()) {
                         holder.likeButton.setImageResource(R.drawable.liked);
                     } else {
                         holder.likeButton.setImageResource(R.drawable.not_liked);
                     }
+
                 }
             });
             // Handle click event of the comments button
@@ -119,30 +127,40 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     @Override
                     public void onClick(View v) {
                         // Create and show the EditPostDialogFragment
-                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, PostAdapter.this,postsViewModel);
+                        EditPostDialogFragment dialogFragment = new EditPostDialogFragment(current, new EditPostDialogFragment.OnPostEditedListener() {
+                            @Override
+                            public void onPostEdited(Post editedPost) {
+                                // Handle the edited post here
+                                int editedPostIndex = posts.indexOf(current);
+                                if (editedPostIndex != -1) {
+                                    // Update the post in the dataset with the edited post
+                                    posts.set(editedPostIndex, editedPost);
+                                    // Notify the adapter that the data has changed at the edited post index
+                                    notifyItemChanged(posts.size() - editedPostIndex - 1);
+                                }
+                            }
+                        }, postsViewModel);
                         dialogFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(), "EditPostDialogFragment");
                     }
                 });
                 holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int adapterPosition = holder.getAdapterPosition();
-                        if (adapterPosition != RecyclerView.NO_POSITION) {
-                            // Get the correct post position in the original list
-                            int postPosition = posts.size() - adapterPosition - 1;
-                            if (postPosition >= 0 && postPosition < posts.size()) {
-                                // Remove the post from the list
-                                final Post postToDelete = posts.get(postPosition);
+                        int postPosition = holder.getAdapterPosition(); // Get the adapter position of the clicked item
+                        if (postPosition != RecyclerView.NO_POSITION) {
+                            // Remove the post from the list
+                            postsViewModel.refreshPosts();
+                            final Post postToDelete = posts.get(postPosition);
 
-                                // Call the delete method in PostsViewModel to delete the post from the server
-                                postsViewModel.deletePost(postToDelete); // Assuming getId() returns the ID of the post
+                            // Call the delete method in PostsViewModel to delete the post from the server
+                            postsViewModel.deletePost(postToDelete); // Assuming getId() returns the ID of the post
+                            // Remove the post from the list
+                            posts.remove(postPosition);
+                            // Notify the adapter that the item is removed
 
-                                // Remove the post from the list
-                                posts.remove(postPosition);
-                                // Notify the adapter that the item is removed
-                                notifyItemRemoved(adapterPosition);
-                                notifyItemRangeChanged(adapterPosition, getItemCount());
-                            }
+                            notifyItemRemoved(postPosition);
+                            notifyItemRangeChanged(postPosition, getItemCount());
+
                         }
                     }
                 });
@@ -183,7 +201,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
 
 
-        posts.add(post);
+        posts.add(0, post);
         notifyDataSetChanged();
     }
 
@@ -200,10 +218,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onPostEdited(Post post) {
         int editedPostIndex = posts.indexOf(post);
         if (editedPostIndex != -1) {
+            // Update the post in the dataset with the edited post
             posts.set(editedPostIndex, post);
+            // Notify the adapter that the data has changed at the edited post index
             notifyItemChanged(posts.size() - editedPostIndex - 1);
         }
     }
+
+
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvAuthor;

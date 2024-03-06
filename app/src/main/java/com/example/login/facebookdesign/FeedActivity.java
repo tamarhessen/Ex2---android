@@ -99,7 +99,7 @@ public class FeedActivity extends AppCompatActivity {
                 adapter.setPosts(posts);
             }
         });
-        setUpRecyclerView();
+
         fetchAndDisplayPosts();
     }
 
@@ -120,19 +120,21 @@ public class FeedActivity extends AppCompatActivity {
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
-            String token = activityIntent.getStringExtra("Token");
-            String username = activityIntent.getStringExtra("Username");
+             token = activityIntent.getStringExtra("Token");
+             username = activityIntent.getStringExtra("Username");
             usersViewModel.setToken(token);
             usersViewModel.setUserid(username);
 
             // Trigger the network request to fetch user data
-            usersViewModel.getCurrentUser(username).observe(this, new Observer<UserCreatePost>() {
+            usersViewModel.getCurrentUser(username,token).observe(this, new Observer<UserCreatePost>() {
                 @Override
                 public void onChanged(UserCreatePost userCreatePost) {
                     // Display user data or handle the single userCreatePost object as needed
                     // Example: Set the profile picture
                     ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
                     setAsImage(userCreatePost.getProfilePic(), profilePictureImageView);
+                    displayName=userCreatePost.getDisplayName();
+                    setUpRecyclerView();
                 }
             });
         }
@@ -190,7 +192,8 @@ public class FeedActivity extends AppCompatActivity {
         profilePictureButton.setOnClickListener(v -> {
             Intent intent = new Intent(FeedActivity.this,MyProfileActivity.class);
             intent.putExtra("Username", username);
-            intent.putExtra("ProfilePicture", profilePictureByteArray); // Pass the profile picture byte array
+            intent.putExtra("ProfilePicture", profilePictureByteArray);
+            intent.putExtra("Token",token);// Pass the profile picture byte array
             startActivity(intent);
 
 
@@ -206,32 +209,24 @@ public class FeedActivity extends AppCompatActivity {
     // This method will be called when returning from NewPostActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap profileImageBitmap = null;
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_NEW_POST && resultCode == RESULT_OK && data != null) {
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");
-            Intent activityIntent = getIntent();
 
-            username = activityIntent.getStringExtra("Username");
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.baseURL)
-                    .addConverterFactory(GsonConverterFactory.create()).build();
-            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-            Call<UserCreatePost> call = webServiceAPI.getUser(username,
-                    "Bearer " + activityIntent.getStringExtra("Token"));
+            // Call the API to fetch user data
+            Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);
             call.enqueue(new Callback<UserCreatePost>() {
                 @Override
                 public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
                     if (response.isSuccessful()) {
                         UserCreatePost user = response.body();
-                        // Update views with fetched data
                         if (user != null) {
-                            Log.d("onResponse", "Successfully fetched user data. Display name: " + username);
-                            String displayMane= user.getDisplayName();
+                            Log.d("onResponse", "Successfully fetched user data. Display name: " + user.getDisplayName());
 
                             // Set profile picture
                             String profilePic = user.getProfilePic();
-                            if (profilePic != null && !profilePic.equals(MainActivity.defaultPfp)) {
+                            if (profilePic != null && !profilePic.equals(defaultPfp)) {
                                 byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
                                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                                 Bitmap profileImageBitmap = decodedByte;
@@ -239,10 +234,13 @@ public class FeedActivity extends AppCompatActivity {
                                 long currentTimeMillis = System.currentTimeMillis();
                                 String postImage = BitmapConverter.bitmapToString(postImageBitmap);
                                 String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
-                                Post newPost = new Post(displayMane, postText, postImage, 0, profileImage,currentTimeMillis);
+                                Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTimeMillis);
+
+                                // Add new post to ViewModel
                                 postsViewModel.addPost(newPost);
-                                // Add the new post to the adapter
-                                adapter.addPost(newPost);
+
+                                // Refresh the RecyclerView
+                                fetchAndDisplayPosts();
                             }
                         }
                     } else {
@@ -251,15 +249,13 @@ public class FeedActivity extends AppCompatActivity {
                 }
 
                 @Override
-
                 public void onFailure(Call<UserCreatePost> call, Throwable t) {
                     Log.e("onFailure", "Failed to fetch user data. Error message: " + t.getMessage());
-
                 }
             });
-
         }
     }
+
 
 
 

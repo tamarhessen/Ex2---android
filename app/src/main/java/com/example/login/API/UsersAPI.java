@@ -51,7 +51,7 @@ public class UsersAPI {
     }
 
 
-    public LiveData<UserCreatePost> get(String username) {
+    public LiveData<UserCreatePost> get(String username,String token) {
         MutableLiveData<UserCreatePost> userLiveData = new MutableLiveData<>();
 
         Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);

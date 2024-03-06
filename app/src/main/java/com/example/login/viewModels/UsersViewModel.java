@@ -26,8 +26,8 @@ public class UsersViewModel extends ViewModel {
         repository = new UsersRepository(userDao,userid);
         users = repository.getAll();
     }
-    public LiveData<UserCreatePost> getCurrentUser(String userid) {
-        return repository.getCurrentUser(userid);
+    public LiveData<UserCreatePost> getCurrentUser(String userid,String token) {
+        return repository.getCurrentUser(userid,token);
     }
     public LiveData<List<User>> getAll() {
         return users;
@@ -38,7 +38,7 @@ public class UsersViewModel extends ViewModel {
     }
 
     public void refresh() {
-        repository.refresh();
+        repository.refresh(token);
     }
 
     public void add(UserCreatePost userCreatePost, Context context) {

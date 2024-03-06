@@ -74,14 +74,17 @@ id bellimg
 id bottomLayout
 id btnAdd
 id btn_add_friend
+id btn_cancel
 id btn_edit_profile
 id btn_more
 id btn_profile_picture
+id btn_save
 id btn_select_image
 id btn_send_message
 id btn_sign_up
 id btn_to_story
 id cardView
+id card_profile_picture
 id check_terms_conditions
 id chooseImageButton
 id click
@@ -100,6 +103,8 @@ id editButton
 id edit_confirm_password
 id edit_display_name
 id edit_password
+id edit_text_display_name
+id edit_text_username
 id edit_username
 id facebookLogo
 id facebook_logo
@@ -171,6 +176,7 @@ layout activity_users
 layout comments
 layout custom_list_item
 layout edit_post_dialog
+layout edit_profile_dialog
 layout my_profile_page
 layout one_comment
 layout post_layout

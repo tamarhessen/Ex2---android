@@ -1,20 +1,24 @@
 package com.example.login.facebookdesign;
 
+import static com.example.login.facebookdesign.MainActivity.defaultPfp;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
+import com.example.login.viewModels.UsersViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,84 +26,110 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MyProfileActivity  extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity {
 
     private ImageView profilePictureImageView;
     private TextView displayNameTextView;
+    private UsersViewModel usersViewModel;
     private String username;
+    private String token;
+    private String displayName;
+    private Button editProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_profile_page);
+
+        // Initialize views
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
+        editProfile = findViewById(R.id.btn_edit_profile);
 
-        // Assuming you have initialized RecyclerViews for friends and posts
-        RecyclerView recyclerViewFriends = findViewById(R.id.recycler_friends);
-        RecyclerView recyclerViewPosts = findViewById(R.id.recycler_posts);
+        // Initialize UsersViewModel
+        usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
 
-        // Set layout manager for RecyclerViews
-        recyclerViewFriends.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
+        // Set click listener for edit button
+        editProfile.setOnClickListener(v -> {
+            // Open edit profile dialog fragment
+            openEditProfileDialog();
+        });
+
         // Fetch user data
         fetchUserData();
-//        // Create adapters for RecyclerViews and set them
-//        FriendsAdapter friendsAdapter = new FriendsAdapter(/* pass data here if needed */);
-//        recyclerViewFriends.setAdapter(friendsAdapter);
 
-//        PostAdapter postsAdapter = new PostAdapter(/* pass data here if needed */);
-//        recyclerViewPosts.setAdapter(postsAdapter);
-
-        // Add more initialization code as needed for buttons, text views, etc.
+        // Retrieve the profile picture byte array from Intent extras
+        byte[] profilePictureByteArray = getIntent().getByteArrayExtra("ProfilePicture");
+        if (profilePictureByteArray != null) {
+            // Convert the byte array to Bitmap and set it to the profile picture ImageView
+            Bitmap bitmap = BitmapFactory.decodeByteArray(profilePictureByteArray, 0, profilePictureByteArray.length);
+            profilePictureImageView.setImageBitmap(bitmap);
+        }
     }
+
+    private void openEditProfileDialog() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        EditProfileDialogFragment editProfileDialogFragment = new EditProfileDialogFragment();
+        editProfileDialogFragment.show(fragmentManager, "EditProfileDialogFragment");
+    }
+
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
-            // Check if username is passed from the previous activity
+            token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
-        }
+            usersViewModel.setToken(token);
+            usersViewModel.setUserid(username);
 
-        // Fetch user data from server if username is available
-        if (username != null) {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.baseURL)
-                    .addConverterFactory(GsonConverterFactory.create()).build();
-            WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-            Call<UserCreatePost> call = webServiceAPI.getUser(username,
-                    "Bearer " + activityIntent.getStringExtra("Token"));
-            call.enqueue(new Callback<UserCreatePost>() {
+            // Observe user data
+            usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
                 @Override
-                public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
-                    if (response.isSuccessful()) {
-                        UserCreatePost user = response.body();
-                        Log.d("MenuActivity", "User data fetched successfully: " + user.toString());
-                        // Update views with fetched data
-                        updateViews(user);
-                    } else {
-                        Log.e("MenuActivity", "Failed to fetch user data: " + response.message());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserCreatePost> call, Throwable t) {
-                    Log.e("MenuActivity", "Error fetching user data: " + t.getMessage());
+                public void onChanged(UserCreatePost userCreatePost) {
+                    // Display user data or handle the single userCreatePost object as needed
+                    // Example: Set the profile picture
+                    setProfilePicture(userCreatePost.getProfilePic());
+                    setDisplayName(userCreatePost.getDisplayName());
                 }
             });
         }
     }
 
-    private void updateViews(UserCreatePost user) {
-        if (user != null) {
-            // Set display name
-            displayNameTextView.setText(user.getDisplayName());
-
-            // Set profile picture
-            String profilePic = user.getProfilePic();
-            if (profilePic != null && !profilePic.equals(MainActivity.defaultPfp)) {
-                byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                profilePictureImageView.setImageBitmap(decodedByte);
-            }
+    private void setProfilePicture(String profilePicBase64) {
+        if (profilePicBase64 != null && !profilePicBase64.equals(defaultPfp)) {
+            byte[] decodedString = Base64.decode(profilePicBase64, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            profilePictureImageView.setImageBitmap(decodedByte);
+        } else {
+            // Set a default profile picture if profilePicBase64 is null or defaultPfp
+            profilePictureImageView.setImageResource(R.drawable.facebook_logo);
         }
     }
 
+    private void setDisplayName(String displayName) {
+        displayNameTextView.setText(displayName);
+    }
+
+    public static void setAsImage(String strBase64, ImageView imageView) {
+        if(strBase64.equals(defaultPfp)){
+//            imageView.setImageResource(R.drawable.defaultprofilepic);
+        } else {
+            byte[] decodedString = Base64.decode(strBase64, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            imageView.setImageBitmap(decodedByte);
+        }
+
+    }
+
+    private void updateViews(UserCreatePost user) {
+        // Set display name
+        displayNameTextView.setText(user.getDisplayName());
+
+        // Set profile picture
+        String profilePic = user.getProfilePic();
+        if (profilePic != null && !profilePic.equals(MainActivity.defaultPfp)) {
+            byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            profilePictureImageView.setImageBitmap(decodedByte);
+        }
+    }
 }

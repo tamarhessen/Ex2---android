@@ -35,6 +35,7 @@ public class PostsViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Post>> getPosts() {
+        posts = repository.getAll();
         return posts;
     }
 
@@ -72,5 +73,12 @@ public class PostsViewModel extends AndroidViewModel {
         // Perform the edit post action here, such as making a network request or updating a local database
         // After editing, update the LiveData if necessary
         repository.editPost(updatedPost.getId(),updatedPost,token);
+    }
+    public void likePost(int postId, String token,Post post){
+        repository.likepost(postId,token, post);
+    }
+    public LiveData<List<Post>> refreshPosts() {
+        posts=repository.refreshPosts();
+        return posts;
     }
 }

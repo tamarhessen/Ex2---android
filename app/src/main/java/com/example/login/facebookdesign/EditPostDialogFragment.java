@@ -1,6 +1,8 @@
 package com.example.login.facebookdesign;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,10 +29,10 @@ public class EditPostDialogFragment extends DialogFragment {
     private OnPostEditedListener onPostEditedListener;
     private PostsViewModel postsViewModel;
 
-    public EditPostDialogFragment(Post post, OnPostEditedListener listener,PostsViewModel postsViewModel) {
+    public EditPostDialogFragment(Post post, OnPostEditedListener listener, PostsViewModel postsViewModel) {
         this.post = post;
         this.onPostEditedListener = listener;
-        this.postsViewModel=postsViewModel;
+        this.postsViewModel = postsViewModel;
     }
 
     @Override
@@ -42,8 +44,7 @@ public class EditPostDialogFragment extends DialogFragment {
         // Populate the fields with the current post details
         editText.setText(post.getPostText());
 
-        imageView.setImageBitmap(BitmapConverter.stringToBitmap(post.getPostImg
-                ()));
+        imageView.setImageBitmap(BitmapConverter.stringToBitmap(post.getPostImg()));
 
         // Set click listener for the image view to allow changing the picture
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +67,14 @@ public class EditPostDialogFragment extends DialogFragment {
                 // Call the editPost method of the PostViewModel to update the post
                 postsViewModel.editPost(post);
 
+                // Notify the listener that the post has been edited
+                onPostEditedListener.onPostEdited(post);
+
                 // Dismiss the dialog
                 dismiss();
             }
         });
+
         Button chooseImageButton = view.findViewById(R.id.chooseImageButton);
         chooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,18 +99,41 @@ public class EditPostDialogFragment extends DialogFragment {
             Uri imageUri = data.getData();
 
             try {
-                // Set the chosen image to the image view
-                imageView.setImageURI(imageUri);
-                // Update the post's picture
-                post.setPostImg
-                        (BitmapConverter.bitmapToString(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri)));
+                // Get the original bitmap
+                Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+
+                // Resize the bitmap
+                Bitmap resizedBitmap = resizeBitmap(originalBitmap, 200, 200);
+
+                // Set the resized image to the image view
+                imageView.setImageBitmap(resizedBitmap);
+
+                // Update the post's picture with the resized bitmap
+                post.setPostImg(BitmapConverter.bitmapToString(resizedBitmap));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+
     public interface OnPostEditedListener {
         void onPostEdited(Post post);
     }
+    private Bitmap resizeBitmap(Bitmap bitmap, int targetWidth, int targetHeight) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        // Calculate the scale ratios to fit the image within the desired dimensions
+        float scaleX = (float) targetWidth / width;
+        float scaleY = (float) targetHeight / height;
+
+        // Create a matrix for the scaling transformation
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleX, scaleY);
+
+        // Resize the bitmap
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
+    }
+
 }

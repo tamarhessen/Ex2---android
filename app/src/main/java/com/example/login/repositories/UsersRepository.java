@@ -33,8 +33,8 @@ public class UsersRepository {
         api = new UsersAPI(userListData, userDao);
     }
 
-    public  LiveData<UserCreatePost> getCurrentUser(String userid) {
-        return api.get(userid);
+    public  LiveData<UserCreatePost> getCurrentUser(String userid,String token) {
+        return api.get(userid,token);
 
     }
 
@@ -49,7 +49,7 @@ public class UsersRepository {
     // Method to fetch all users
     public LiveData<List<User>> getAll() {
         // Trigger the API call to fetch users
-        api.get(userId);
+        //api.get(userId,);
         // Return LiveData
         return userListData;
     }
@@ -60,8 +60,8 @@ public class UsersRepository {
     }
 
     // Method to refresh the list of users
-    public void refresh() {
+    public void refresh(String token) {
         // Trigger the API call to refresh users
-        api.get(userId);
+        api.get(userId,token);
     }
 }

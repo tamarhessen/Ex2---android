@@ -37,8 +37,7 @@ public class PostAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
-    public void get() {
-
+    public void get(String userId) {
         if (token == null) {
             Log.e("PostAPI", "Token is null. Cannot fetch posts.");
             // Handle the case where the token is null (e.g., display an error message)
@@ -55,8 +54,14 @@ public class PostAPI {
                         // Assuming dao is properly initialized, you can insert the data into the database
                         // and update the LiveData
                         new Thread(() -> {
-                            //  dao.clear();
-                            //   dao.insertList(posts);
+                            // Iterate through the list of posts
+                            for (Post post : posts) {
+                                // Check if the current user is in the liked list of the post
+                                if (post.getPeopleLiked().contains(userId)) {
+                                    post.setLiked(true); // Set the liked status of the post
+                                }
+                            }
+                            // Update the LiveData with the modified list of posts
                             postListData.postValue(posts);
                         }).start();
                     }
@@ -73,21 +78,20 @@ public class PostAPI {
         });
     }
 
+
     public void createPost(String userId, JsonObject jsonBody, String authHeader) {
-        Call<Void> call = webServiceAPI.createPost(userId, jsonBody, "bearer " + authHeader);
-        call.enqueue(new Callback<Void>() {
+        Call<Post> call = webServiceAPI.createPost(userId, jsonBody, "bearer " + authHeader);
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                String reponseString=response.toString();
-                Log.e("PostAPI", "Response not successful: " + response.code());
-                Log.d("Request Details", "URL: " + call.request().url());
-                Log.d("Request Details", "Method: " + call.request().method());
-                Log.d("Request Details", "Headers: " + call.request().headers());
-                Log.d("Request Details", "Body: "+jsonBody);
+            public void onResponse(Call<Post> call, Response<Post> response) {
                 if (response.isSuccessful()) {
                     // Post created successfully
-                    Log.d("PostAPI", "Post created successfully");
-                    // You can perform any additional actions here if needed
+                    Post createdPost = response.body();
+                    if (createdPost != null) {
+                        // Notify the listener with the created post
+                    } else {
+                        Log.e("PostAPI", "Failed to parse created post from response body");
+                    }
                 } else {
                     // Handle unsuccessful response
                     Log.e("PostAPI", "Failed to create post: " + response.code());
@@ -95,17 +99,21 @@ public class PostAPI {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-           //     Log.e("PostAPI", "Response not successful: " + response.code());
+            public void onFailure(Call<Post> call, Throwable t) {
+                // Log request details
                 Log.d("Request Details", "URL: " + call.request().url());
                 Log.d("Request Details", "Method: " + call.request().method());
                 Log.d("Request Details", "Headers: " + call.request().headers());
-                Log.d("Request Details", "Body: "+ jsonBody);
+                Log.d("Request Details", "Body: " + jsonBody);
+
                 // Handle failure
                 Log.e("PostAPI", "Failed to create post: " + t.getMessage());
             }
         });
     }
+
+    // Define an interface for the listener
+
 
     public void deletePost(String userId,int postId, String authHeader) {
         Call<Void> call = webServiceAPI.deletePost(postId, "Bearer " + authHeader);
@@ -130,7 +138,8 @@ public class PostAPI {
         });
     }
     public void editPost(String userId,int postId, JsonObject updatedPostData, String authHeader) {
-        Call<Void> call = webServiceAPI.editPost(userId,postId, updatedPostData, "Bearer " + authHeader);
+        Call<Void> call = webServiceAPI.editPost(userId, postId, updatedPostData, "Bearer " + authHeader);
+
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -151,6 +160,29 @@ public class PostAPI {
             }
         });
     }
+    public void likePost(int postId, String authHeader,Post post) {
+        Call<Void> call = webServiceAPI.likePost(postId, "Bearer " + authHeader);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    post.setLiked(true);
+                    post.setPostLikes(post.getPostLikes() + 1);
+                    // Post liked successfully
+                    Log.d("PostAPI", "Post liked successfully");
+                    // You can perform any additional actions here if needed
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("PostAPI", "Failed to like post: " + response.code());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("PostAPI", "Failed to like post: " + t.getMessage());
+            }
+        });
+    }
 }
 
