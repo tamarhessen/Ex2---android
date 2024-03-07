@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
@@ -18,6 +19,7 @@ public class UsersRepository {
     private UsersAPI api;
     private UserDao userDao;
     private  String userId;
+    private String token;
     public UsersRepository(String userid) {
         // Initialize repository with default values or null references
         this.userDao = null; // You may need to handle this case in your repository methods
@@ -50,7 +52,43 @@ public class UsersRepository {
             setValue(new LinkedList<>());
         }
     }
+    public void login(String username, String password, LoginCallback callback) {
+        api.createToken(username, password, new UsersAPI.TokenCallback() {
+            @Override
+            public void onTokenGenerated(String token) {
+                if (token != null) {
+                    // Token generated successfully, proceed to fetch user by username
+                    fetchUserByUsername(username, token, callback);
+                } else {
+                    // Failed to generate token, handle the error
+                    callback.onLoginError("Failed to generate token");
+                }
+            }
+        });
+    }
 
+    private void fetchUserByUsername(String username, String token, LoginCallback callback) {
+        api.getUserByUsername(username, token).observeForever(new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    // User found, pass token to the callback indicating successful login
+                    callback.onLoginSuccess(token);
+                } else {
+                    // User not found, pass error message to the callback
+                    callback.onLoginError("User does not exist");
+                }
+            }
+        });
+    }
+
+
+
+
+    public interface LoginCallback {
+        void onLoginSuccess(String token);
+        void onLoginError(String errorMessage);
+    }
     // Method to fetch all users
     public LiveData<List<User>> getAll() {
         // Trigger the API call to fetch users

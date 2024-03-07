@@ -18,13 +18,16 @@ public class User {
     private String username; // Change to String type
     private UserNoPassword user;
     public CommentDetails lastComment;
+    public String password;
     //public List<User> friends;
 
-    public User(int id, String username, UserNoPassword user, CommentDetails lastComment) {
+    public User(int id, String username, UserNoPassword user, CommentDetails lastComment,String
+            password) {
         this.id = id;
         this.username = username;
         this.user = user;
         this.lastComment = lastComment;
+        this.password=password;
       //  this.friends = new ArrayList<>();
      //   if (friends != null) {
      //       this.friends.addAll(friends);

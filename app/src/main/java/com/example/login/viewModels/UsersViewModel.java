@@ -3,6 +3,7 @@ package com.example.login.viewModels;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.login.facebookdesign.User;
@@ -17,18 +18,23 @@ public class UsersViewModel extends ViewModel {
     private UsersRepository repository;
     private LiveData<List<User>> users;
     private String userid;
+    private MutableLiveData<Boolean> loginResult = new MutableLiveData<>();
     private String token;
+
     public UsersViewModel() {
         repository = new UsersRepository(userid);
-        users=repository.getAll();
-    }
-    public UsersViewModel(UserDao userDao,String userid) {
-        repository = new UsersRepository(userDao,userid);
         users = repository.getAll();
     }
-    public LiveData<UserCreatePost> getCurrentUser(String userid,String token) {
-        return repository.getCurrentUser(userid,token);
+
+    public UsersViewModel(UserDao userDao, String userid) {
+        repository = new UsersRepository(userDao, userid);
+        users = repository.getAll();
     }
+
+    public LiveData<UserCreatePost> getCurrentUser(String userid, String token) {
+        return repository.getCurrentUser(userid, token);
+    }
+
     public LiveData<List<User>> getAll() {
         return users;
     }
@@ -44,19 +50,47 @@ public class UsersViewModel extends ViewModel {
     public void add(UserCreatePost userCreatePost, Context context) {
         repository.add(userCreatePost, context);
     }
-    public void editUser( String displayName, String base64EncodedImage){
-        repository.editUser(userid,displayName,base64EncodedImage,token);
+
+    public void editUser(String displayName, String base64EncodedImage) {
+        repository.editUser(userid, displayName, base64EncodedImage, token);
     }
-    public String getToken(){
-        return token;
-    }
-    public String getUserid(){
+
+    public String getUserid() {
         return this.userid;
     }
+
     public void setToken(String token) {
-        this.token=token;
+        this.token = token;
     }
-    public void setUserid(String userid){
-        this.userid=userid;
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+
+    public void login(String username, String password) {
+        this.repository=new UsersRepository(username);
+        this.repository.login(username, password, new UsersRepository.LoginCallback() {
+            @Override
+            public void onLoginSuccess(String token) {
+                // Handle successful login, maybe store token or navigate to another screen
+                loginResult.postValue(true);
+            }
+
+            @Override
+            public void onLoginError(String errorMessage) {
+                // Handle login error, maybe show an error message to the user
+                loginResult.postValue(false);
+            }
+        });
+    }
+
+    private void saveToken(String token) {
+        this.token = token;
+    }
+
+    // Method to observe the login result
+    public LiveData<Boolean> getLoginResult() {
+        return loginResult;
     }
 }

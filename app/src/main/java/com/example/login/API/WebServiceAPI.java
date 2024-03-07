@@ -70,7 +70,8 @@ public interface WebServiceAPI {
 
     @PATCH("users/{id}")
     Call<Void> updateUserByIdPatch(@Path("id") String userId, @Body JsonObject userBody, @Header("Authorization") String authHeader);
-
+    @GET("users/{username}") // Route for getting a user by username
+    Call<User> getUserByUsername(@Path("username") String username, @Header("Authorization") String authHeader);
 
 }
 
