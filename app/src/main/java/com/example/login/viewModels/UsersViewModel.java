@@ -44,7 +44,15 @@ public class UsersViewModel extends ViewModel {
     public void add(UserCreatePost userCreatePost, Context context) {
         repository.add(userCreatePost, context);
     }
-
+    public void editUser( String displayName, String base64EncodedImage){
+        repository.editUser(userid,displayName,base64EncodedImage,token);
+    }
+    public String getToken(){
+        return token;
+    }
+    public String getUserid(){
+        return this.userid;
+    }
     public void setToken(String token) {
         this.token=token;
     }

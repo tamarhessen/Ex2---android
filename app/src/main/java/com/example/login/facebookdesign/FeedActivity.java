@@ -190,14 +190,15 @@ public class FeedActivity extends AppCompatActivity {
 
         whatsNewButton.setOnClickListener(v -> startActivityForResult(new Intent(FeedActivity.this, PostActivity.class), REQUEST_NEW_POST));
         profilePictureButton.setOnClickListener(v -> {
-            Intent intent = new Intent(FeedActivity.this,MyProfileActivity.class);
+            Intent intent = new Intent(FeedActivity.this, MyProfileActivity.class);
             intent.putExtra("Username", username);
             intent.putExtra("ProfilePicture", profilePictureByteArray);
-            intent.putExtra("Token",token);// Pass the profile picture byte array
+            intent.putExtra("Token", token);
+
+
             startActivity(intent);
-
-
         });
+
     }
 
 //    private void loadSamplePosts() {

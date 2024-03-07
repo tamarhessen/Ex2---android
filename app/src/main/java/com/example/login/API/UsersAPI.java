@@ -21,6 +21,8 @@ import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.facebookdesign.UserDataFromAdd;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class UsersAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.userDao = userDao;
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/api/")  // Make sure this is set correctly
+                .baseUrl("http://10.0.0.13:5000/api/")  // Make sure this is set correctly
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -118,4 +120,30 @@ public class UsersAPI {
             }
         });
     }
+
+    public void editUser(String userId, String displayName, String base64EncodedImage, String token) {
+        JsonObject userBody = new JsonObject();
+        userBody.addProperty("displayName", displayName);
+        userBody.addProperty("profilePic", base64EncodedImage);
+
+        // Call updateUserByIdPatch or updateUserByIdPut based on your preference
+        Call<Void> call = webServiceAPI.updateUserByIdPatch(userId, userBody, "Bearer " + token);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message or handle the response as needed
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+
 }

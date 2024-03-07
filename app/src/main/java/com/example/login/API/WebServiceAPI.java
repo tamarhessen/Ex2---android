@@ -65,5 +65,12 @@ public interface WebServiceAPI {
 
     @PATCH("users/{id}/posts/{pid}")
     Call<Void> editPostPatch(@Path("id") String userId, @Path("pid") int postId, @Body JsonObject post, @Header("Authorization") String authHeader);
+    @PUT("users/{id}")
+    Call<Void> updateUserByIdPut(@Path("id") String userId, @Body JsonObject userBody, @Header("Authorization") String authHeader);
+
+    @PATCH("users/{id}")
+    Call<Void> updateUserByIdPatch(@Path("id") String userId, @Body JsonObject userBody, @Header("Authorization") String authHeader);
+
 
 }
+

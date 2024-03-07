@@ -30,7 +30,7 @@ public class PostAPI {
         this.token = token;
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/api/")  // Make sure this is set correctly
+                .baseUrl("http://10.0.0.13:5000/api/")  // Make sure this is set correctly
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -184,5 +184,29 @@ public class PostAPI {
             }
         });
     }
+    public void editUser(String userId, JsonObject updatedUserData, String authHeader) {
+        Call<Void> call = webServiceAPI.updateUserByIdPut(userId, updatedUserData, "Bearer " + authHeader);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // User edited successfully
+                    Log.d("PostAPI", "User edited successfully");
+                    // You can perform any additional actions here if needed
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("PostAPI", "Failed to edit user: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("PostAPI", "Failed to edit user: " + t.getMessage());
+            }
+        });
+    }
+
 }
 

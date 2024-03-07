@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "user")
@@ -17,19 +18,31 @@ public class User {
     private String username; // Change to String type
     private UserNoPassword user;
     public CommentDetails lastComment;
+    //public List<User> friends;
 
     public User(int id, String username, UserNoPassword user, CommentDetails lastComment) {
         this.id = id;
         this.username = username;
         this.user = user;
         this.lastComment = lastComment;
-    }
+      //  this.friends = new ArrayList<>();
+     //   if (friends != null) {
+     //       this.friends.addAll(friends);
+        }
+ //   }
 
     public User(UserDataFromAdd userDataFromAdd) {
         this.id = userDataFromAdd.getId();
         this.user = userDataFromAdd.getUser();
         this.lastComment = null;
     }
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 
     public int getId() {
         return id;
@@ -75,6 +88,7 @@ public class User {
         public void setDisplayName(String displayName) {
             this.displayName = displayName;
         }
+
 
         public Bitmap getProfilePic() {
             return profilePic;
