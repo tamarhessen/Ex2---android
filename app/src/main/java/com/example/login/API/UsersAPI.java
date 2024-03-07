@@ -45,7 +45,7 @@ public class UsersAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.userDao = userDao;
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.0.13:5000/api/")  // Make sure this is set correctly
+                .baseUrl("http://10.0.2.2:5000/api/")  // Make sure this is set correctly
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
