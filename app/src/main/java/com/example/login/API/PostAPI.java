@@ -184,29 +184,6 @@ public class PostAPI {
             }
         });
     }
-    public void editUser(String userId, JsonObject updatedUserData, String authHeader) {
-        Call<Void> call = webServiceAPI.updateUserByIdPut(userId, updatedUserData, "Bearer " + authHeader);
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // User edited successfully
-                    Log.d("PostAPI", "User edited successfully");
-                    // You can perform any additional actions here if needed
-                } else {
-                    // Handle unsuccessful response
-                    Log.e("PostAPI", "Failed to edit user: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // Handle failure
-                Log.e("PostAPI", "Failed to edit user: " + t.getMessage());
-            }
-        });
-    }
 
 }
 

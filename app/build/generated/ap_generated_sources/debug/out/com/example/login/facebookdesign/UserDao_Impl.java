@@ -34,7 +34,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`) VALUES (?,?,?,?)";
+        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`,`password`) VALUES (?,?,?,?,?)";
       }
 
       @Override
@@ -56,6 +56,11 @@ public final class UserDao_Impl implements UserDao {
           statement.bindNull(4);
         } else {
           statement.bindString(4, _tmp_1);
+        }
+        if (entity.password == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.password);
         }
       }
     };
@@ -63,7 +68,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ?,`password` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -86,7 +91,12 @@ public final class UserDao_Impl implements UserDao {
         } else {
           statement.bindString(4, _tmp_1);
         }
-        statement.bindLong(5, entity.getId());
+        if (entity.password == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.password);
+        }
+        statement.bindLong(6, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
@@ -151,6 +161,7 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfUsername = CursorUtil.getColumnIndexOrThrow(_cursor, "username");
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
+      final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
       final List<User> _result = new ArrayList<User>(_cursor.getCount());
       while (_cursor.moveToNext()) {
         final User _item;
@@ -178,7 +189,13 @@ public final class UserDao_Impl implements UserDao {
           _tmp_1 = _cursor.getString(_cursorIndexOfLastComment);
         }
         _tmpLastComment = CommentDetailsConventor.fromString(_tmp_1);
-        _item = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment);
+        final String _tmpPassword;
+        if (_cursor.isNull(_cursorIndexOfPassword)) {
+          _tmpPassword = null;
+        } else {
+          _tmpPassword = _cursor.getString(_cursorIndexOfPassword);
+        }
+        _item = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment,_tmpPassword);
         _result.add(_item);
       }
       return _result;
@@ -201,6 +218,7 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfUsername = CursorUtil.getColumnIndexOrThrow(_cursor, "username");
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
+      final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
       final User _result;
       if (_cursor.moveToFirst()) {
         final int _tmpId;
@@ -227,7 +245,13 @@ public final class UserDao_Impl implements UserDao {
           _tmp_1 = _cursor.getString(_cursorIndexOfLastComment);
         }
         _tmpLastComment = CommentDetailsConventor.fromString(_tmp_1);
-        _result = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment);
+        final String _tmpPassword;
+        if (_cursor.isNull(_cursorIndexOfPassword)) {
+          _tmpPassword = null;
+        } else {
+          _tmpPassword = _cursor.getString(_cursorIndexOfPassword);
+        }
+        _result = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment,_tmpPassword);
       } else {
         _result = null;
       }

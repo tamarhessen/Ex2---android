@@ -19,11 +19,13 @@ import com.example.login.facebookdesign.LogInActivity;
 import com.example.login.facebookdesign.OnlyUsername;
 import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
+import com.example.login.facebookdesign.UserCreateToken;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.facebookdesign.UserDataFromAdd;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,7 +55,7 @@ public class UsersAPI {
     }
 
 
-    public LiveData<UserCreatePost> get(String username,String token) {
+    public LiveData<UserCreatePost> get(String username, String token) {
         MutableLiveData<UserCreatePost> userLiveData = new MutableLiveData<>();
 
         Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);
@@ -87,7 +89,7 @@ public class UsersAPI {
     }
 
 
-    public void add(UserCreatePost userCreatePost,Context context) {
+    public void add(UserCreatePost userCreatePost, Context context) {
         // Create an instance of UserCreatePost and populate it with data
 
         // Initialize WebServiceAPi
@@ -146,4 +148,67 @@ public class UsersAPI {
         });
     }
 
+
+    public void createToken(String username, String password, TokenCallback callback) {
+        UserCreateToken userCredentials = new UserCreateToken(username, password);
+        Call<String> call = webServiceAPI.getToken(userCredentials);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    callback.onTokenGenerated(response.body()); // Pass the token to the callback
+                } else {
+                    Log.e("UsersAPI", "Failed to get token: " + response.code());
+                    callback.onTokenGenerated(null); // Notify the callback with null token
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("UsersAPI", "Exception while fetching token: " + t.getMessage());
+                callback.onTokenGenerated(null); // Notify the callback with null token in case of failure
+            }
+        });
+    }
+
+    public interface TokenCallback {
+        void onTokenGenerated(String token);
+    }
+    public LiveData<User> getUserByUsername(String username, String token) {
+        MutableLiveData<User> userLiveData = new MutableLiveData<>();
+
+        Call<User> call = webServiceAPI.getUserByUsername(username, "Bearer " + token);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    if (user != null) {
+                        // Update LiveData with the fetched user
+                        userLiveData.setValue(user);
+                    } else {
+                        Log.e("UsersAPI", "Response body is null");
+                        // Optionally, you can handle the case where response body is null
+                    }
+                } else {
+                    Log.e("UsersAPI", "Response not successful: " + response.code());
+                    // Optionally, you can handle the case where response is not successful
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                // Log the error for debugging purposes
+                Log.e("UsersAPI", "Failed to fetch user by username: " + t.getMessage());
+                // Update LiveData with null value to indicate failure
+                userLiveData.setValue(null);
+            }
+        });
+
+        return userLiveData;
+    }
+
 }
+
+
