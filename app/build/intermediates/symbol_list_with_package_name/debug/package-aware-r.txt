@@ -1430,6 +1430,7 @@ color dim_foreground_material_dark
 color dim_foreground_material_light
 color error_color_material_dark
 color error_color_material_light
+color error_red
 color facebook_background
 color facebook_blue
 color facebook_text_color
@@ -3280,6 +3281,7 @@ id btnAdd
 id btn_add_friend
 id btn_cancel
 id btn_edit_profile
+id btn_exit
 id btn_more
 id btn_profile_picture
 id btn_save
@@ -3383,7 +3385,6 @@ id edit_display_name
 id edit_password
 id edit_query
 id edit_text_display_name
-id edit_text_username
 id edit_username
 id elastic
 id embed
@@ -3470,6 +3471,7 @@ id logOutBtn
 id loginbtn
 id logo
 id logoutItem
+id logout_message
 id lstPosts
 id m3_side_sheet
 id marquee

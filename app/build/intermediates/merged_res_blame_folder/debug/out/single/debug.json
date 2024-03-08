@@ -36,12 +36,12 @@
         "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-anydpi\\ic_back.xml"
     },
     {
-        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_post_layout.xml.flat",
-        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\post_layout.xml"
-    },
-    {
         "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_5.png.flat",
         "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_5.png"
+    },
+    {
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_post_layout.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\post_layout.xml"
     },
     {
         "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_search.png.flat",
