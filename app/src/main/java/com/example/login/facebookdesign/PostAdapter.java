@@ -2,6 +2,7 @@ package com.example.login.facebookdesign;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             } else {
                 holder.likeButton.setImageResource(R.drawable.not_liked);
             }
+            holder.tvAuthor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String creatorUsername = current.getCreatorUsername();
+                    Log.d("CreatorUsername", "Creator's username: " + creatorUsername);
 
+                    // Check if the post owner is not the current user
+                    if (!current.getCreator().equals(currentDisplayName)) {
+                        // Create an intent to navigate to the profile page of the post owner
+                        Intent intent = new Intent(mContext, ProfileActivity.class);
+                        intent.putExtra("Username", current.getCreatorUsername());
+                        intent.putExtra("ProfilePicture", current.getCreatorImg());
+                        intent.putExtra("Token",postsViewModel.getToken());
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
             holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
             holder.shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override

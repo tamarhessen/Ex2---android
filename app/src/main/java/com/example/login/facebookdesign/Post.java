@@ -25,6 +25,7 @@ public class Post {
     private long timestamp;
     private String PostImg;
     private String CreatorImg;
+    private String CreatorUsername;
     private boolean liked;
     private List<String> PeopleLiked;
 
@@ -34,22 +35,29 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,long timestamp) {
+    public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,long timestamp,String CreatorUsername) {
         this.Creator = creator;
         this.PostText = postText;
-        this.PostImg
-                = pic;
+        this.PostImg = pic;
         this.PostLikes = likes;
         this.CreatorImg = CreatorImg;
         this.liked=false;
         Comments = new ArrayList<>();
         this.timestamp = timestamp;
         this.PeopleLiked=peopleLiked;
-
+this.CreatorUsername=CreatorUsername;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getCreatorUsername() {
+        return CreatorUsername;
+    }
+
+    public void setCreatorUsername(String creatorUsername) {
+        CreatorUsername = creatorUsername;
     }
 
     public void setId(int id) {

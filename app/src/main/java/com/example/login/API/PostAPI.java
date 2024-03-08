@@ -77,7 +77,46 @@ public class PostAPI {
             }
         });
     }
+    public void getpostsuser(String userId) {
+        if (token == null) {
+            Log.e("PostAPI", "Token is null. Cannot fetch posts.");
+            // Handle the case where the token is null (e.g., display an error message)
+            return;
+        }
+        Log.d("PostAPI", "Request Headers get: " + "Bearer " + token);
+        Call<List<Post>> call = webServiceAPI.getUserPosts("Bearer " + token);
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    List<Post> posts = response.body();
+                    if (posts != null) {
+                        // Assuming dao is properly initialized, you can insert the data into the database
+                        // and update the LiveData
+                        new Thread(() -> {
+                            // Iterate through the list of posts
+                            for (Post post : posts) {
+                                // Check if the current user is in the liked list of the post
+                                if (post.getPeopleLiked().contains(userId)) {
+                                    post.setLiked(true); // Set the liked status of the post
+                                }
+                            }
+                            // Update the LiveData with the modified list of posts
+                            postListData.postValue(posts);
+                        }).start();
+                    }
+                } else {
+                    Log.e("PostAPI", "Failed to fetch posts: " + response.code());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                // Handle failure
+                Log.e("PostAPI", "Failed to fetch posts: " + t.getMessage());
+            }
+        });
+    }
 
     public void createPost(String userId, JsonObject jsonBody, String authHeader) {
         Call<Post> call = webServiceAPI.createPost(userId, jsonBody, "bearer " + authHeader);
