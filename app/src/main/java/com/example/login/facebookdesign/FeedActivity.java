@@ -235,7 +235,7 @@ public class FeedActivity extends AppCompatActivity {
                                 long currentTimeMillis = System.currentTimeMillis();
                                 String postImage = BitmapConverter.bitmapToString(postImageBitmap);
                                 String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
-                                Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTimeMillis);
+                                Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTimeMillis,username);
 
                                 // Add new post to ViewModel
                                 postsViewModel.addPost(newPost);

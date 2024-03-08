@@ -33,6 +33,7 @@ public class JsonParser {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String author = jsonObject.getString("author");
+                String username = jsonObject.getString("username");
                 String content = jsonObject.getString("content");
                 String imageDrawableName = jsonObject.getString("imageDrawableId");
                 int imageDrawableId = context.getResources().getIdentifier(imageDrawableName, "drawable", context.getPackageName());
@@ -44,7 +45,7 @@ public class JsonParser {
                 Bitmap profilePic = BitmapFactory.decodeResource(context.getResources(), profileDrawableId);
                 String profilePicString = BitmapConverter.bitmapToString(profilePic);
                 long timestamp = jsonObject.getLong("timestamp");
-                Post post = new Post(author, content, picString, likes,null, profilePicString,timestamp);
+                Post post = new Post(author, content, picString, likes,null, profilePicString,timestamp,username);
                 posts.add(post);
             }
         } catch (IOException | JSONException e) {

@@ -29,10 +29,13 @@ public interface WebServiceAPI {
     @POST("posts") // Route for creating a new post
     Call<UserDataFromAdd> addPost(@Body OnlyUsername onlyUsername,
                                   @Header("Authorization") String authHeader);
-    @POST("users/{id}/posts")
+    @POST("users/{username}/posts")
     Call<Post> createPost(@Path("id") String userId, @Body JsonObject post, @Header("Authorization") String authHeader);
     @GET("posts") // Route for getting posts
     Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
+    @GET("users/{username}/po" +
+            "sts") // Route for getting posts
+    Call<List<Post>> getUserPosts(@Header("Authorization") String authHeader);
 
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);

@@ -44,6 +44,13 @@ public class PostsRepository {
         // Return LiveData
         return postListData;
     }
+    public LiveData<List<Post>> getOnlyUser() {
+        // Make API call to fetch posts
+        postAPI.getpostsuser(userId);
+
+        // Return LiveData
+        return postListData;
+    }
 
     public void add(Post post) {
         JsonObject jsonObject = new JsonObject();
