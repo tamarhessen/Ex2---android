@@ -37,15 +37,13 @@ public class Post {
     public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,long timestamp) {
         this.Creator = creator;
         this.PostText = postText;
-        this.PostImg
-                = pic;
+        this.PostImg = pic;
         this.PostLikes = likes;
         this.CreatorImg = CreatorImg;
         this.liked=false;
         Comments = new ArrayList<>();
         this.timestamp = timestamp;
         this.PeopleLiked=peopleLiked;
-
     }
 
     public int getId() {

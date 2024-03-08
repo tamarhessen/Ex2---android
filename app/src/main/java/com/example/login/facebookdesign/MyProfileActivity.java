@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String token;
     private String displayName;
     private Button editProfile;
+    private ImageButton exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class MyProfileActivity extends AppCompatActivity {
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
         editProfile = findViewById(R.id.btn_edit_profile);
+        exitButton = findViewById(R.id.btn_exit);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
@@ -54,6 +58,13 @@ public class MyProfileActivity extends AppCompatActivity {
             // Open edit profile dialog fragment
             openEditProfileDialog();
         });
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Navigate back to the previous activity
+            }
+        });
+
 
         // Fetch user data
         fetchUserData();
@@ -69,8 +80,21 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        EditProfileDialogFragment editProfileDialogFragment = new EditProfileDialogFragment();
+        // Retrieve user data
+        String username = getIntent().getStringExtra("Username");
+        String token = getIntent().getStringExtra("Token");
+        String displayName = getIntent().getStringExtra("DisplayName");
+        String profilePicBase64 = getIntent().getStringExtra("ProfilePicBase64"); // Assuming you have a key for profile picture
+        Bitmap profilePicBitmap = null;
+        if (profilePicBase64 != null) {
+            byte[] decodedString = Base64.decode(profilePicBase64, Base64.DEFAULT);
+            profilePicBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+        // Create an instance of EditProfileDialogFragment with arguments
+        EditProfileDialogFragment editProfileDialogFragment = EditProfileDialogFragment.newInstance(username, token, displayName, BitmapConverter.bitmapToString(profilePicBitmap));
+        // Show the dialog
         editProfileDialogFragment.show(fragmentManager, "EditProfileDialogFragment");
+
     }
 
     private void fetchUserData() {
