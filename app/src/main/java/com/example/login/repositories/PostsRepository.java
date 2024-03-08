@@ -55,6 +55,7 @@ public class PostsRepository {
     public void add(Post post) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", post.getPostText());
+  //      jsonObject.addProperty("CreatorUsername" , post.getCreatorUsername());
         if(post.getPostImg()!=null) {
             jsonObject.addProperty("postImg", post.getPostImg
 
@@ -81,6 +82,7 @@ public class PostsRepository {
     public void editPost(int postId,Post updatedPost,String authHeader) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", updatedPost.getPostText());
+    //    jsonObject.addProperty("CreatorUsername" , updatedPost.getCreatorUsername());
         jsonObject.addProperty("postImg", updatedPost.getPostImg
                 ());
         postAPI.editPost(userId,postId,jsonObject,authHeader);

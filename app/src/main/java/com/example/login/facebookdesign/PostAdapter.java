@@ -92,6 +92,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         intent.putExtra("Token",postsViewModel.getToken());
                         mContext.startActivity(intent);
                     }
+                    else{
+                        Intent intent = new Intent(mContext, MyProfileActivity.class);
+                        intent.putExtra("Username", currentUserUsername);
+                        intent.putExtra("ProfilePicture",current.getCreatorImg()); // Pass the profile picture here
+                        intent.putExtra("Token", postsViewModel.getToken());
+                        mContext.startActivity(intent);
+
+                }
                 }
             });
             holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
@@ -113,7 +121,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     int currentLikes = current.getPostLikes();
                     current.setPostLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
                     holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
-                    postsViewModel.likePost(current.getId(), postsViewModel.getToken(),current);
+                    postsViewModel.likePost(current.getId(), postsViewModel.getToken(), current);
                     if (current.isLiked()) {
                         holder.likeButton.setImageResource(R.drawable.liked);
                     } else {

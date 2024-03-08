@@ -12,15 +12,22 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
+import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +42,10 @@ public class MyProfileActivity extends AppCompatActivity {
     private UsersViewModel usersViewModel;
     private String username;
     private String token;
+    private PostsViewModel postsViewModel;
     private String displayName;
+    private RecyclerView postsRecyclerView;
+    private PostAdapter adapter;
     private Button editProfile;
     private ImageButton exitButton;
 
@@ -49,10 +59,33 @@ public class MyProfileActivity extends AppCompatActivity {
         displayNameTextView = findViewById(R.id.user_name);
         editProfile = findViewById(R.id.btn_edit_profile);
         exitButton = findViewById(R.id.btn_exit);
+        postsRecyclerView = findViewById(R.id.recycler_posts);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+       // setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
+        fetchUserData();
+        Intent activityIntent = getIntent();
+        if (activityIntent != null) {
+            token = activityIntent.getStringExtra("Token");
+            username = activityIntent.getStringExtra("Username");
+            // Initialize ViewModel with token
+            postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+            postsViewModel.setUsername(username);
+            postsViewModel.setToken(token);
+        }
+        else {
+            // Handle case where intent is null or token is not provided
+            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
+        }
 
+        // Observe changes in posts data
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                adapter.setPosts(posts);
+            }
+        });
         // Set click listener for edit button
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
@@ -66,9 +99,6 @@ public class MyProfileActivity extends AppCompatActivity {
         });
 
 
-        // Fetch user data
-        fetchUserData();
-
         // Retrieve the profile picture byte array from Intent extras
         byte[] profilePictureByteArray = getIntent().getByteArrayExtra("ProfilePicture");
         if (profilePictureByteArray != null) {
@@ -78,6 +108,36 @@ public class MyProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void fetchAndDisplayPosts(String currentDisplayName) {
+        // Observe changes in posts data
+        postsViewModel.getPostsforUserName().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                // Update RecyclerView adapter with fetched posts
+                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+            } else {
+                Toast.makeText(MyProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName) {
+        List<Post> filteredPosts = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getCreator().equals(currentDisplayName)) {
+                filteredPosts.add(post);
+            }
+        }
+        return filteredPosts;
+    }
+
+    private void setUpPostsRecyclerView() {
+        // Initialize and set layout manager for posts RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        postsRecyclerView.setLayoutManager(layoutManager);
+
+        // Create and set adapter for posts RecyclerView
+        adapter = new PostAdapter(this, username, postsViewModel, displayName);
+        postsRecyclerView.setAdapter(adapter);
+    }
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         // Retrieve user data
@@ -113,6 +173,9 @@ public class MyProfileActivity extends AppCompatActivity {
                     // Example: Set the profile picture
                     setProfilePicture(userCreatePost.getProfilePic());
                     setDisplayName(userCreatePost.getDisplayName());
+
+                    // Fetch and display posts after setting display name
+                    fetchAndDisplayPosts(userCreatePost.getDisplayName());
                 }
             });
         }

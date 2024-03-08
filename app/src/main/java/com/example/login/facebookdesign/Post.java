@@ -45,7 +45,7 @@ public class Post {
         Comments = new ArrayList<>();
         this.timestamp = timestamp;
         this.PeopleLiked=peopleLiked;
-this.CreatorUsername=CreatorUsername;
+        this.CreatorUsername=CreatorUsername;
     }
 
     public int getId() {

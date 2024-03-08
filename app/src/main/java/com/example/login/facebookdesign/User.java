@@ -19,7 +19,10 @@ public class User {
     private UserNoPassword user;
     public CommentDetails lastComment;
     public String password;
-    //public List<User> friends;
+    @TypeConverters(ListStringConverter.class)
+    public List<String> FriendList;
+    @TypeConverters(ListStringConverter.class)
+    public List<String> PendingList;
 
     public User(int id, String username, UserNoPassword user, CommentDetails lastComment,String
             password) {
@@ -28,24 +31,31 @@ public class User {
         this.user = user;
         this.lastComment = lastComment;
         this.password=password;
-      //  this.friends = new ArrayList<>();
-     //   if (friends != null) {
-     //       this.friends.addAll(friends);
-        }
- //   }
+        this.FriendList = new ArrayList<>();
+        this.PendingList = new ArrayList<>();
+    }
+
+    public List<String> getPendingList() {
+        return PendingList;
+    }
+
+    public void setPendingList(List<String> pendingList) {
+        PendingList = pendingList;
+    }
 
     public User(UserDataFromAdd userDataFromAdd) {
         this.id = userDataFromAdd.getId();
         this.user = userDataFromAdd.getUser();
         this.lastComment = null;
     }
-//    public List<User> getFriends() {
-//        return friends;
-//    }
-//
-//    public void setFriends(List<User> friends) {
-//        this.friends = friends;
-//    }
+
+    public List<String> getFriendList() {
+        return FriendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        FriendList = friendList;
+    }
 
     public int getId() {
         return id;
