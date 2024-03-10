@@ -147,6 +147,29 @@ public class UsersAPI {
             }
         });
     }
+    public void deleteUser(String userId, String token) {
+        JsonObject userBody = new JsonObject();
+
+
+        // Call updateUserByIdPatch or updateUserByIdPut based on your preference
+        Call<Void> call = webServiceAPI.deleteUser(userId, "Bearer " + token);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message or handle the response as needed
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
 
 
     public void createToken(String username, String password, TokenCallback callback) {

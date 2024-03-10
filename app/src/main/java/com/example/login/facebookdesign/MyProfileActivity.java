@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -35,6 +36,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String token;
     private String displayName;
     private Button editProfile;
+    private Button deleteUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MyProfileActivity extends AppCompatActivity {
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
         editProfile = findViewById(R.id.btn_edit_profile);
+        deleteUser = findViewById(R.id.btn_delete_user);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
@@ -53,6 +56,10 @@ public class MyProfileActivity extends AppCompatActivity {
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
             openEditProfileDialog();
+        });
+       deleteUser.setOnClickListener(v -> {
+            // Open edit profile dialog fragment
+            deleteUser();
         });
 
         // Fetch user data
@@ -66,6 +73,18 @@ public class MyProfileActivity extends AppCompatActivity {
             profilePictureImageView.setImageBitmap(bitmap);
         }
     }
+
+    private void deleteUser() {
+        // Call the deleteUser method in the ViewModel
+        usersViewModel.deleteuser();
+
+        // Navigate back to the login screen
+        Intent intent = new Intent(MyProfileActivity.this, LogInActivity.class);
+        startActivity(intent);
+        finish(); // Optional: Finish the current activity to prevent going back to it when pressing the back button
+    }
+
+
 
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
