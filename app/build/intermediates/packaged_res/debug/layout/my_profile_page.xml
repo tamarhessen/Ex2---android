@@ -5,13 +5,22 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="ExtraText">
-
+    <ImageButton
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
     <!-- Profile Picture -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_profile_picture"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="25sp"
+        android:layout_below="@id/btn_exit"
         app:cardCornerRadius="60dp"
         android:layout_marginStart="20dp">
 
@@ -19,6 +28,7 @@
             android:id="@+id/profile_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/btn_exit"
             android:padding="2dp" />
 
 
@@ -58,18 +68,18 @@
         android:layout_below="@id/user_name"
         android:layout_marginStart="-69dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/btn_to_story"
+        android:layout_toEndOf="@id/btn_delete_user"
         android:text="friends"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btn_to_story"
+        android:id="@+id/btn_delete_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/friends"
         android:layout_marginTop="10dp"
-        android:text=" + Add to story" />
+        android:text="delete my user" />
 
     <!-- Button for Sending Message -->
     <!-- Button for Viewing Photos -->
@@ -83,7 +93,7 @@
         android:layout_marginStart="19dp"
         android:textColor="@android:color/black"
         android:layout_marginTop="9dp"
-        android:layout_toEndOf="@id/btn_to_story"
+        android:layout_toEndOf="@id/btn_delete_user"
         android:backgroundTint="@color/light_grey"
         android:text="Edit profile" />
 

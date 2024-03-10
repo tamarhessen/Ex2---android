@@ -27,7 +27,7 @@
                 <ImageView
                     android:id="@+id/profilePic"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
@@ -37,7 +37,7 @@
         <!-- Author -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/tvAuthor"
@@ -46,13 +46,18 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="1dp"
                 android:textStyle="bold"
-                android:gravity="center_vertical" />
+                android:textSize="20dp"
+                android:text="Display Name"
+                android:gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/black"
+                />
 
             <!-- Delete Button -->
             <Button
                 android:id="@+id/deleteButton"
-                android:layout_width="30dp"
-                android:layout_height="32dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/ic_menu_close_clear_cancel"
@@ -64,8 +69,8 @@
             <!-- Edit Button -->
             <Button
                 android:id="@+id/editButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:drawable/ic_menu_edit"

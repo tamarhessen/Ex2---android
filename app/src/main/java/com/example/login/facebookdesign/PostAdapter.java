@@ -127,9 +127,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             holder.commentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Start MenuActivity
                     Intent intent = new Intent(mContext, CommentsActivity.class);
+                    intent.putExtra("Username",current.getCreatorUsername() );
+                    intent.putExtra("ProfilePicture",current.getCreatorImg() );
+                    intent.putExtra("Token",postsViewModel.getToken());
                     mContext.startActivity(intent);
+
                 }
             });
 
