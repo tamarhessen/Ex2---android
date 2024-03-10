@@ -196,21 +196,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.deleteButton.setVisibility(View.GONE);
             }
 
-            if (current.getTimestamp() == 0L) {
-                holder.time.setText(getCurrentTime()); // Assuming getCurrentTime() returns the current time as a String
+            if (current.getCreated() == null) {
+                holder.time.setText(getCurrentDateTimeString()); // Assuming getCurrentTime() returns the current time as a String
             } else {
-                String timestampString = Post.convertTimestampToString(current.getTimestamp());
-                holder.time.setText(timestampString);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd/MM/yyyy ", Locale.getDefault());
+                String formattedDate = sdf.format(current.getCreated());
+                holder.time.setText(formattedDate);
             }
 
         }
     }
-
-    private String getCurrentTime() {
+    private String getCurrentDateTimeString() {
         long currentTimeMillis = System.currentTimeMillis();
         Date currentTime = new Date(currentTimeMillis);
-        // Format the current time using SimpleDateFormat
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd/MM/yyyy ", Locale.getDefault());
         return sdf.format(currentTime);
     }
 

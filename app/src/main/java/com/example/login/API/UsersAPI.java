@@ -111,7 +111,7 @@ public class UsersAPI {
                     }// Optional: finish the current activity to remove it from the back stack
                 } else {
                     // Handle error
-                    Toast.makeText(context, "Failed to create user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Username is already taken", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@TypeConverters({ListStringConverter.class, BitmapConverter.class})
+@TypeConverters({ListStringConverter.class, BitmapConverter.class, DateConverter.class})
 public class Post {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String Creator;
     private String PostText;
     private int PostLikes;
-    private long timestamp;
+    private Date created;
     private String PostImg;
     private String CreatorImg;
     private String CreatorUsername;
@@ -35,7 +35,7 @@ public class Post {
         // Default constructor
     }
 
-    public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,long timestamp,String CreatorUsername) {
+    public Post(String creator, String postText, String pic, int likes,List<String> peopleLiked, String CreatorImg,Date timestamp,String CreatorUsername) {
         this.Creator = creator;
         this.PostText = postText;
         this.PostImg = pic;
@@ -43,7 +43,7 @@ public class Post {
         this.CreatorImg = CreatorImg;
         this.liked=false;
         Comments = new ArrayList<>();
-        this.timestamp = timestamp;
+        this.created = timestamp;
         this.PeopleLiked=peopleLiked;
         this.CreatorUsername=CreatorUsername;
     }
@@ -123,14 +123,14 @@ public class Post {
         this.liked = liked;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public Date getCreated() {
+        return created;
     }
 
 
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setCreated(Date timestamp) {
+        this.created = timestamp;
     }
 
     public static String convertTimestampToString(long timestamp) {

@@ -107,6 +107,7 @@ id edit_display_name
 id edit_password
 id edit_text_display_name
 id edit_username
+id error_profile_picture
 id facebookLogo
 id facebook_logo
 id filler_view

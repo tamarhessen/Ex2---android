@@ -139,21 +139,38 @@ public class CreateAccountActivity extends AppCompatActivity {
         displayName = editTextDisplayName.getText().toString().trim();
         boolean agreeTerms = checkBoxTermsConditions.isChecked();
         boolean pictureUploaded = (imageViewProfilePicture.getDrawable() != null);
-        Bitmap profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
-        String profilePic = bitmapToBase64(profilePictureBitmap);
-        Log.d("CreateAccountActivity", profilePic);
 
         // Clear any previous error messages
         clearErrors();
 
         // Validate input
-        if (!validateInput(password, confirmPassword, pictureUploaded, agreeTerms)) {
+        if (!validateInput(username,password, confirmPassword, pictureUploaded, agreeTerms)) {
             return; // Validation failed
         }
-        UserCreatePost userCreatePost = new UserCreatePost(username,password,displayName,profilePic);
+
+        // Check if all fields are filled in
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || displayName.isEmpty() || !agreeTerms || !pictureUploaded) {
+            // Show a toast or error message indicating that all fields are required
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check if image is uploaded before retrieving it
+        Bitmap profilePictureBitmap = null;
+        if (pictureUploaded) {
+            profilePictureBitmap = ((BitmapDrawable) imageViewProfilePicture.getDrawable()).getBitmap();
+        }
+
+        // Convert bitmap to base64 string
+        String profilePic = bitmapToBase64(profilePictureBitmap);
+        Log.d("CreateAccountActivity", profilePic);
+
         // Sign up using ViewModel
+        UserCreatePost userCreatePost = new UserCreatePost(username, password, displayName, profilePic);
         usersViewModel.add(userCreatePost, this);
     }
+
+
 
 
 
@@ -167,57 +184,64 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateInput(String password, String confirmPassword, boolean pictureUploaded, boolean agreeTerms) {
+    private boolean validateInput(String username,String password, String confirmPassword, boolean pictureUploaded, boolean agreeTerms) {
+        boolean isValid = true;
+
+        if (username.isEmpty()) {
+            editTextUsername.setError("Username is required");
+            isValid = false;
+        } else {
+            editTextUsername.setError(null); // Clear the error if validation passes
+        }
         // Validate password
-        if (password.length() < 8) {
-            editTextPassword.setError("Password must be at least 8 characters long");
-            editTextPassword.requestFocus();
-            return false;
-        }
-        if (!password.matches(".*[a-zA-Z].*")) {
-            editTextPassword.setError("Password must contain at least one letter");
-            editTextPassword.requestFocus();
-            return false;
-        }
-        if (!password.matches(".*\\d.*")) {
-            editTextPassword.setError("Password must contain at least one digit");
-            editTextPassword.requestFocus();
-            return false;
+        if (password.length() < 8 || !password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
+            editTextPassword.setError("Password must be at least 8 characters long, contain at least one letter, and at least one digit");
+            isValid = false;
+        } else {
+            editTextPassword.setError(null); // Clear the error if validation passes
         }
 
         // Validate confirm password
         if (!confirmPassword.equals(password)) {
             editTextConfirmPassword.setError("Passwords do not match");
-            editTextConfirmPassword.requestFocus();
-            return false;
+            isValid = false;
+        } else {
+            editTextConfirmPassword.setError(null); // Clear the error if validation passes
         }
 
         // Validate display name
         if (displayName.isEmpty()) {
             editTextDisplayName.setError("Display name is required");
-            editTextDisplayName.requestFocus();
-            return false;
+            isValid = false;
+        } else {
+            editTextDisplayName.setError(null); // Clear the error if validation passes
         }
 
+        // Clear errors for picture and terms if validation passes
         // Validate profile picture
         if (!pictureUploaded) {
-            Toast.makeText(CreateAccountActivity.this, "Please upload a profile picture", Toast.LENGTH_SHORT).show();
-            return false;
+            findViewById(R.id.error_profile_picture).setVisibility(View.VISIBLE);
+            isValid = false;
+        } else {
+            findViewById(R.id.error_profile_picture).setVisibility(View.GONE);
         }
 
-        // Validate terms and conditions agreement
-        if (!agreeTerms) {
-            Toast.makeText(CreateAccountActivity.this, "Please agree to the terms and conditions", Toast.LENGTH_SHORT).show();
-            return false;
+        if (agreeTerms) {
+            checkBoxTermsConditions.setError(null);
+        } else {
+            checkBoxTermsConditions.setError("Please agree to the terms and conditions");
+            isValid = false;
         }
 
-        return true; // All validations passed
+        return isValid; // Return whether all validations passed
     }
+
 
     // Method to clear error messages
     private void clearErrors() {
         editTextPassword.setError(null);
         editTextConfirmPassword.setError(null);
         editTextDisplayName.setError(null);
+        editTextUsername.setError(null);
     }
 }

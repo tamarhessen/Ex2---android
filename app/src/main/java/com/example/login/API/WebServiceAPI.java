@@ -33,8 +33,8 @@ public interface WebServiceAPI {
     Call<Post> createPost(@Path("id") String userId, @Body JsonObject post, @Header("Authorization") String authHeader);
     @GET("posts") // Route for getting posts
     Call<List<Post>> getPosts(@Header("Authorization") String authHeader);
-    @GET("users/{username}/posts") // Route for getting posts
-    Call<List<Post>> getUserPosts(@Header("Authorization") String authHeader);
+    @GET("users/{id}/posts") // Route for getting posts
+    Call<List<Post>> getUserPosts(@Path("id") String userId,@Header("Authorization") String authHeader);
 
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);
@@ -62,6 +62,9 @@ public interface WebServiceAPI {
                            @Header("Authorization") String authHeader);
     @DELETE("users/{id}/posts/{pid}") // Route for deleting a post
     Call<Void> deletePost( @Path("pid") int postId, @Header("Authorization") String authHeader);
+    @DELETE("users/{id}") // Route for deleting a post
+    Call<Void> deleteUser( @Path("id") String id,
+                           @Header("Authorization") String authHeader);
     @PUT("users/{id}/posts/{pid}")
     Call<Void> editPost(@Path("id") String userId, @Path("pid") int postId, @Body JsonObject post, @Header("Authorization") String authHeader);
 
@@ -76,4 +79,3 @@ public interface WebServiceAPI {
     Call<User> getUserByUsername(@Path("username") String username, @Header("Authorization") String authHeader);
 
 }
-

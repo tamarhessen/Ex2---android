@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JsonParser {
@@ -45,7 +46,8 @@ public class JsonParser {
                 Bitmap profilePic = BitmapFactory.decodeResource(context.getResources(), profileDrawableId);
                 String profilePicString = BitmapConverter.bitmapToString(profilePic);
                 long timestamp = jsonObject.getLong("timestamp");
-                Post post = new Post(author, content, picString, likes,null, profilePicString,timestamp,username);
+                Date date = new Date(timestamp);
+                Post post = new Post(author, content, picString, likes,null, profilePicString,date,username);
                 posts.add(post);
             }
         } catch (IOException | JSONException e) {

@@ -23,6 +23,7 @@ import com.example.login.API.WebServiceAPI;
 import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,6 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedActivity extends AppCompatActivity {
     private static final int REQUEST_NEW_POST = 1;
+    private static final int EDIT_POST = 2;
+
     private Button menuButton;
     private Button newPostButton;
     private Button whatsNewButton;
@@ -47,8 +50,6 @@ public class FeedActivity extends AppCompatActivity {
     private UsersViewModel usersViewModel;
     private String token;
     private String displayName;
-
-
 
 
     @Override
@@ -112,7 +113,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        adapter = new PostAdapter(this, username,postsViewModel,displayName);
+        adapter = new PostAdapter(this, username, postsViewModel, displayName);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -120,27 +121,25 @@ public class FeedActivity extends AppCompatActivity {
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
-             token = activityIntent.getStringExtra("Token");
-             username = activityIntent.getStringExtra("Username");
+            token = activityIntent.getStringExtra("Token");
+            username = activityIntent.getStringExtra("Username");
             usersViewModel.setToken(token);
             usersViewModel.setUserid(username);
 
             // Trigger the network request to fetch user data
-            usersViewModel.getCurrentUser(username,token).observe(this, new Observer<UserCreatePost>() {
+            usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
                 @Override
                 public void onChanged(UserCreatePost userCreatePost) {
                     // Display user data or handle the single userCreatePost object as needed
                     // Example: Set the profile picture
                     ImageView profilePictureImageView = findViewById(R.id.image_profile_picture);
                     setAsImage(userCreatePost.getProfilePic(), profilePictureImageView);
-                    displayName=userCreatePost.getDisplayName();
+                    displayName = userCreatePost.getDisplayName();
                     setUpRecyclerView();
                 }
             });
         }
     }
-
-
 
 
     private void fetchAndDisplayPosts() {
@@ -156,9 +155,8 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
-
     public static void setAsImage(String strBase64, ImageView imageView) {
-        if(strBase64.equals(defaultPfp)){
+        if (strBase64.equals(defaultPfp)) {
 //            imageView.setImageResource(R.drawable.defaultprofilepic);
         } else {
             byte[] decodedString = Base64.decode(strBase64, Base64.DEFAULT);
@@ -167,6 +165,7 @@ public class FeedActivity extends AppCompatActivity {
         }
 
     }
+
     private void initWebServiceAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.baseURL)
@@ -174,6 +173,7 @@ public class FeedActivity extends AppCompatActivity {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
+
     private void setClickListeners() {
 
         menuButton.setOnClickListener(v -> {
@@ -215,47 +215,47 @@ public class FeedActivity extends AppCompatActivity {
             String postText = data.getStringExtra("postText");
             String postImagePath = data.getStringExtra("postImagePath");
 
-            // Call the API to fetch user data
-            Call<UserCreatePost> call = webServiceAPI.getUser(username, "Bearer " + token);
-            call.enqueue(new Callback<UserCreatePost>() {
+            // Call the ViewModel method to fetch user data
+            usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
                 @Override
-                public void onResponse(Call<UserCreatePost> call, Response<UserCreatePost> response) {
-                    if (response.isSuccessful()) {
-                        UserCreatePost user = response.body();
-                        if (user != null) {
-                            Log.d("onResponse", "Successfully fetched user data. Display name: " + user.getDisplayName());
+                public void onChanged(UserCreatePost user) {
+                    if (user != null) {
+                        Log.d("onChanged", "Successfully fetched user data. Display name: " + user.getDisplayName());
 
-                            // Set profile picture
-                            String profilePic = user.getProfilePic();
-                            if (profilePic != null && !profilePic.equals(defaultPfp)) {
-                                byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
-                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                Bitmap profileImageBitmap = decodedByte;
-                                Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
-                                long currentTimeMillis = System.currentTimeMillis();
-                                String postImage = BitmapConverter.bitmapToString(postImageBitmap);
-                                String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
-                                Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTimeMillis,username);
+                        // Set profile picture
+                        String profilePic = user.getProfilePic();
+                        if (profilePic != null && !profilePic.equals(defaultPfp)) {
+                            byte[] decodedString = Base64.decode(profilePic, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Bitmap profileImageBitmap = decodedByte;
+                            Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
+                            Date currentTime = new Date(System.currentTimeMillis());
+                            String postImage = BitmapConverter.bitmapToString(postImageBitmap);
+                            String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
+                            Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTime, username);
 
-                                // Add new post to ViewModel
-                                postsViewModel.addPost(newPost);
+                            // Add new post to ViewModel
+                            postsViewModel.addPost(newPost);
 
-                                // Refresh the RecyclerView
-                                fetchAndDisplayPosts();
-                            }
+                            // Refresh the RecyclerView
+                            fetchAndDisplayPosts();
                         }
                     } else {
-                        Log.e("onResponse", "Failed to fetch user data. Error code: " + response.code());
+                        Log.e("onChanged", "Failed to fetch user data.");
                     }
                 }
-
-                @Override
-                public void onFailure(Call<UserCreatePost> call, Throwable t) {
-                    Log.e("onFailure", "Failed to fetch user data. Error message: " + t.getMessage());
-                }
             });
+        } else if (requestCode == EDIT_POST && resultCode == RESULT_OK && data != null) {
+            // Check if a post was edited
+            boolean isPostEdited = data.getBooleanExtra("isPostEdited", false);
+            if (isPostEdited) {
+                // If a post was edited, refresh the posts in the feed
+                fetchAndDisplayPosts();
+            }
         }
     }
+
+
 
 
 
