@@ -89,6 +89,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
         android:src="@null" />
+    <TextView
+        android:id="@+id/error_profile_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_profile_picture"
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:text="Please upload a profile picture" />
 
     <Button
         android:id="@+id/btn_select_image"

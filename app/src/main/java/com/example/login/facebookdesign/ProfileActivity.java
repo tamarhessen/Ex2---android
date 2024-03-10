@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button addFriendButton;
     private PostAdapter adapter;
     private Button sendMessageButton;
+    private ImageButton closeButton;
     private RecyclerView friendsRecyclerView;
     private RecyclerView postsRecyclerView;
     private String token;
@@ -43,7 +46,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_page);
-
         // Initialize views
         coverPhotoImageView = findViewById(R.id.cover_photo);
         profilePictureImageView = findViewById(R.id.profile_picture);
@@ -53,9 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
         sendMessageButton = findViewById(R.id.btn_send_message);
         friendsRecyclerView = findViewById(R.id.recycler_friends);
         postsRecyclerView = findViewById(R.id.recycler_posts);
+        closeButton = findViewById(R.id.btn_exit);
         usersViewModel = new UsersViewModel();
+
         // Set up RecyclerViews
-        setUpFriendsRecyclerView();
+     //   setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
 fetchUserData();
         Intent activityIntent = getIntent();
@@ -83,7 +87,12 @@ fetchUserData();
                 adapter.setPosts(posts);
             }
         });
-
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Navigate back to the previous activity
+            }
+        });
 fetchAndDisplayPosts();
         // Add more setup code as needed
     }
@@ -122,15 +131,15 @@ fetchAndDisplayPosts();
     private void setDisplayName(String displayName) {
         userNameTextView.setText(displayName);
     }
-    private void setUpFriendsRecyclerView() {
-        // Initialize and set layout manager for friends RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        friendsRecyclerView.setLayoutManager(layoutManager);
+//    private void setUpFriendsRecyclerView() {
+//        // Initialize and set layout manager for friends RecyclerView
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        friendsRecyclerView.setLayoutManager(layoutManager);
 //
 //        // Create and set adapter for friends RecyclerView
 //        FriendsAdapter friendsAdapter = new FriendsAdapter(/* pass necessary parameters */);
 //        friendsRecyclerView.setAdapter(friendsAdapter);
-    }
+//    }
 
     private void setUpPostsRecyclerView() {
         // Initialize and set layout manager for posts RecyclerView

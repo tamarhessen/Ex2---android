@@ -84,7 +84,7 @@ public class PostAPI {
             return;
         }
         Log.d("PostAPI", "Request Headers get: " + "Bearer " + token);
-        Call<List<Post>> call = webServiceAPI.getUserPosts("Bearer " + token);
+        Call<List<Post>> call = webServiceAPI.getUserPosts(userId,"Bearer " + token);
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {

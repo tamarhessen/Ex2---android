@@ -92,6 +92,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         intent.putExtra("Token",postsViewModel.getToken());
                         mContext.startActivity(intent);
                     }
+                    else{
+                        Intent intent = new Intent(mContext, MyProfileActivity.class);
+                        intent.putExtra("Username", currentUserUsername);
+                        intent.putExtra("ProfilePicture",current.getCreatorImg()); // Pass the profile picture here
+                        intent.putExtra("Token", postsViewModel.getToken());
+                        mContext.startActivity(intent);
+
+                }
                 }
             });
             holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
@@ -113,7 +121,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     int currentLikes = current.getPostLikes();
                     current.setPostLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
                     holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
-                    postsViewModel.likePost(current.getId(), postsViewModel.getToken(),current);
+                    postsViewModel.likePost(current.getId(), postsViewModel.getToken(), current);
                     if (current.isLiked()) {
                         holder.likeButton.setImageResource(R.drawable.liked);
                     } else {
@@ -157,6 +165,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                                     posts.set(editedPostIndex, editedPost);
                                     // Notify the adapter that the data has changed at the edited post index
                                     notifyItemChanged(posts.size() - editedPostIndex - 1);
+                                    postsViewModel.refreshPosts();
                                 }
                             }
                         }, postsViewModel);
@@ -191,21 +200,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.deleteButton.setVisibility(View.GONE);
             }
 
-            if (current.getTimestamp() == 0L) {
-                holder.time.setText(getCurrentTime()); // Assuming getCurrentTime() returns the current time as a String
+            if (current.getCreated() == null) {
+                holder.time.setText(getCurrentDateTimeString()); // Assuming getCurrentTime() returns the current time as a String
             } else {
-                String timestampString = Post.convertTimestampToString(current.getTimestamp());
-                holder.time.setText(timestampString);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd/MM/yyyy ", Locale.getDefault());
+                String formattedDate = sdf.format(current.getCreated());
+                holder.time.setText(formattedDate);
             }
 
         }
     }
-
-    private String getCurrentTime() {
+    private String getCurrentDateTimeString() {
         long currentTimeMillis = System.currentTimeMillis();
         Date currentTime = new Date(currentTimeMillis);
-        // Format the current time using SimpleDateFormat
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a\ndd/MM/yyyy ", Locale.getDefault());
         return sdf.format(currentTime);
     }
 

@@ -34,7 +34,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`,`password`) VALUES (?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`,`password`,`FriendList`,`PendingList`) VALUES (?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -61,6 +61,18 @@ public final class UserDao_Impl implements UserDao {
           statement.bindNull(5);
         } else {
           statement.bindString(5, entity.password);
+        }
+        final String _tmp_2 = ListStringConverter.fromList(entity.FriendList);
+        if (_tmp_2 == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindString(6, _tmp_2);
+        }
+        final String _tmp_3 = ListStringConverter.fromList(entity.PendingList);
+        if (_tmp_3 == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindString(7, _tmp_3);
         }
       }
     };
@@ -68,7 +80,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ?,`password` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ?,`password` = ?,`FriendList` = ?,`PendingList` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -96,7 +108,19 @@ public final class UserDao_Impl implements UserDao {
         } else {
           statement.bindString(5, entity.password);
         }
-        statement.bindLong(6, entity.getId());
+        final String _tmp_2 = ListStringConverter.fromList(entity.FriendList);
+        if (_tmp_2 == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindString(6, _tmp_2);
+        }
+        final String _tmp_3 = ListStringConverter.fromList(entity.PendingList);
+        if (_tmp_3 == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindString(7, _tmp_3);
+        }
+        statement.bindLong(8, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
@@ -162,6 +186,8 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
       final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
+      final int _cursorIndexOfFriendList = CursorUtil.getColumnIndexOrThrow(_cursor, "FriendList");
+      final int _cursorIndexOfPendingList = CursorUtil.getColumnIndexOrThrow(_cursor, "PendingList");
       final List<User> _result = new ArrayList<User>(_cursor.getCount());
       while (_cursor.moveToNext()) {
         final User _item;
@@ -196,6 +222,20 @@ public final class UserDao_Impl implements UserDao {
           _tmpPassword = _cursor.getString(_cursorIndexOfPassword);
         }
         _item = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment,_tmpPassword);
+        final String _tmp_2;
+        if (_cursor.isNull(_cursorIndexOfFriendList)) {
+          _tmp_2 = null;
+        } else {
+          _tmp_2 = _cursor.getString(_cursorIndexOfFriendList);
+        }
+        _item.FriendList = ListStringConverter.fromString(_tmp_2);
+        final String _tmp_3;
+        if (_cursor.isNull(_cursorIndexOfPendingList)) {
+          _tmp_3 = null;
+        } else {
+          _tmp_3 = _cursor.getString(_cursorIndexOfPendingList);
+        }
+        _item.PendingList = ListStringConverter.fromString(_tmp_3);
         _result.add(_item);
       }
       return _result;
@@ -219,6 +259,8 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfUser = CursorUtil.getColumnIndexOrThrow(_cursor, "user");
       final int _cursorIndexOfLastComment = CursorUtil.getColumnIndexOrThrow(_cursor, "lastComment");
       final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
+      final int _cursorIndexOfFriendList = CursorUtil.getColumnIndexOrThrow(_cursor, "FriendList");
+      final int _cursorIndexOfPendingList = CursorUtil.getColumnIndexOrThrow(_cursor, "PendingList");
       final User _result;
       if (_cursor.moveToFirst()) {
         final int _tmpId;
@@ -252,6 +294,20 @@ public final class UserDao_Impl implements UserDao {
           _tmpPassword = _cursor.getString(_cursorIndexOfPassword);
         }
         _result = new User(_tmpId,_tmpUsername,_tmpUser,_tmpLastComment,_tmpPassword);
+        final String _tmp_2;
+        if (_cursor.isNull(_cursorIndexOfFriendList)) {
+          _tmp_2 = null;
+        } else {
+          _tmp_2 = _cursor.getString(_cursorIndexOfFriendList);
+        }
+        _result.FriendList = ListStringConverter.fromString(_tmp_2);
+        final String _tmp_3;
+        if (_cursor.isNull(_cursorIndexOfPendingList)) {
+          _tmp_3 = null;
+        } else {
+          _tmp_3 = _cursor.getString(_cursorIndexOfPendingList);
+        }
+        _result.PendingList = ListStringConverter.fromString(_tmp_3);
       } else {
         _result = null;
       }

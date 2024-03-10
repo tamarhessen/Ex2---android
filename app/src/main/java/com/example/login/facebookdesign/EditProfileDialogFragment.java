@@ -29,65 +29,52 @@ import java.io.IOException;
 
 public class EditProfileDialogFragment extends DialogFragment {
 
+    // Define keys for arguments
+    private static final String ARG_USERNAME = "username";
+    private static final String ARG_TOKEN = "token";
+    private static final String ARG_DISPLAY_NAME = "displayName";
+    private static final String ARG_PROFILE_IMAGE = "profilepic";
+
+    // Method to create a new instance of EditProfileDialogFragment with arguments
+    public static EditProfileDialogFragment newInstance(String username, String token, String displayName,String profilePic) {
+        EditProfileDialogFragment fragment = new EditProfileDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USERNAME, username);
+        args.putString(ARG_TOKEN, token);
+        args.putString(ARG_DISPLAY_NAME, displayName);
+        args.putString(ARG_PROFILE_IMAGE,profilePic);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    // Rest of the class implementation remains the same..
+
+
     private EditText editTextDisplayName;
     private Button btnSave, btnCancel, btnEditImage;
     private UsersViewModel usersViewModel;
     private Bitmap newProfilePic;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_IMAGE_PICK = 2;
-    private static final int PICK_IMAGE_REQUEST = 3;
+    private static final int PICK_IMAGE_REQUEST = 2;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_profile_dialog, container, false);
-        usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+        usersViewModel = new ViewModelProvider(requireActivity()).get(UsersViewModel.class);
+
         // Initialize views
         editTextDisplayName = view.findViewById(R.id.edit_text_display_name);
         btnSave = view.findViewById(R.id.btn_save);
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnEditImage = view.findViewById(R.id.btn_profile_picture);
-
+        editTextDisplayName.setText(ARG_DISPLAY_NAME);
         // Set click listeners
-        editTextDisplayName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open dialog or activity to edit display name
-            }
-        });
+        btnEditImage.setOnClickListener(v -> openImageChooser());
 
-        btnEditImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open camera or gallery to change profile picture
-                openImageChooser();
-            }
-        });
+        btnSave.setOnClickListener(v -> saveChanges());
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Save changes
-                String displayName = editTextDisplayName.getText().toString().trim();
-                // Call the edit method of usersViewModel with the updated display name
-                usersViewModel.editUser(displayName, BitmapConverter.bitmapToString(newProfilePic));
-
-                // Pass the edited display name to the calling activity/fragment if needed
-                if (getTargetFragment() != null) {
-                    ((EditProfileDialogListener) getTargetFragment()).onSaveClicked(displayName);
-                }
-                dismiss();
-            }
-        });
-
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Cancel editing
-                dismiss();
-            }
-        });
+        btnCancel.setOnClickListener(v -> dismiss());
 
         return view;
     }
@@ -96,28 +83,53 @@ public class EditProfileDialogFragment extends DialogFragment {
     private void openImageChooser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Choose an option");
-        builder.setItems(new CharSequence[]{"Choose from Gallery", "Take Photo"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        // Choose from Gallery
-                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-                        break;
-                    case 1:
-                        // Take Photo
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-                            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
-                        } else {
-                            Toast.makeText(requireContext(), "Camera not available", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
+        builder.setItems(new CharSequence[]{"Choose from Gallery", "Take Photo"}, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    // Choose from Gallery
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+                    break;
+                case 1:
+                    // Take Photo
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (cameraIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+                    } else {
+                        Toast.makeText(requireContext(), "Camera not available", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
         });
         builder.show();
+    }
+
+    private void saveChanges() {
+        String displayName = editTextDisplayName.getText().toString().trim();
+        if (displayName.isEmpty()) {
+            // Display a toast message indicating that display name cannot be empty
+            Toast.makeText(requireContext(), "Display name cannot be empty", Toast.LENGTH_SHORT).show();
+            return; // Exit the method early
+        }
+
+        // Check if a new profile picture is selected
+        if (newProfilePic != null) {
+            // If a new profile picture is selected, convert it to base64 string
+            String profilePicBase64 = BitmapConverter.bitmapToString(newProfilePic);
+            // Call the editUser method of the UsersViewModel with updated display name and profile picture
+            usersViewModel.editUser(displayName, profilePicBase64);
+        } else {
+            // If no new profile picture is selected, call the editUser method with only the updated display name
+            usersViewModel.editUser(displayName,"");
+        }
+
+        // Dismiss the dialog
+        dismiss();
+        Intent intent = new Intent(requireContext(),LogInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
+        startActivity(intent);
+        requireActivity().finish();
+
     }
 
     @Override
@@ -127,6 +139,9 @@ public class EditProfileDialogFragment extends DialogFragment {
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
                     // Handle image captured from camera
+                    if (data != null && data.getExtras() != null) {
+                        newProfilePic = (Bitmap) data.getExtras().get("data");
+                    }
                     break;
                 case PICK_IMAGE_REQUEST:
                     // Handle image picked from gallery
@@ -136,13 +151,6 @@ public class EditProfileDialogFragment extends DialogFragment {
                         try {
                             // Convert the URI to a Bitmap
                             newProfilePic = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                            // Now you have the Bitmap of the selected image, you can use it as the profile picture
-                            // For example, you can display it in an ImageView or save it to a variable
-                            // Save the profilePicBitmap to a variable or pass it to a method for further processing
-                            // For example:
-                            // usersViewModel.updateProfilePicture(profilePicBitmap);
-                            // or
-                            // saveProfilePicture(profilePicBitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -150,10 +158,5 @@ public class EditProfileDialogFragment extends DialogFragment {
                     break;
             }
         }
-    }
-
-    // Interface for communication with the calling fragment/activity
-    public interface EditProfileDialogListener {
-        void onSaveClicked(String displayName);
     }
 }

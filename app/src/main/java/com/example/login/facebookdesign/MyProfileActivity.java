@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,10 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
+import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,9 +42,12 @@ public class MyProfileActivity extends AppCompatActivity {
     private UsersViewModel usersViewModel;
     private String username;
     private String token;
+    private PostsViewModel postsViewModel;
     private String displayName;
+    private RecyclerView postsRecyclerView;
+    private PostAdapter adapter;
     private Button editProfile;
-    private Button deleteUser;
+    private ImageButton exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,23 +58,46 @@ public class MyProfileActivity extends AppCompatActivity {
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
         editProfile = findViewById(R.id.btn_edit_profile);
-        deleteUser = findViewById(R.id.btn_delete_user);
+        exitButton = findViewById(R.id.btn_exit);
+        postsRecyclerView = findViewById(R.id.recycler_posts);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+       // setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
+        fetchUserData();
+        Intent activityIntent = getIntent();
+        if (activityIntent != null) {
+            token = activityIntent.getStringExtra("Token");
+            username = activityIntent.getStringExtra("Username");
+            // Initialize ViewModel with token
+            postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+            postsViewModel.setUsername(username);
+            postsViewModel.setToken(token);
+        }
+        else {
+            // Handle case where intent is null or token is not provided
+            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
+        }
 
+        // Observe changes in posts data
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                adapter.setPosts(posts);
+            }
+        });
         // Set click listener for edit button
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
             openEditProfileDialog();
         });
-       deleteUser.setOnClickListener(v -> {
-            // Open edit profile dialog fragment
-            deleteUser();
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Navigate back to the previous activity
+            }
         });
 
-        // Fetch user data
-        fetchUserData();
 
         // Retrieve the profile picture byte array from Intent extras
         byte[] profilePictureByteArray = getIntent().getByteArrayExtra("ProfilePicture");
@@ -74,22 +108,53 @@ public class MyProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void deleteUser() {
-        // Call the deleteUser method in the ViewModel
-        usersViewModel.deleteuser();
-
-        // Navigate back to the login screen
-        Intent intent = new Intent(MyProfileActivity.this, LogInActivity.class);
-        startActivity(intent);
-        finish(); // Optional: Finish the current activity to prevent going back to it when pressing the back button
+    private void fetchAndDisplayPosts(String currentDisplayName) {
+        // Observe changes in posts data
+        postsViewModel.getPostsforUserName().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                // Update RecyclerView adapter with fetched posts
+                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+            } else {
+                Toast.makeText(MyProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName) {
+        List<Post> filteredPosts = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getCreator().equals(currentDisplayName)) {
+                filteredPosts.add(post);
+            }
+        }
+        return filteredPosts;
     }
 
+    private void setUpPostsRecyclerView() {
+        // Initialize and set layout manager for posts RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        postsRecyclerView.setLayoutManager(layoutManager);
 
-
+        // Create and set adapter for posts RecyclerView
+        adapter = new PostAdapter(this, username, postsViewModel, displayName);
+        postsRecyclerView.setAdapter(adapter);
+    }
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        EditProfileDialogFragment editProfileDialogFragment = new EditProfileDialogFragment();
+        // Retrieve user data
+        String username = getIntent().getStringExtra("Username");
+        String token = getIntent().getStringExtra("Token");
+        String displayName = getIntent().getStringExtra("DisplayName");
+        String profilePicBase64 = getIntent().getStringExtra("ProfilePicBase64"); // Assuming you have a key for profile picture
+        Bitmap profilePicBitmap = null;
+        if (profilePicBase64 != null) {
+            byte[] decodedString = Base64.decode(profilePicBase64, Base64.DEFAULT);
+            profilePicBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+        // Create an instance of EditProfileDialogFragment with arguments
+        EditProfileDialogFragment editProfileDialogFragment = EditProfileDialogFragment.newInstance(username, token, displayName, BitmapConverter.bitmapToString(profilePicBitmap));
+        // Show the dialog
         editProfileDialogFragment.show(fragmentManager, "EditProfileDialogFragment");
+
     }
 
     private void fetchUserData() {
@@ -108,6 +173,9 @@ public class MyProfileActivity extends AppCompatActivity {
                     // Example: Set the profile picture
                     setProfilePicture(userCreatePost.getProfilePic());
                     setDisplayName(userCreatePost.getDisplayName());
+
+                    // Fetch and display posts after setting display name
+                    fetchAndDisplayPosts(userCreatePost.getDisplayName());
                 }
             });
         }

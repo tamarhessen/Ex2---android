@@ -1,474 +1,474 @@
 [
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_video.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\video.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_18.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_18.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_bigger_icon.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\bigger_icon.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_image.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\image.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_4.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_4.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_like.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\like.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_not_liked.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\not_liked.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_11.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_11.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_12.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_12.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_menu.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\menu.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_close.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xxhdpi\\ic_close.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_users.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_users.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_login.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_login.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi_ic_back.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-anydpi\\ic_back.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_20.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_20.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_5.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_5.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_19.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_19.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_post_layout.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\post_layout.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_bell.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\bell.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_search.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\search.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_message.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\message.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_share_.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\share_.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_menu.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\menu.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_one_comment.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\one_comment.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_back.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-hdpi\\ic_back.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_share_.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\share_.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_liked.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\liked.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_blue_border_button.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\blue_border_button.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_17.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_17.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_close.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xhdpi\\ic_close.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_10.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_10.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_19.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_19.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "com.example.login.app-merged_res-39:/layout_activity_creat_account.xml.flat",
+        "source": "com.example.login.app-main-41:/layout/activity_creat_account.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_13.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_13.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_plus.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\plus.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_comment_.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\comment_.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_custom_list_item.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\custom_list_item.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_my_profile_page.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\my_profile_page.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xxxhdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\xml\\data_extraction_rules.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_grey_border_button.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\grey_border_button.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_profile_page.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\profile_page.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-hdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_edit_post_dialog.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\edit_post_dialog.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xhdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_3.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_3.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_bell.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\bell.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_home.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\home.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-ldpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-ldpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_facebookwriting.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\facebookwriting.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_close.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-hdpi\\ic_close.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_not_liked.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\not_liked.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_store.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\store.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_6.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_6.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_like.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\like.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_16.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_16.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_14.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_14.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_back.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-hdpi\\ic_back.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\menu_menu_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\menu\\menu_main.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout-land_activity_main.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout-land\\activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_not_liked.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\not_liked.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_2.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_2.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_3.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_3.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_image.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\image.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_bigger_icon.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\bigger_icon.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-mdpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\menu\\menu_main.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_store.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\store.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xxhdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_home.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\home.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi_ic_close.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-anydpi\\ic_close.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxxhdpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xxxhdpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_back.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xhdpi\\ic_back.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_close.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-mdpi\\ic_close.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_create_post.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_create_post.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_message.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\message.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_one_comment.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\one_comment.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_menu.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\menu.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_facebook_logo.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\facebook_logo.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_blue_border_button.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\blue_border_button.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_like_button_background.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\like_button_background.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_share.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\share.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_11.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_11.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_comment_.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\comment_.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_feed.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_feed.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_users.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_users.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_search.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\search.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_login_layout.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_login_layout.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\xml\\backup_rules.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_settings.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\settings.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_5.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_5.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_create.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_create.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\ic_launcher_background.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_create.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_create.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_8.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_8.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_menu.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_menu.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_people.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\people.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_8.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_8.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_comments.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\comments.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout-land_activity_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout-land\\activity_main.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_like.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\like.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_back.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xxhdpi\\ic_back.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_edit_post_dialog.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\edit_post_dialog.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_home.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\home.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_1.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_1.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_people.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\people.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_close.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-hdpi\\ic_close.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_video.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\video.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_liked.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\liked.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_creat_account.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_creat_account.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_edit_profile_dialog.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\edit_profile_dialog.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-ldpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-ldpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_share.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\share.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_14.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_14.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi_ic_back.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-anydpi\\ic_back.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_like_button_background.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\like_button_background.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_login_layout.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_login_layout.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_liked.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\liked.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_store.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\store.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_like.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\like.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_facebookwriting.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\facebookwriting.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_back.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xhdpi\\ic_back.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_edit_profile_dialog.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\edit_profile_dialog.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_comment.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\comment.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_logo_huge.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\logo_huge.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_creat_account.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_creat_account.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_7.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_7.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_share.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\share.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-hdpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-hdpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_9.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_9.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_liked.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\liked.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_video.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\video.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_16.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_16.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_comment.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\comment.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_search.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\search.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_2.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_2.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_settings.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\settings.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_profile_page.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\profile_page.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_facebookwriting.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\facebookwriting.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_13.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_13.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_grey_border_button.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\grey_border_button.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_comment_.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\comment_.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_back.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-mdpi\\ic_back.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_login.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_comments.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\comments.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_search.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\search.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_pic1.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\pic1.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_share_.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\share_.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_10.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_10.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_feed.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_feed.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_17.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_17.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_my_profile_page.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\my_profile_page.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_chat_background.jpg.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\chat_background.jpg"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_people.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\people.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_comment_.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\comment_.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_menu.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_menu.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_menu.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\menu.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_settings.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_chat_background.jpg.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\chat_background.jpg"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_people.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\people.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-anydpi_ic_close.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-anydpi\\ic_close.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_plus.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\plus.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_6.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_6.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_back.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-mdpi\\ic_back.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_custom_list_item.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\custom_list_item.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-mdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.login.app-merged_res-39:/layout_my_profile_page.xml.flat",
-        "source": "com.example.login.app-main-41:/layout/my_profile_page.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_settings.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\settings.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_9.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_9.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_message.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\message.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_18.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_18.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_create_post.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_create_post.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_plus.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\plus.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_facebook_logo.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\facebook_logo.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_close.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xxhdpi\\ic_close.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_bell.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\bell.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_bell.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\bell.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xhdpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_20.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_20.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_launcher_foreground.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-pngs-35:\\drawable-xxhdpi\\ic_launcher_foreground.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_home.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\home.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_message.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\message.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xxhdpi_ic_back.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xxhdpi\\ic_back.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_facebookwriting.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\facebookwriting.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_12.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_12.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_share.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\share.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_pic1.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\pic1.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_logo_huge.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\logo_huge.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_15.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_15.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-mdpi_ic_close.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-mdpi\\ic_close.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_share_.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\share_.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_7.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_7.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_post_layout.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\post_layout.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_plus.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\plus.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_15.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_15.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_store.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\store.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_4.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_4.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_settings.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\settings.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_video.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\video.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable_img_1.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable\\img_1.png"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-night_not_liked.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-night\\not_liked.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\layout_activity_settings.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\layout\\activity_settings.xml"
+        "merged": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-merged_res-39:\\drawable-xhdpi_ic_close.png.flat",
+        "source": "C:\\Users\\tamar\\.gradle\\daemon\\8.2\\com.example.login.app-main-41:\\drawable-xhdpi\\ic_close.png"
     }
 ]
