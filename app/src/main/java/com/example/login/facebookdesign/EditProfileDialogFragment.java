@@ -34,17 +34,18 @@ public class EditProfileDialogFragment extends DialogFragment {
     // Define keys for arguments
     private static final String ARG_USERNAME = "username";
     private static final String ARG_TOKEN = "token";
-    private static final String ARG_DISPLAY_NAME = "displayName";
+    private static final String currentDisplayName = "CurrentDisplayName";
     private static final String ARG_PROFILE_IMAGE = "profilepic";
+    private static String profilePicBase64;
 
     // Method to create a new instance of EditProfileDialogFragment with arguments
     public static EditProfileDialogFragment newInstance(String username, String token, String displayName,String profilePic) {
         EditProfileDialogFragment fragment = new EditProfileDialogFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_USERNAME, username);
-        args.putString(ARG_TOKEN, token);
-        args.putString(ARG_DISPLAY_NAME, displayName);
-        args.putString(ARG_PROFILE_IMAGE,profilePic);
+        args.putString("Username", username);
+        args.putString("Token", token);
+        args.putString("CurrentDisplayName", currentDisplayName);
+        args.putString("ProfilePicBase64", profilePicBase64);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,13 +72,15 @@ public class EditProfileDialogFragment extends DialogFragment {
         btnSave = view.findViewById(R.id.btn_save);
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnEditImage = view.findViewById(R.id.btn_profile_picture);
-        String displayName = ARG_DISPLAY_NAME;
+
+        // Retrieve the display name from arguments and set it to the editTextDisplayName
+        assert getArguments() != null;
+        String displayName = getArguments().getString("Enter new display name");
         editTextDisplayName.setText(displayName);
+
         // Set click listeners
         btnEditImage.setOnClickListener(v -> openImageChooser());
-
         btnSave.setOnClickListener(v -> saveChanges());
-
         btnCancel.setOnClickListener(v -> dismiss());
 
         return view;

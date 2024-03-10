@@ -73,9 +73,9 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/grey_border_button"
             android:inputType="none"
-            android:hint="DisplayName"
+            android:hint="Enter display name"
             android:imeOptions="actionNext"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:singleLine="true"
             android:textStyle="bold" />
 

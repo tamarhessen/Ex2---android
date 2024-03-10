@@ -43,7 +43,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String username;
     private String token;
     private PostsViewModel postsViewModel;
-    private String displayName;
+    private static String displayName;
     private RecyclerView postsRecyclerView;
     private PostAdapter adapter;
     private Button editProfile;
@@ -66,8 +66,9 @@ public class MyProfileActivity extends AppCompatActivity {
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
        // setUpFriendsRecyclerView();
-        setUpPostsRecyclerView();
         fetchUserData();
+        setUpPostsRecyclerView();
+
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");

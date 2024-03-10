@@ -17,12 +17,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Query;
+import androidx.room.Room;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
+import com.example.login.dataBase.LocalDB;
+import com.example.login.dataBase.PostDB;
 import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +55,7 @@ public class FeedActivity extends AppCompatActivity {
     private UsersViewModel usersViewModel;
     private String token;
     private String displayName;
+    private boolean share=false;
 
 
     @Override
@@ -57,6 +63,9 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         initViews();
+        PostDB db = Room.databaseBuilder(getApplicationContext(),
+                PostDB.class, "post").allowMainThreadQueries().build();
+        PostDao postDao = db.postDao();
         // Set up RecyclerView and adapter
 
         initWebServiceAPI();
@@ -96,9 +105,16 @@ public class FeedActivity extends AppCompatActivity {
 
         // Observe changes in posts data
         postsViewModel.getPosts().observe(this, posts -> {
+            if (share){
+                share=false;
+                postsViewModel.refreshPosts();
+            }
             if (posts != null && !posts.isEmpty()) {
                 adapter.setPosts(posts);
+                postDao.clear();
+                postDao.insertList(posts);
             }
+
         });
 
         fetchAndDisplayPosts();
@@ -203,10 +219,14 @@ public class FeedActivity extends AppCompatActivity {
 
     }
 
-//    private void loadSamplePosts() {
-//        List<Post> posts = JsonParser.parseJson(this);
-//        adapter.setPosts(posts);
-//    }
+    private byte[] compressImage(Bitmap imageBitmap) {
+        if(imageBitmap==null){
+            return null;
+        }
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream); // Adjust quality as needed
+        return outputStream.toByteArray();
+    }
 
 
     // This method will be called when returning from NewPostActivity
@@ -232,13 +252,21 @@ public class FeedActivity extends AppCompatActivity {
                             Bitmap profileImageBitmap = decodedByte;
                             Bitmap postImageBitmap = BitmapFactory.decodeFile(postImagePath);
                             Date currentTime = new Date(System.currentTimeMillis());
-                            String postImage = BitmapConverter.bitmapToString(postImageBitmap);
+                            byte[] compressedPostImage = compressImage(postImageBitmap);
+                            String postImage = null;
+                            if (compressedPostImage != null) {
+                                postImage = Base64.encodeToString(compressedPostImage, Base64.DEFAULT);
+                                // Continue processing...
+                            } else {
+                                // Handle the case where the byte array is null
+                                Log.e("FeedActivity", "Compressed post image is null");
+                            }
                             String profileImage = BitmapConverter.bitmapToString(profileImageBitmap);
                             Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTime, username);
 
                             // Add new post to ViewModel
                             postsViewModel.addPost(newPost);
-
+                            share=true;
                             // Refresh the RecyclerView
                             fetchAndDisplayPosts();
                         }
