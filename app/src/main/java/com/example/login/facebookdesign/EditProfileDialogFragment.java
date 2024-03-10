@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,9 +53,10 @@ public class EditProfileDialogFragment extends DialogFragment {
 
 
     private EditText editTextDisplayName;
-    private Button btnSave, btnCancel, btnEditImage;
+    private Button btnSave, btnCancel;
     private UsersViewModel usersViewModel;
     private Bitmap newProfilePic;
+    private ImageButton btnEditImage;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int PICK_IMAGE_REQUEST = 2;
 
@@ -68,7 +71,8 @@ public class EditProfileDialogFragment extends DialogFragment {
         btnSave = view.findViewById(R.id.btn_save);
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnEditImage = view.findViewById(R.id.btn_profile_picture);
-        editTextDisplayName.setText(ARG_DISPLAY_NAME);
+        String displayName = ARG_DISPLAY_NAME;
+        editTextDisplayName.setText(displayName);
         // Set click listeners
         btnEditImage.setOnClickListener(v -> openImageChooser());
 
@@ -141,6 +145,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                     // Handle image captured from camera
                     if (data != null && data.getExtras() != null) {
                         newProfilePic = (Bitmap) data.getExtras().get("data");
+                        // Set the new profile picture to the ImageView
+                        btnEditImage.setImageBitmap(newProfilePic);
                     }
                     break;
                 case PICK_IMAGE_REQUEST:
@@ -151,6 +157,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                         try {
                             // Convert the URI to a Bitmap
                             newProfilePic = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                            // Set the new profile picture to the ImageView
+                            btnEditImage.setImageBitmap(newProfilePic);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -159,4 +167,5 @@ public class EditProfileDialogFragment extends DialogFragment {
             }
         }
     }
+
 }
