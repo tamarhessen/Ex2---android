@@ -48,6 +48,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private Button editProfile;
     private ImageButton exitButton;
+    private Button deleteUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MyProfileActivity extends AppCompatActivity {
         editProfile = findViewById(R.id.btn_edit_profile);
         exitButton = findViewById(R.id.btn_exit);
         postsRecyclerView = findViewById(R.id.recycler_posts);
+        deleteUser = findViewById(R.id.btn_delete_user);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
@@ -90,6 +92,10 @@ public class MyProfileActivity extends AppCompatActivity {
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
             openEditProfileDialog();
+        });
+        deleteUser.setOnClickListener(v -> {
+            // Open edit profile dialog fragment
+            deleteUser();
         });
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +134,16 @@ public class MyProfileActivity extends AppCompatActivity {
         }
         return filteredPosts;
     }
+    private void deleteUser() {
+        // Call the deleteUser method in the ViewModel
+        usersViewModel.deleteuser();
+
+        // Navigate back to the login screen
+        Intent intent = new Intent(MyProfileActivity.this, LogInActivity.class);
+        startActivity(intent);
+        finish(); // Optional: Finish the current activity to prevent going back to it when pressing the back button
+    }
+
 
     private void setUpPostsRecyclerView() {
         // Initialize and set layout manager for posts RecyclerView
