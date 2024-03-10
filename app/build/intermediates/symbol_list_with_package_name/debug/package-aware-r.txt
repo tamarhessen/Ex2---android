@@ -3280,6 +3280,7 @@ id bounceStart
 id btnAdd
 id btn_add_friend
 id btn_cancel
+id btn_delete_user
 id btn_edit_profile
 id btn_exit
 id btn_more
@@ -3288,7 +3289,6 @@ id btn_save
 id btn_select_image
 id btn_send_message
 id btn_sign_up
-id btn_to_story
 id buttonPanel
 id cache_measures
 id callMeasure

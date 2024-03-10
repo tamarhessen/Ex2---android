@@ -68,18 +68,18 @@
         android:layout_below="@id/user_name"
         android:layout_marginStart="-69dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/btn_to_story"
+        android:layout_toEndOf="@id/btn_delete_user"
         android:text="friends"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/btn_to_story"
+        android:id="@+id/btn_delete_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/friends"
         android:layout_marginTop="10dp"
-        android:text=" + Add to story" />
+        android:text="delete my user" />
 
     <!-- Button for Sending Message -->
     <!-- Button for Viewing Photos -->
@@ -93,7 +93,7 @@
         android:layout_marginStart="19dp"
         android:textColor="@android:color/black"
         android:layout_marginTop="9dp"
-        android:layout_toEndOf="@id/btn_to_story"
+        android:layout_toEndOf="@id/btn_delete_user"
         android:backgroundTint="@color/light_grey"
         android:text="Edit profile" />
 

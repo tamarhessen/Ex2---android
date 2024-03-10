@@ -43,6 +43,10 @@ public class UsersRepository {
     public void editUser(String userId, String displayName, String base64EncodedImage, String token) {
         api.editUser(userId,displayName,base64EncodedImage,token);
     }
+    public void deleteUser(String userId, String token) {
+        api.deleteUser(userId,token);
+    }
+
 
 
     // Custom LiveData class to hold list of users

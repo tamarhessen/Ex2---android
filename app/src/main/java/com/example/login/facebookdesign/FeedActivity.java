@@ -178,9 +178,11 @@ public class FeedActivity extends AppCompatActivity {
 
         menuButton.setOnClickListener(v -> {
             Intent intent = new Intent(FeedActivity.this, MenuActivity.class);
+
             intent.putExtra("Username", username);
             intent.putExtra("ProfilePicture", profilePictureByteArray);
-            intent.putExtra("DisplayName", displayName);// Pass the profile picture byte array
+            intent.putExtra("Token",postsViewModel.getToken());
+
             startActivity(intent);
 
 
