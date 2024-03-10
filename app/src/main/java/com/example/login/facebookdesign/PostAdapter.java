@@ -162,6 +162,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                                     posts.set(editedPostIndex, editedPost);
                                     // Notify the adapter that the data has changed at the edited post index
                                     notifyItemChanged(posts.size() - editedPostIndex - 1);
+                                    postsViewModel.refreshPosts();
                                 }
                             }
                         }, postsViewModel);
