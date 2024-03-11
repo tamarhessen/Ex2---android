@@ -86,12 +86,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c51e6979-e5df-46de-bd9d-43b1517d81cd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/MyProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/MyProfileActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="c51e6979-e5df-46de-bd9d-43b1517d81cd" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -614,7 +609,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/login/facebookdesign/FeedActivity.java</url>
           <line>221</line>
-          <properties class="com.example.login.facebookdesign.FeedActivity" method="compressImage">
+          <properties class="com.example.login.facebookdesign.FeedActivity">
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="184" />
@@ -622,7 +617,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/login/API/UsersAPI.java</url>
           <line>174</line>
-          <properties method="onFailure">
+          <properties>
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="201" />
