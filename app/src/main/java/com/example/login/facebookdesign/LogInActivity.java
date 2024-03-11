@@ -1,6 +1,8 @@
 package com.example.login.facebookdesign;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,17 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login.R;
-import com.example.login.API.WebServiceAPI;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.login.viewModels.UsersViewModel;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -33,6 +27,7 @@ public class LogInActivity extends AppCompatActivity {
     private Button createButton;
     private Button loginButton;
     private String displayName;
+    private UsersViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +40,9 @@ public class LogInActivity extends AppCompatActivity {
         createButton = findViewById(R.id.create_btn);
         loginButton = findViewById(R.id.loginbtn);
 
+        // Initialize the ViewModel
+        userViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+
         // Set click listener for the "Create Account" button
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,27 +54,21 @@ public class LogInActivity extends AppCompatActivity {
         });
 
         // Set click listener for the "Login" button
+        // Set click listener for the "Login" button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the entered username and password
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
-                Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5000/api/")
-                        .addConverterFactory(GsonConverterFactory.create(gson)).build();
-                WebServiceAPI webServiceAPI = retrofit.create(WebServiceAPI.class);
-                UserCreateToken userCreateToken = new UserCreateToken(username, password);
-                Call<String> call = webServiceAPI.getToken(userCreateToken);
-                call.enqueue(new Callback<String>() {
+
+                // Call the login method in UserViewModel with the Context parameter
+                userViewModel.login(LogInActivity.this, username, password).observe(LogInActivity.this, new Observer<String>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response.isSuccessful()) {
+                    public void onChanged(String token) {
+                        if (token != null) {
+                            // Login successful, start FeedActivity
                             Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
-                            String tokenNow = response.body();
-                            intent.putExtra("Token", tokenNow);
+                            intent.putExtra("Token", token);
                             intent.putExtra("Username", username);
                             intent.putExtra("Display name", displayName);
 
@@ -84,19 +76,43 @@ public class LogInActivity extends AppCompatActivity {
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("username", username); // Store the username
-                            editor.putString("token", tokenNow); // Store the token
+                            editor.putString("token", token); // Store the token
                             editor.apply();
+
                             startActivity(intent);
                         } else {
+                            // Login failed
                             Toast.makeText(LogInActivity.this, "Username or password incorrect", Toast.LENGTH_SHORT).show();
                         }
                     }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(LogInActivity.this, "Network request failed", Toast.LENGTH_SHORT).show();
-                    }
                 });
+            }
+        });
+
+
+        // Observe the login result in the activity
+        userViewModel.getLoginResult().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean loginSuccessful) {
+                if (loginSuccessful) {
+                    // Login successful, start FeedActivity
+                    Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+                    intent.putExtra("Token", userViewModel.getToken());
+                    intent.putExtra("Username", usernameEditText.getText().toString().trim());
+                    intent.putExtra("Display name", displayName);
+
+                    // Save the user information during login
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("username", usernameEditText.getText().toString().trim()); // Store the username
+                    editor.putString("token", userViewModel.getToken()); // Store the token
+                    editor.apply();
+
+                    startActivity(intent);
+                } else {
+                    // Login failed
+                    Toast.makeText(LogInActivity.this, "Username or password incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -112,18 +128,5 @@ public class LogInActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private boolean checkCredentials(String username, String password) {
-        // Get the list of users from UserCredentials class
-        List<UserCredentials.User> userList = UserCredentials.getUsers();
-
-        // Check if the credentials exist in the user list
-        for (UserCredentials.User user : userList) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return true; // Credentials match
-            }
-        }
-        return false; // Credentials do not match
     }
 }

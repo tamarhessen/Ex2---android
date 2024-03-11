@@ -7,6 +7,7 @@ import static com.example.login.facebookdesign.UsersActivity.token;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.login.API.WebServiceAPI;
 import com.example.login.facebookdesign.CreateAccountActivity;
+import com.example.login.facebookdesign.FeedActivity;
 import com.example.login.facebookdesign.LogInActivity;
 import com.example.login.facebookdesign.OnlyUsername;
 import com.example.login.facebookdesign.User;
@@ -23,6 +25,7 @@ import com.example.login.facebookdesign.UserCreateToken;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.facebookdesign.UserDataFromAdd;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -39,6 +42,7 @@ public class UsersAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
     private UserDao userDao;
+    private static Gson gson;
 
     public UsersAPI(MutableLiveData<List<User>> userListData, UserDao userDao) {
         this.userListData = userListData;
@@ -46,10 +50,13 @@ public class UsersAPI {
                 addConverterFactory(GsonConverterFactory.create()).build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.userDao = userDao;
+        gson = new GsonBuilder().setLenient().create();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:5000/api/")  // Make sure this is set correctly
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson)) // Pass the custom Gson instance
                 .build();
+
 
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
@@ -172,29 +179,30 @@ public class UsersAPI {
     }
 
 
-    public void createToken(String username, String password, TokenCallback callback) {
-        UserCreateToken userCredentials = new UserCreateToken(username, password);
-        Call<String> call = webServiceAPI.getToken(userCredentials);
-
+    public void createToken(Context context, String username, String password, TokenCallback callback) {
+        UserCreateToken userCreateToken = new UserCreateToken(username, password);
+        Call<String> call = webServiceAPI.getToken(userCreateToken);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-                    callback.onTokenGenerated(response.body()); // Pass the token to the callback
+                    String token = response.body();
+                    if (token != null) {
+                        callback.onTokenGenerated(token);
+                    } else {
+                        Toast.makeText(context, "Username or password incorrect", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Log.e("UsersAPI", "Failed to get token: " + response.code());
-                    callback.onTokenGenerated(null); // Notify the callback with null token
+                    Toast.makeText(context, "Username or password incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.e("UsersAPI", "Exception while fetching token: " + t.getMessage());
-                callback.onTokenGenerated(null); // Notify the callback with null token in case of failure
+                Toast.makeText(context, "Network request failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     public interface TokenCallback {
         void onTokenGenerated(String token);
     }

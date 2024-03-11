@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
@@ -116,21 +118,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 public void onClick(View v) {
                     // Get the current post
                     final Post current = posts.get(holder.getAdapterPosition());
-
-                    // Toggle the liked status
-                    current.setLiked(!current.isLiked());
-
-                    // Update the like button icon and text in the UI
-                    updateLikeButton(holder, current);
-
-                    // Update the post in the posts list
-                    posts.set(holder.getAdapterPosition(), current);
-
-                    // Call ViewModel method to like/unlike the post
                     postsViewModel.likePost(current.getId(), postsViewModel.getToken(), current);
+                    postsViewModel.refreshPosts();
                 }
             });
-
 
 
             // Handle click event of the comments button

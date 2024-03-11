@@ -70,26 +70,16 @@ public class UsersViewModel extends ViewModel {
         this.userid = userid;
     }
 
-
-    public void login(String username, String password) {
-        this.repository=new UsersRepository(username);
-        this.repository.login(username, password, new UsersRepository.LoginCallback() {
-            @Override
-            public void onLoginSuccess(String token) {
-                // Handle successful login, maybe store token or navigate to another screen
-                loginResult.postValue(true);
-            }
-
-            @Override
-            public void onLoginError(String errorMessage) {
-                // Handle login error, maybe show an error message to the user
-                loginResult.postValue(false);
-            }
-        });
+    public void saveToken(String token) {
+        this.token = token;
     }
 
-    private void saveToken(String token) {
-        this.token = token;
+    // Method to retrieve the token after login
+    public String getToken() {
+        return token;
+    }
+    public LiveData<String> login(Context context, String username, String password) {
+        return repository.login(context, username, password);
     }
 
     // Method to observe the login result
