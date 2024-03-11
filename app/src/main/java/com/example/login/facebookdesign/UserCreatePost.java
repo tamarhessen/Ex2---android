@@ -2,8 +2,24 @@ package com.example.login.facebookdesign;
 
 import android.graphics.Bitmap;
 
+import androidx.room.TypeConverters;
+
+import java.util.List;
+
 public class UserCreatePost {
     private String username,password,displayName,profilePic;
+    @TypeConverters(ListStringConverter.class)
+    public List<String> FriendList;
+    @TypeConverters(ListStringConverter.class)
+    public List<String> PendingList;
+
+    public List<String> getPendingList() {
+        return PendingList;
+    }
+
+    public void setPendingList(List<String> pendingList) {
+        PendingList = pendingList;
+    }
 
     public UserCreatePost(String username, String password, String displayName, String profilePic) {
         this.username = username;

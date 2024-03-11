@@ -1,6 +1,7 @@
 package com.example.login.repositories;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -46,6 +47,21 @@ public class UsersRepository {
     public void deleteUser(String userId, String token) {
         api.deleteUser(userId,token);
     }
+    public void askFriend(String userId, String token) {
+        api.askFriend(userId,token);
+    }
+    public void getFriends(String userId, String token) {
+        api.getFriends(userId,token);
+    }
+    public void acceptFriend(String userId,String friendId, String token) {
+        Log.d("sss", "Username: " + userId);
+        api.acceptFriend(userId,friendId,token);
+    }
+    public void deleteFriend(String userId,String friendId, String token) {
+        Log.d("sss", "Username: " + userId);
+        api.deleteFriend(userId,friendId,token);
+    }
+
 
 
 

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +25,9 @@ import com.example.login.R;
 import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageView coverPhotoImageView;
@@ -32,13 +36,15 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView numOfFriendsTextView;
     private PostsViewModel postsViewModel;
     private Button addFriendButton;
+    private Button acceptFriend;
     private PostAdapter adapter;
-    private Button sendMessageButton;
+    private Button deleteFriend;
     private ImageButton closeButton;
     private RecyclerView friendsRecyclerView;
     private RecyclerView postsRecyclerView;
     private String token;
     private String username;
+    private String myusername;
     private String displayName;
     private UsersViewModel usersViewModel;
 
@@ -52,11 +58,13 @@ public class ProfileActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.user_name);
         numOfFriendsTextView = findViewById(R.id.num_of_friends);
         addFriendButton = findViewById(R.id.btn_add_friend);
-        sendMessageButton = findViewById(R.id.btn_send_message);
+        deleteFriend = findViewById(R.id.btn_send_message);
         friendsRecyclerView = findViewById(R.id.recycler_friends);
         postsRecyclerView = findViewById(R.id.recycler_posts);
         closeButton = findViewById(R.id.btn_exit);
+        acceptFriend=findViewById(R.id.btn_more);
         usersViewModel = new UsersViewModel();
+
 
         // Set up RecyclerViews
      //   setUpFriendsRecyclerView();
@@ -66,7 +74,7 @@ fetchUserData();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
-
+myusername=activityIntent.getStringExtra("myUsername");
             // Initialize ViewModel with token
             postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
             postsViewModel.setUsername(username);
@@ -93,8 +101,56 @@ fetchUserData();
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-fetchAndDisplayPosts();
+        addFriendButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                usersViewModel.askFriend();
+            }
+
+        });
+        acceptFriend.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d("AcceptFriend", "Username: " + username);
+                Log.d("AcceptFriend", "Username: " + myusername);
+                usersViewModel.acceptFriend(myusername,username);
+            }
+
+        });
+        deleteFriend.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d("AcceptFriend", "Username: " + username);
+                Log.d("AcceptFriend", "Username: " + myusername);
+                usersViewModel.deleteFriend(myusername,username);
+                usersViewModel.deleteFriend(username,myusername);
+            }
+
+        });
+        fetchAndDisplayPosts(displayName);
         // Add more setup code as needed
+    }
+    private void fetchAndDisplayPosts(String currentDisplayName) {
+        // Observe changes in posts data
+        postsViewModel.getPostsforUserName().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                // Update RecyclerView adapter with fetched posts
+                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+            } else {
+                Toast.makeText(ProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName) {
+        List<Post> filteredPosts = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getCreator().equals(currentDisplayName)) {
+                filteredPosts.add(post);
+            }
+        }
+        return filteredPosts;
     }
     private void fetchUserData() {
         Intent activityIntent = getIntent();
@@ -151,17 +207,5 @@ fetchAndDisplayPosts();
         postsRecyclerView.setAdapter(adapter);
     }
 
-
-    private void fetchAndDisplayPosts() {
-        // Observe changes in posts data
-        postsViewModel.getPostsforUserName().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(posts);
-            } else {
-                Toast.makeText(ProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }

@@ -88,6 +88,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         // Create an intent to navigate to the profile page of the post owner
                         Intent intent = new Intent(mContext, ProfileActivity.class);
                         intent.putExtra("Username", current.getCreatorUsername());
+                        intent.putExtra("myUsername",currentUserUsername);
                         intent.putExtra("ProfilePicture", current.getCreatorImg());
                         intent.putExtra("Token",postsViewModel.getToken());
                         mContext.startActivity(intent);
@@ -95,6 +96,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     else{
                         Intent intent = new Intent(mContext, MyProfileActivity.class);
                         intent.putExtra("Username", currentUserUsername);
+                        intent.putExtra("myUsername",currentUserUsername);
                         intent.putExtra("ProfilePicture",current.getCreatorImg()); // Pass the profile picture here
                         intent.putExtra("Token", postsViewModel.getToken());
                         mContext.startActivity(intent);

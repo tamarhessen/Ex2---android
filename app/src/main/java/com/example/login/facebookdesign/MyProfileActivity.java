@@ -45,10 +45,12 @@ public class MyProfileActivity extends AppCompatActivity {
     private PostsViewModel postsViewModel;
     private String displayName;
     private RecyclerView postsRecyclerView;
+    private RecyclerView friendsRecyclerView;
     private PostAdapter adapter;
     private Button editProfile;
     private ImageButton exitButton;
     private Button deleteUser;
+    private Button friendRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,15 @@ public class MyProfileActivity extends AppCompatActivity {
         editProfile = findViewById(R.id.btn_edit_profile);
         exitButton = findViewById(R.id.btn_exit);
         postsRecyclerView = findViewById(R.id.recycler_posts);
+        friendsRecyclerView=findViewById(R.id.recycler_friends);
         deleteUser = findViewById(R.id.btn_delete_user);
+        friendRequests = findViewById(R.id.btn_more);
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
        // setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
+
         fetchUserData();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
@@ -97,10 +102,28 @@ public class MyProfileActivity extends AppCompatActivity {
             // Open edit profile dialog fragment
             deleteUser();
         });
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed(); // Navigate back to the previous activity
+                // Call the deleteUser method in the ViewModel
+                usersViewModel.askFriend();
+            }
+        });
+        friendRequests.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the dialog fragment
+                PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment();
+
+                // Create a bundle to pass parameters
+                Bundle args = new Bundle();
+                args.putString("username", username);
+                args.putString("token", token);
+                dialogFragment.setArguments(args);
+
+                // Show the dialog
+                dialogFragment.show(getSupportFragmentManager(), "PendingRequestsDialogFragment");
             }
         });
 
@@ -113,6 +136,17 @@ public class MyProfileActivity extends AppCompatActivity {
             profilePictureImageView.setImageBitmap(bitmap);
         }
     }
+//    private void fetchAndDisplayUserFriends() {
+//        usersViewModel.getUserFriends(username, token).observe(this, new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(List<String> friends) {
+//                // Update the RecyclerView adapter with the list of friends
+//                // Assuming you have a FriendsAdapter, set the friends list to it
+//                FriendsAdapter adapter = new FriendsAdapter(friends);
+//                friendsRecyclerView.setAdapter(adapter);
+//            }
+//        });
+//    }
 
     private void fetchAndDisplayPosts(String currentDisplayName) {
         // Observe changes in posts data
@@ -143,6 +177,7 @@ public class MyProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // Optional: Finish the current activity to prevent going back to it when pressing the back button
     }
+
 
 
     private void setUpPostsRecyclerView() {
@@ -192,8 +227,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
                     // Fetch and display posts after setting display name
                     fetchAndDisplayPosts(userCreatePost.getDisplayName());
+
                 }
             });
+
         }
     }
 

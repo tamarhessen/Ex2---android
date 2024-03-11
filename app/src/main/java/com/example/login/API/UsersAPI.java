@@ -171,6 +171,109 @@ public class UsersAPI {
         });
     }
 
+    public void askFriend(String userId, String token) {
+        JsonObject userBody = new JsonObject();
+
+
+        // Call updateUserByIdPatch or updateUserByIdPut based on your preference
+        Call<Void> call = webServiceAPI.askToBeAFriend(userId, "Bearer " + token);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message or handle the response as needed
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+    public void acceptFriend(String userId,String friendId, String token) {
+        JsonObject userBody = new JsonObject();
+
+
+        // Call updateUserByIdPatch or updateUserByIdPut based on your preference
+        Call<Void> call = webServiceAPI.acceptFriendRequest(userId, friendId,"Bearer " + token);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message or handle the response as needed
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+    public LiveData<User> getFriends(String username, String token) {
+        MutableLiveData<User> userLiveData = new MutableLiveData<>();
+
+        Call<User> call = webServiceAPI.getFriends(username, "Bearer " + token);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    if (user != null) {
+                        // Update LiveData with the fetched user
+                        userLiveData.setValue(user);
+                    } else {
+                        Log.e("UsersAPI", "Response body is null");
+                        // Optionally, you can handle the case where response body is null
+                    }
+                } else {
+                    Log.e("UsersAPI", "Response not successful: " + response.code());
+                    // Optionally, you can handle the case where response is not successful
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                // Log the error for debugging purposes
+                Log.e("UsersAPI", "Failed to fetch user: " + t.getMessage());
+                // Optionally, you can also update LiveData with an empty user or show an error message to the user
+            }
+        });
+
+        return userLiveData;
+    }
+
+    public void deleteFriend(String userId,String friendId, String token) {
+        JsonObject userBody = new JsonObject();
+
+
+        // Call updateUserByIdPatch or updateUserByIdPut based on your preference
+        Call<Void> call = webServiceAPI.deleteFriend(userId, friendId,"Bearer " + token);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Display success message or handle the response as needed
+                } else {
+                    // Handle unsuccessful response
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+
 
     public void createToken(String username, String password, TokenCallback callback) {
         UserCreateToken userCredentials = new UserCreateToken(username, password);

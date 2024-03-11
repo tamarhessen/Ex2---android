@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@android:drawable/ic_menu_edit"
         android:layout_below="@id/friends"
-        android:layout_marginStart="19dp"
+        android:layout_marginStart="1dp"
         android:textColor="@android:color/black"
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@id/btn_delete_user"
@@ -103,13 +103,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/friends"
         android:textColor="@android:color/black"
-        android:layout_marginStart="19dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@id/btn_edit_profile"
-        android:text="..."
-        android:backgroundTint="@color/light_grey"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:text="Friend requests"
+        android:backgroundTint="@color/light_grey" />
 
     <!-- Set the shape of the button here -->
     <TextView
