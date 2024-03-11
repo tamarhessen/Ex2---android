@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.example.login.R;
 import com.example.login.facebookdesign.BitmapConverter;
 import com.example.login.viewModels.UsersViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class EditProfileDialogFragment extends DialogFragment {
@@ -32,17 +35,18 @@ public class EditProfileDialogFragment extends DialogFragment {
     // Define keys for arguments
     private static final String ARG_USERNAME = "username";
     private static final String ARG_TOKEN = "token";
-    private static final String ARG_DISPLAY_NAME = "displayName";
+    private static final String currentDisplayName = "CurrentDisplayName";
     private static final String ARG_PROFILE_IMAGE = "profilepic";
+    private static String profilePicBase64;
 
     // Method to create a new instance of EditProfileDialogFragment with arguments
     public static EditProfileDialogFragment newInstance(String username, String token, String displayName,String profilePic) {
         EditProfileDialogFragment fragment = new EditProfileDialogFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_USERNAME, username);
-        args.putString(ARG_TOKEN, token);
-        args.putString(ARG_DISPLAY_NAME, displayName);
-        args.putString(ARG_PROFILE_IMAGE,profilePic);
+        args.putString("Username", username);
+        args.putString("Token", token);
+        args.putString("CurrentDisplayName", currentDisplayName);
+        args.putString("ProfilePicBase64", profilePicBase64);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,9 +55,10 @@ public class EditProfileDialogFragment extends DialogFragment {
 
 
     private EditText editTextDisplayName;
-    private Button btnSave, btnCancel, btnEditImage;
+    private Button btnSave, btnCancel;
     private UsersViewModel usersViewModel;
     private Bitmap newProfilePic;
+    private ImageButton btnEditImage;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int PICK_IMAGE_REQUEST = 2;
 
@@ -68,12 +73,15 @@ public class EditProfileDialogFragment extends DialogFragment {
         btnSave = view.findViewById(R.id.btn_save);
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnEditImage = view.findViewById(R.id.btn_profile_picture);
-        editTextDisplayName.setText(ARG_DISPLAY_NAME);
+
+        // Retrieve the display name from arguments and set it to the editTextDisplayName
+        assert getArguments() != null;
+        String displayName = getArguments().getString("Enter new display name");
+        editTextDisplayName.setText(displayName);
+
         // Set click listeners
         btnEditImage.setOnClickListener(v -> openImageChooser());
-
         btnSave.setOnClickListener(v -> saveChanges());
-
         btnCancel.setOnClickListener(v -> dismiss());
 
         return view;
@@ -103,7 +111,14 @@ public class EditProfileDialogFragment extends DialogFragment {
         });
         builder.show();
     }
-
+    private byte[] compressImage(Bitmap imageBitmap) {
+        if(imageBitmap==null){
+            return null;
+        }
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream); // Adjust quality as needed
+        return outputStream.toByteArray();
+    }
     private void saveChanges() {
         String displayName = editTextDisplayName.getText().toString().trim();
         if (displayName.isEmpty()) {
@@ -115,7 +130,8 @@ public class EditProfileDialogFragment extends DialogFragment {
         // Check if a new profile picture is selected
         if (newProfilePic != null) {
             // If a new profile picture is selected, convert it to base64 string
-            String profilePicBase64 = BitmapConverter.bitmapToString(newProfilePic);
+            byte[] compressedImage = compressImage(newProfilePic);
+            String profilePicBase64 = BitmapConverter.bitmapToString(BitmapConverter.toBitmap(compressedImage));
             // Call the editUser method of the UsersViewModel with updated display name and profile picture
             usersViewModel.editUser(displayName, profilePicBase64);
         } else {
@@ -141,6 +157,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                     // Handle image captured from camera
                     if (data != null && data.getExtras() != null) {
                         newProfilePic = (Bitmap) data.getExtras().get("data");
+                        // Set the new profile picture to the ImageView
+                        btnEditImage.setImageBitmap(newProfilePic);
                     }
                     break;
                 case PICK_IMAGE_REQUEST:
@@ -151,6 +169,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                         try {
                             // Convert the URI to a Bitmap
                             newProfilePic = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                            // Set the new profile picture to the ImageView
+                            btnEditImage.setImageBitmap(newProfilePic);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -159,4 +179,5 @@ public class EditProfileDialogFragment extends DialogFragment {
             }
         }
     }
+
 }

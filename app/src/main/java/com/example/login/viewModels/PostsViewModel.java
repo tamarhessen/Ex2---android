@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.login.facebookdesign.Post;
 import com.example.login.repositories.PostsRepository;
@@ -18,6 +19,7 @@ public class PostsViewModel extends AndroidViewModel {
     private LiveData<List<Post>> posts;
     private String username;
     private String token;
+    private MutableLiveData<Boolean> likePostLiveData = new MutableLiveData<>();
     private Bitmap profilePicture;
 
     public PostsViewModel(@NonNull Application application) {
@@ -80,9 +82,14 @@ public class PostsViewModel extends AndroidViewModel {
     }
     public void likePost(int postId, String token,Post post){
         repository.likepost(postId,token, post);
+        likePostLiveData.postValue(true);
     }
     public LiveData<List<Post>> refreshPosts() {
         posts=repository.refreshPosts();
         return posts;
+    }
+
+    public LiveData<Boolean> getLikePostLiveData() {
+        return likePostLiveData;
     }
 }

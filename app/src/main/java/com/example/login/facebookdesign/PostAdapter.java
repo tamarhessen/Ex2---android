@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
@@ -116,22 +118,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             holder.likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Toggle the liked status
-                    current.setLiked(!current.isLiked());
-
-                    // Update the number of likes
-                    int currentLikes = current.getPostLikes();
-                    current.setPostLikes(current.isLiked() ? currentLikes + 1 : currentLikes - 1);
-                    holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
+                    // Get the current post
+                    final Post current = posts.get(holder.getAdapterPosition());
                     postsViewModel.likePost(current.getId(), postsViewModel.getToken(), current);
-                    if (current.isLiked()) {
-                        holder.likeButton.setImageResource(R.drawable.liked);
-                    } else {
-                        holder.likeButton.setImageResource(R.drawable.not_liked);
-                    }
-
+                    postsViewModel.refreshPosts();
                 }
             });
+
+
             // Handle click event of the comments button
             // Uncommented code to start CommentsActivity
             holder.commentButton.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +206,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         }
     }
+    // Method to update like button icon and text
+    private void updateLikeButton(PostViewHolder holder, Post current) {
+        if (current.isLiked()) {
+            holder.likeButton.setImageResource(R.drawable.liked);
+            current.setPostLikes(current.getPostLikes() + 1); // Increment likes if the post is liked
+        } else {
+            holder.likeButton.setImageResource(R.drawable.not_liked);
+            current.setPostLikes(current.getPostLikes() - 1); // Decrement likes if the post is unliked
+        }
+        holder.tvLikes.setText(String.valueOf(current.getPostLikes()));
+        //postsViewModel.refreshPosts();
+    }
+
     private String getCurrentDateTimeString() {
         long currentTimeMillis = System.currentTimeMillis();
         Date currentTime = new Date(currentTimeMillis);

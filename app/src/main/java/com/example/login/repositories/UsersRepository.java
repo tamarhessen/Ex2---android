@@ -2,6 +2,7 @@ package com.example.login.repositories;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -72,19 +73,23 @@ public class UsersRepository {
             setValue(new LinkedList<>());
         }
     }
-    public void login(String username, String password, LoginCallback callback) {
-        api.createToken(username, password, new UsersAPI.TokenCallback() {
+
+    public LiveData<String> login(Context context, String username, String password) {
+        MutableLiveData<String> tokenLiveData = new MutableLiveData<>();
+
+        api.createToken(context, username, password, new UsersAPI.TokenCallback() {
             @Override
             public void onTokenGenerated(String token) {
                 if (token != null) {
-                    // Token generated successfully, proceed to fetch user by username
-                    fetchUserByUsername(username, token, callback);
+                    tokenLiveData.postValue(token);
                 } else {
-                    // Failed to generate token, handle the error
-                    callback.onLoginError("Failed to generate token");
+                    Toast.makeText(context, "Username or password incorrect", Toast.LENGTH_SHORT).show();
+                    tokenLiveData.postValue(null);
                 }
             }
         });
+
+        return tokenLiveData;
     }
 
     private void fetchUserByUsername(String username, String token, LoginCallback callback) {

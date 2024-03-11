@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Set up RecyclerViews
      //   setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
-fetchUserData();
+        fetchUserData();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
@@ -207,5 +207,17 @@ myusername=activityIntent.getStringExtra("myUsername");
         postsRecyclerView.setAdapter(adapter);
     }
 
+
+    private void fetchAndDisplayPosts() {
+        // Observe changes in posts data
+        postsViewModel.getPostsforUserName().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                // Update RecyclerView adapter with fetched posts
+                adapter.setPosts(posts);
+            } else {
+                Toast.makeText(ProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

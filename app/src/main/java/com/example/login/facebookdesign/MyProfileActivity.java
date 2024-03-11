@@ -71,8 +71,9 @@ public class MyProfileActivity extends AppCompatActivity {
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
        // setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
-
         fetchUserData();
+        setUpPostsRecyclerView();
+
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
@@ -103,6 +104,12 @@ public class MyProfileActivity extends AppCompatActivity {
             deleteUser();
         });
 
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Navigate back to the previous activity
+            }
+        });
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
