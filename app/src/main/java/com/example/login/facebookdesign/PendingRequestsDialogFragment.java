@@ -47,14 +47,14 @@ public class PendingRequestsDialogFragment extends DialogFragment {
 //            usersViewModel.setUserid(username);
 //
 //
-//            usersViewModel.getFriends().observe(this, users -> {
-//                if (posts != null && !posts.isEmpty()) {
-//                    // Update RecyclerView adapter with fetched posts
-//                    adapter.setPosts(posts);
-//                } else {
-//                    Toast.makeText(FeedActivity.this, "No posts found", Toast.LENGTH_SHORT).show();
-//                }
-//            });
+//
+//                usersViewModel.getFriends().observe(this, users -> {
+//                    if (users != null && !users.isEmpty()) {
+//                       ;
+//                    } else {
+//                        Toast.makeText(requireContext(), "No friends found", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 //        }
 //        }
 //

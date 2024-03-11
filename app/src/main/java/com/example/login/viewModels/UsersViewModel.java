@@ -61,8 +61,8 @@ public class UsersViewModel extends ViewModel {
     public void askFriend() {
         repository.askFriend(userid, token);
     }
-    public void getFriends() {
-        repository.getFriends(userid, token);
+    public LiveData<User>  getFriends() {
+        return repository.getFriends(userid, token);
     }
     public void acceptFriend(String userid,String friendid) {
         repository.acceptFriend(userid, friendid, token);

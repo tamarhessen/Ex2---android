@@ -67,12 +67,11 @@ public class FeedActivity extends AppCompatActivity {
                 PostDB.class, "post").allowMainThreadQueries().build();
         PostDao postDao = db.postDao();
         // Set up RecyclerView and adapter
-
+        setUpRecyclerView(); // Initialize RecyclerView and adapter
         initWebServiceAPI();
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         // Fetch username and profile picture
         fetchUserData();
-
 
         // Set click listeners
         setClickListeners();
@@ -119,6 +118,7 @@ public class FeedActivity extends AppCompatActivity {
 
         fetchAndDisplayPosts();
     }
+
 
     private void initViews() {
         profilePictureButton = findViewById(R.id.btn_profile_picture);

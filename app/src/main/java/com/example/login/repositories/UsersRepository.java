@@ -51,8 +51,8 @@ public class UsersRepository {
     public void askFriend(String userId, String token) {
         api.askFriend(userId,token);
     }
-    public void getFriends(String userId, String token) {
-        api.getFriends(userId,token);
+    public LiveData<User>  getFriends(String userId, String token) {
+        return api.getFriends(userId,token);
     }
     public void acceptFriend(String userId,String friendId, String token) {
         Log.d("sss", "Username: " + userId);

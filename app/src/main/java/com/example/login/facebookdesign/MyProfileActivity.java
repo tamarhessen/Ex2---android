@@ -110,13 +110,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Call the deleteUser method in the ViewModel
-                usersViewModel.askFriend();
-            }
-        });
+
         friendRequests.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
