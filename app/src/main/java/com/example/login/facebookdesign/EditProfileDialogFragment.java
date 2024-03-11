@@ -27,6 +27,7 @@ import com.example.login.R;
 import com.example.login.facebookdesign.BitmapConverter;
 import com.example.login.viewModels.UsersViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class EditProfileDialogFragment extends DialogFragment {
@@ -110,7 +111,14 @@ public class EditProfileDialogFragment extends DialogFragment {
         });
         builder.show();
     }
-
+    private byte[] compressImage(Bitmap imageBitmap) {
+        if(imageBitmap==null){
+            return null;
+        }
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream); // Adjust quality as needed
+        return outputStream.toByteArray();
+    }
     private void saveChanges() {
         String displayName = editTextDisplayName.getText().toString().trim();
         if (displayName.isEmpty()) {
@@ -122,7 +130,8 @@ public class EditProfileDialogFragment extends DialogFragment {
         // Check if a new profile picture is selected
         if (newProfilePic != null) {
             // If a new profile picture is selected, convert it to base64 string
-            String profilePicBase64 = BitmapConverter.bitmapToString(newProfilePic);
+            byte[] compressedImage = compressImage(newProfilePic);
+            String profilePicBase64 = BitmapConverter.bitmapToString(BitmapConverter.toBitmap(compressedImage));
             // Call the editUser method of the UsersViewModel with updated display name and profile picture
             usersViewModel.editUser(displayName, profilePicBase64);
         } else {
