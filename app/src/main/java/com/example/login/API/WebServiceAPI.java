@@ -39,6 +39,15 @@ public interface WebServiceAPI {
     @POST("Users")
     Call<Void> createUser(@Body UserCreatePost userCreatePost);
 
+    @POST("/api/users/{id}/friends")
+    Call<Void> askToBeAFriend(@Path("id") String userId, @Header("Authorization") String authHeader);
+    @PATCH("users/{id}/friends/{fid}")
+    Call<Void> acceptFriendRequest(@Path("id") String userId, @Path("fid") String friendId, @Header("Authorization") String authHeader);
+    @DELETE("users/{id}/friends/{fid}") // Route for deleting a post
+    Call<Void> deleteFriend(@Path("id") String userId, @Path("fid") String friendId, @Header("Authorization") String authHeader);
+    @GET("users/{id}/friends")
+    Call<User> getFriends(@Path("id") String id,
+                                 @Header("Authorization") String authHeader);
     @POST("Tokens")
     Call<String> getToken(@Body UserCreateToken userCreateToken);
 

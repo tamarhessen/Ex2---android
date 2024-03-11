@@ -3315,6 +3315,7 @@ id click
 id clip_horizontal
 id clip_vertical
 id clockwise
+id close_button
 id closest
 id collapseActionView
 id commentButton
@@ -3588,6 +3589,7 @@ id password_toggle
 id path
 id pathRelative
 id peekHeight
+id pending_requests_list
 id peopleimg
 id percent
 id pin
@@ -3912,6 +3914,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_pending_requests
 layout edit_post_dialog
 layout edit_profile_dialog
 layout m3_alert_dialog

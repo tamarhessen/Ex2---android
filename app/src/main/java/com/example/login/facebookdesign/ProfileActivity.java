@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,13 +36,15 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView numOfFriendsTextView;
     private PostsViewModel postsViewModel;
     private Button addFriendButton;
+    private Button acceptFriend;
     private PostAdapter adapter;
-    private Button sendMessageButton;
+    private Button deleteFriend;
     private ImageButton closeButton;
     private RecyclerView friendsRecyclerView;
     private RecyclerView postsRecyclerView;
     private String token;
     private String username;
+    private String myusername;
     private String displayName;
     private UsersViewModel usersViewModel;
 
@@ -55,21 +58,23 @@ public class ProfileActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.user_name);
         numOfFriendsTextView = findViewById(R.id.num_of_friends);
         addFriendButton = findViewById(R.id.btn_add_friend);
-        sendMessageButton = findViewById(R.id.btn_send_message);
+        deleteFriend = findViewById(R.id.btn_send_message);
         friendsRecyclerView = findViewById(R.id.recycler_friends);
         postsRecyclerView = findViewById(R.id.recycler_posts);
         closeButton = findViewById(R.id.btn_exit);
+        acceptFriend=findViewById(R.id.btn_more);
         usersViewModel = new UsersViewModel();
 
+
         // Set up RecyclerViews
-     //   setUpFriendsRecyclerView();
+        //   setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
-
+            myusername=activityIntent.getStringExtra("myUsername");
             // Initialize ViewModel with token
             postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
             postsViewModel.setUsername(username);
@@ -85,18 +90,46 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         // Observe changes in posts data
-//        postsViewModel.getPosts().observe(this, posts -> {
-//            if (posts != null && !posts.isEmpty()) {
-//                adapter.setPosts(posts);
-//            }
-//        });
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                adapter.setPosts(posts);
+            }
+        });
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-       fetchAndDisplayPosts(displayName);
+        addFriendButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                usersViewModel.askFriend();
+            }
+
+        });
+        acceptFriend.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d("AcceptFriend", "Username: " + username);
+                Log.d("AcceptFriend", "Username: " + myusername);
+                usersViewModel.acceptFriend(myusername,username);
+            }
+
+        });
+        deleteFriend.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d("AcceptFriend", "Username: " + username);
+                Log.d("AcceptFriend", "Username: " + myusername);
+                usersViewModel.deleteFriend(myusername,username);
+                usersViewModel.deleteFriend(username,myusername);
+            }
+
+        });
+        fetchAndDisplayPosts(displayName);
         // Add more setup code as needed
     }
     private void fetchAndDisplayPosts(String currentDisplayName) {
@@ -174,17 +207,5 @@ public class ProfileActivity extends AppCompatActivity {
         postsRecyclerView.setAdapter(adapter);
     }
 
-
-    private void fetchAndDisplayPosts() {
-        // Observe changes in posts data
-        postsViewModel.getPostsforUserName().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(posts);
-            } else {
-                Toast.makeText(ProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }

@@ -105,6 +105,7 @@ public class PostAPI {
                             postListData.postValue(posts);
                         }).start();
                     }
+                    else {postListData.postValue(null);}
                 } else {
                     Log.e("PostAPI", "Failed to fetch posts: " + response.code());
                 }

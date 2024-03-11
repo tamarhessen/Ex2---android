@@ -137,6 +137,10 @@ async function getFriendsListByUserId(userId) {
 
 async function askToBeFriendOfUser(userId, username) {
     const user = await User.findOne({username: userId});
+    if (userId === username) {
+        console.log("can\'t be your own friend")
+        return null
+    }
     if (!user) {
         console.log('couldn\'t find user');
         return null
@@ -153,6 +157,10 @@ async function askToBeFriendOfUser(userId, username) {
 
 async function acceptFriendRequest(userId, friendId) {
     const user = await User.findOne({username: userId});
+    if (userId === friendId) {
+        console.log("can\'t be your own friend")
+        return null
+    }
     if (!user) {
         console.log('couldn\'t find user');
         return null
@@ -161,9 +169,19 @@ async function acceptFriendRequest(userId, friendId) {
         console.log('friend didn\'t ask');
         return null
     }
+    const friend = await User.findOne({username: friendId});
+    if (!friend) {
+        console.log('couldn\'t find friend');
+        return null
+    }
     user.friends.PendingList = user.friends.PendingList.filter(element => element !== friendId);
+    user.friends.FriendList = user.friends.FriendList.filter(element => element !== friendId);
     user.friends.FriendList = [...user.friends.FriendList, friendId];
+    friend.friends.PendingList = friend.friends.PendingList.filter(element => element !== userId);
+    friend.friends.FriendList = friend.friends.FriendList.filter(element => element !== userId);
+    friend.friends.FriendList = [...friend.friends.FriendList, userId];
     await user.save();
+    await friend.save();
     return user.friends;
 }
 
@@ -201,8 +219,18 @@ async function getAllPostsByUserId(userId, realUser) {
 }
 
 async function deleteUserById(userId) {
+    const displayName = (await User.findOne({username: userId})).displayName;
+    console.log("displayName", displayName);
+    const posts = await Post.deleteMany({CreatorUsername: userId});
+    const all_posts = await Post.find();
+    await all_posts.forEach(async (post) => {
+        post.Comments = post.Comments.filter((comment) => {
+            if (comment.creator != displayName) {
+                return comment
+            }
+        })
+    })
     const user = await User.findOneAndRemove({username: userId})
-    const posts = await Post.deleteMany({Creator: userId});
     return user;
 }
 
@@ -334,7 +362,9 @@ async function likePost(postId, username) {
 }
 
 async function createComment(postId, username, userImg, commentText) {
+    console.log("got here")
     const post = await Post.findOne({id: postId});
+    console.log("early post", post);
     if (!post) {
         console.log('could\'t find post');
         return null
@@ -349,9 +379,13 @@ async function createComment(postId, username, userImg, commentText) {
         creatorImg: userImg,
         content: commentText
     })
+    console.log("and here?")
     await newComment.save();
-    post.Comments = [...post.Comments, newComment];
+    post.Comments = [newComment, ...post.Comments];
+    console.log("surely not here?")
+    console.log("post", post)
     await post.save();
+    console.log("what?")
     return post;
 
 }

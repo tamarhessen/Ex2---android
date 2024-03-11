@@ -100,12 +100,12 @@
         android:id="@+id/btn_send_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/message"
         android:layout_below="@id/friends"
         android:layout_marginStart="19dp"
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@id/btn_add_friend"
-        android:text="Message" />
+        android:textColor="@android:color/black"
+        android:text="delete friend" />
 
     <Button
         android:id="@+id/btn_more"
@@ -116,10 +116,9 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="9dp"
         android:layout_toEndOf="@id/btn_send_message"
-        android:text="..."
+        android:text="accept friend"
         android:backgroundTint="@color/light_grey"
-        android:textStyle="bold"
-        android:textSize="20sp"
+
        /> <!-- Set the shape of the button here -->
        />
     <TextView

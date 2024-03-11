@@ -31,15 +31,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 //        serverBaseUrlEditText = findViewById(R.id.serverBaseUrlEditText);
-//        applyButton = findViewById(R.id.applyButton);
+        applyButton = findViewById(R.id.applyButton);
 //        instructionSettings = findViewById(R.id.instructionSettings);
         Intent intent = getIntent();
         if(intent!=null){
             int flag = intent.getIntExtra("flag",0);
             if(flag==0){
-                serverBaseUrlEditText.setVisibility(View.GONE);
+//                serverBaseUrlEditText.setVisibility(View.GONE);
                 applyButton.setVisibility(View.GONE);
-                instructionSettings.setText(R.string.changing_base_url_not_permitted);
+//                instructionSettings.setText(R.string.changing_base_url_not_permitted);
             } else {
                 serverBaseUrlEditText.setText(baseURL);
             }

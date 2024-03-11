@@ -18,6 +18,7 @@ public class UsersViewModel extends ViewModel {
     private UsersRepository repository;
     private LiveData<List<User>> users;
     private String userid;
+
     private MutableLiveData<Boolean> loginResult = new MutableLiveData<>();
     private String token;
 
@@ -56,6 +57,18 @@ public class UsersViewModel extends ViewModel {
     }
     public void deleteuser() {
         repository.deleteUser(userid, token);
+    }
+    public void askFriend() {
+        repository.askFriend(userid, token);
+    }
+    public LiveData<User>  getFriends() {
+        return repository.getFriends(userid, token);
+    }
+    public void acceptFriend(String userid,String friendid) {
+        repository.acceptFriend(userid, friendid, token);
+    }
+    public void deleteFriend(String userid,String friendid) {
+        repository.deleteFriend(userid, friendid, token);
     }
 
     public String getUserid() {
