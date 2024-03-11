@@ -43,7 +43,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String username;
     private String token;
     private PostsViewModel postsViewModel;
-    private static String displayName;
+    private String displayName;
     private RecyclerView postsRecyclerView;
     private PostAdapter adapter;
     private Button editProfile;
