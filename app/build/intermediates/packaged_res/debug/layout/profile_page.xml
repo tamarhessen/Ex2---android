@@ -89,6 +89,7 @@
         android:textColor="@android:color/black"
         android:layout_below="@id/friends"
         android:layout_marginTop="10dp"
+        android:background="@color/facebook_text_color"
         android:text="Add Friend" />
     <!-- Button for Sending Message -->
 
@@ -143,6 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/recycler_friends"
+        android:visibility="visible"
         android:layout_marginTop="20dp" />
 
     <!-- Add more views as needed -->

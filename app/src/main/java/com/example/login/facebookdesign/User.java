@@ -56,7 +56,9 @@ public class User {
     public void setFriendList(List<String> friendList) {
         FriendList = friendList;
     }
-
+    public void addFriend(String friend) {
+    FriendList.add(friend);
+}
     public int getId() {
         return id;
     }

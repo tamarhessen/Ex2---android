@@ -72,7 +72,7 @@ public class FeedActivity extends AppCompatActivity {
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         // Fetch username and profile picture
         fetchUserData();
-
+        adapter.setPosts(postDao.index());
         // Set click listeners
         setClickListeners();
 
