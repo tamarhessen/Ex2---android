@@ -47,7 +47,8 @@ public class MyProfileActivity extends AppCompatActivity {
     private String displayName;
     private RecyclerView postsRecyclerView;
     private RecyclerView friendsRecyclerView;
-    private PostAdapter adapter;
+    private PostAdapter postAdapter;
+    private FriendAdapter friendAdapter;
     private Button editProfile;
     private  List<String> friends;
     private List<String> pendingRequests;
@@ -81,6 +82,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 // Update UI with the list of friends
                 friends = friendLists.first;
                 pendingRequests = friendLists.second;
+                friendAdapter.setFriends(friends);
 
                 // Update your UI components with the friends list as needed
             }
@@ -102,7 +104,7 @@ public class MyProfileActivity extends AppCompatActivity {
         // Observe changes in posts data
         postsViewModel.getPosts().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
-                adapter.setPosts(posts);
+                postAdapter.setPosts(posts);
             }
         });
         // Set click listener for edit button
@@ -157,7 +159,7 @@ public class MyProfileActivity extends AppCompatActivity {
         friendsRecyclerView.setLayoutManager(layoutManager);
 
 // Create and set adapter for friends RecyclerView
-        FriendAdapter friendAdapter = new FriendAdapter(this); // Pass your list of friend details here
+        friendAdapter = new FriendAdapter(this); // Pass your list of friend details here
         friendsRecyclerView.setAdapter(friendAdapter);
 
     }
@@ -167,7 +169,7 @@ public class MyProfileActivity extends AppCompatActivity {
         postsViewModel.getPostsforUserName().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+                postAdapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
             } else {
                 Toast.makeText(MyProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
             }
@@ -200,8 +202,8 @@ public class MyProfileActivity extends AppCompatActivity {
         postsRecyclerView.setLayoutManager(layoutManager);
 
         // Create and set adapter for posts RecyclerView
-        adapter = new PostAdapter(this, username, postsViewModel, displayName);
-        postsRecyclerView.setAdapter(adapter);
+        postAdapter = new PostAdapter(this, username, postsViewModel, displayName);
+        postsRecyclerView.setAdapter(postAdapter);
     }
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
