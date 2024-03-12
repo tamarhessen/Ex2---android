@@ -56,6 +56,8 @@ public class FeedActivity extends AppCompatActivity {
     private String token;
     private String displayName;
     private boolean share=false;
+    private PostDao postDao;
+
 
 
     @Override
@@ -65,19 +67,20 @@ public class FeedActivity extends AppCompatActivity {
         initViews();
         PostDB db = Room.databaseBuilder(getApplicationContext(),
                 PostDB.class, "post").allowMainThreadQueries().build();
-        PostDao postDao = db.postDao();
-        // Set up RecyclerView and adapter
-        setUpRecyclerView(); // Initialize RecyclerView and adapter
+        postDao = db.postDao();
+
+        // Initialize RecyclerView and adapter after postDao is initialized
+        setUpRecyclerView();
+
         initWebServiceAPI();
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+
         // Fetch username and profile picture
         fetchUserData();
-        adapter.setPosts(postDao.index());
+
         // Set click listeners
         setClickListeners();
 
-        // Load sample posts
-//     loadSamplePosts();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
@@ -96,7 +99,6 @@ public class FeedActivity extends AppCompatActivity {
             }
 
             // Initialize UsersViewModel
-
         } else {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
@@ -113,11 +115,11 @@ public class FeedActivity extends AppCompatActivity {
                 postDao.clear();
                 postDao.insertList(posts);
             }
-
         });
 
         fetchAndDisplayPosts();
     }
+
 
 
     private void initViews() {
@@ -158,17 +160,25 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+    private boolean postsFetched = false;
+
     private void fetchAndDisplayPosts() {
-        // Observe changes in posts data
-        postsViewModel.getPosts().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(posts);
-            } else {
-                Toast.makeText(FeedActivity.this, "No posts found", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (!postsFetched) {
+            // Observe changes in posts data
+            postsViewModel.getPosts().observe(this, posts -> {
+                if (posts != null && !posts.isEmpty()) {
+                    // Update RecyclerView adapter with fetched posts
+                    adapter.setPosts(posts);
+                    postDao.clear();
+                    postDao.insertList(posts);
+                    postsFetched = true; // Set the flag to true after fetching posts
+                } else {
+                    Toast.makeText(FeedActivity.this, "No posts found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+
 
 
     public static void setAsImage(String strBase64, ImageView imageView) {

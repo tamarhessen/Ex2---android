@@ -20,9 +20,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
+import com.example.login.dataBase.PostDB;
 import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
 
@@ -51,11 +53,15 @@ public class MyProfileActivity extends AppCompatActivity {
     private ImageButton exitButton;
     private Button deleteUser;
     private Button friendRequests;
+    private PostDao postDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_profile_page);
+        PostDB db = Room.databaseBuilder(getApplicationContext(),
+                PostDB.class, "post").allowMainThreadQueries().build();
+        postDao = db.postDao();
 
         // Initialize views
         profilePictureImageView = findViewById(R.id.profile_picture);
@@ -69,10 +75,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
-       // setUpFriendsRecyclerView();
+        // setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
-        setUpPostsRecyclerView();
+
 
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
@@ -88,12 +94,7 @@ public class MyProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
 
-        // Observe changes in posts data
-        postsViewModel.getPosts().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                adapter.setPosts(posts);
-            }
-        });
+
         // Set click listener for edit button
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
@@ -148,13 +149,17 @@ public class MyProfileActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+private boolean postsFetched = false;
 
     private void fetchAndDisplayPosts(String currentDisplayName) {
         // Observe changes in posts data
         postsViewModel.getPostsforUserName().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+                adapter.setPosts(posts);
+                postDao.clear();
+                postDao.insertList(posts);
+                postsFetched = true; // Set the flag to true after fetc
             } else {
                 Toast.makeText(MyProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
             }
@@ -184,11 +189,12 @@ public class MyProfileActivity extends AppCompatActivity {
     private void setUpPostsRecyclerView() {
         // Initialize and set layout manager for posts RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        postsRecyclerView.setLayoutManager(layoutManager);
+
 
         // Create and set adapter for posts RecyclerView
         adapter = new PostAdapter(this, username, postsViewModel, displayName);
         postsRecyclerView.setAdapter(adapter);
+        postsRecyclerView.setLayoutManager(layoutManager);
     }
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
