@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 
 import com.example.login.R;
 
@@ -41,6 +42,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         String detail = friendDetailsList.get(position);
         holder.bind(detail);
+
     }
 
     @Override
@@ -54,6 +56,18 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         FriendViewHolder(View itemView) {
             super(itemView);
             usernameButton = itemView.findViewById(R.id.friend_name_btn);
+            usernameButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the friend detail associated with this ViewHolder
+                    String friendDetail = friendDetailsList.get(getAdapterPosition());
+
+                    // Assuming you have access to the context, start ProfileActivity with necessary data
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    intent.putExtra("Username", friendDetail);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         void bind(String detail) {

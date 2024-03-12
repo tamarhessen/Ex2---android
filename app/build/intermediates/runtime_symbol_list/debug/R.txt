@@ -3279,11 +3279,13 @@ int id bounceStart 0x7f08006f
 int id btnAdd 0x7f080070
 int id btn_add_friend 0x7f080071
 int id btn_cancel 0x7f080072
+int id btn_delete_friend 0x7f080260
 int id btn_delete_user 0x7f080073
 int id btn_edit_profile 0x7f080074
 int id btn_exit 0x7f080075
 int id btn_more 0x7f080076
 int id btn_profile_picture 0x7f080077
+int id btn_request_sent 0x7f08025f
 int id btn_save 0x7f080078
 int id btn_select_image 0x7f080079
 int id btn_send_message 0x7f08007a
