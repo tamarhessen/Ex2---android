@@ -82,7 +82,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 // Update UI with the list of friends
                 friends = friendLists.first;
                 pendingRequests = friendLists.second;
-                friendAdapter.setFriends(friends);
+                friendAdapter.setFriends(friends,token,username);
 
                 // Update your UI components with the friends list as needed
             }
@@ -123,22 +123,12 @@ public class MyProfileActivity extends AppCompatActivity {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-        friendRequests.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // Create a new instance of the dialog fragment
-                PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment();
-
-                // Create a bundle to pass parameters
-                Bundle args = new Bundle();
-                args.putString("username", username);
-                args.putString("token", token);
-                dialogFragment.setArguments(args);
-
-                // Show the dialog
-                dialogFragment.show(getSupportFragmentManager(), "PendingRequestsDialogFragment");
-            }
+        friendRequests.setOnClickListener(v -> {
+            // Create a new instance of the dialog fragment
+            PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment(pendingRequests,token,username);
+            dialogFragment.show(getSupportFragmentManager(), "PendingRequestsDialogFragment");
         });
+
 
 
         // Retrieve the profile picture byte array from Intent extras
