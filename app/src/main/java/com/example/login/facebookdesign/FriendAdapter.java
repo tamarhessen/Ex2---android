@@ -1,5 +1,6 @@
 package com.example.login.facebookdesign;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     private Context context;
     private List<String> friendDetailsList;
+    String token;
+    String username;
 
     public FriendAdapter(Context context) {
         this.context = context;
@@ -27,6 +30,14 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         this.friendDetailsList.clear();
         this.friendDetailsList.addAll(friends);
         notifyDataSetChanged();
+    }
+    public void setFriends(List<String> friends,String token,String username) {
+        this.friendDetailsList.clear();
+        this.friendDetailsList.addAll(friends);
+        this.token=token;
+        this.username=username;
+        notifyDataSetChanged();
+
     }
 
 
@@ -54,6 +65,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         FriendViewHolder(View itemView) {
             super(itemView);
             usernameButton = itemView.findViewById(R.id.friend_name_btn);
+            usernameButton.setOnClickListener(v -> {
+                // Get the username of the friend
+                String selectedUsername = friendDetailsList.get(getAdapterPosition());
+
+                // Navigate to the profile page of the selected user
+                Intent intent = new Intent(context, ProfileActivity.class);
+
+                intent.putExtra("Username",selectedUsername);
+                intent.putExtra("myUsername",username);
+                intent.putExtra("Token",token);
+
+                context.startActivity(intent);
+            });
         }
 
         void bind(String detail) {
