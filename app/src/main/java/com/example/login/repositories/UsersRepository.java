@@ -2,19 +2,27 @@ package com.example.login.repositories;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.example.login.facebookdesign.FriendsSchema;
 import com.example.login.facebookdesign.User;
 import com.example.login.facebookdesign.UserCreatePost;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.API.UsersAPI;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UsersRepository {
     private UserListData userListData;
@@ -51,9 +59,9 @@ public class UsersRepository {
     public void askFriend(String userId, String token) {
         api.askFriend(userId,token);
     }
-    public LiveData<User>  getFriends(String userId, String token) {
-        return api.getFriends(userId,token);
-    }
+
+
+
     public void acceptFriend(String userId,String friendId, String token) {
         Log.d("sss", "Username: " + userId);
         api.acceptFriend(userId,friendId,token);
@@ -63,6 +71,16 @@ public class UsersRepository {
         api.deleteFriend(userId,friendId,token);
     }
 
+    public LiveData<Pair<List<String>, List<String>>>
+    getFriends(String username, String token) {
+        return api.getFriends(username,token);
+    }
+
+    public interface FriendsCallback {
+        void onSuccess(Pair<List<String>, List<String>> data);
+
+        void onError(String errorMessage);
+    }
 
 
 

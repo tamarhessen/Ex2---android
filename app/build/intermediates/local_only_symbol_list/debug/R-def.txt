@@ -114,6 +114,7 @@ id facebook_logo
 id filler_view
 id findfriends
 id forgot_password
+id friend_name_btn
 id friends
 id homeimg
 id image_profile_picture
@@ -186,6 +187,7 @@ layout edit_post_dialog
 layout edit_profile_dialog
 layout my_profile_page
 layout one_comment
+layout one_friend
 layout post_layout
 layout profile_page
 menu menu_main

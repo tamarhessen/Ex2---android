@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,11 +21,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.login.R;
 import com.example.login.API.WebServiceAPI;
-import com.example.login.dataBase.PostDB;
 import com.example.login.viewModels.PostsViewModel;
 import com.example.login.viewModels.UsersViewModel;
 
@@ -50,18 +49,16 @@ public class MyProfileActivity extends AppCompatActivity {
     private RecyclerView friendsRecyclerView;
     private PostAdapter adapter;
     private Button editProfile;
+    private  List<String> friends;
+    private List<String> pendingRequests;
     private ImageButton exitButton;
     private Button deleteUser;
     private Button friendRequests;
-    private PostDao postDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_profile_page);
-        PostDB db = Room.databaseBuilder(getApplicationContext(),
-                PostDB.class, "post").allowMainThreadQueries().build();
-        postDao = db.postDao();
 
         // Initialize views
         profilePictureImageView = findViewById(R.id.profile_picture);
@@ -72,14 +69,22 @@ public class MyProfileActivity extends AppCompatActivity {
         friendsRecyclerView=findViewById(R.id.recycler_friends);
         deleteUser = findViewById(R.id.btn_delete_user);
         friendRequests = findViewById(R.id.btn_more);
-
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
-        // setUpFriendsRecyclerView();
+        setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
+        setUpPostsRecyclerView();
+        usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
+            @Override
+            public void onChanged(Pair<List<String>, List<String>> friendLists) {
+                // Update UI with the list of friends
+                friends = friendLists.first;
+                pendingRequests = friendLists.second;
 
-
+                // Update your UI components with the friends list as needed
+            }
+        });
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
@@ -94,7 +99,12 @@ public class MyProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
 
-
+        // Observe changes in posts data
+        postsViewModel.getPosts().observe(this, posts -> {
+            if (posts != null && !posts.isEmpty()) {
+                adapter.setPosts(posts);
+            }
+        });
         // Set click listener for edit button
         editProfile.setOnClickListener(v -> {
             // Open edit profile dialog fragment
@@ -111,7 +121,6 @@ public class MyProfileActivity extends AppCompatActivity {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-
         friendRequests.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -138,28 +147,27 @@ public class MyProfileActivity extends AppCompatActivity {
             profilePictureImageView.setImageBitmap(bitmap);
         }
     }
-//    private void fetchAndDisplayUserFriends() {
-//        usersViewModel.getUserFriends(username, token).observe(this, new Observer<List<String>>() {
-//            @Override
-//            public void onChanged(List<String> friends) {
-//                // Update the RecyclerView adapter with the list of friends
-//                // Assuming you have a FriendsAdapter, set the friends list to it
-//                FriendsAdapter adapter = new FriendsAdapter(friends);
-//                friendsRecyclerView.setAdapter(adapter);
-//            }
-//        });
-//    }
-private boolean postsFetched = false;
+
+    private void setUpFriendsRecyclerView() {
+        // Inside onCreate method or any appropriate method
+
+// Initialize RecyclerView for friends
+        friendsRecyclerView = findViewById(R.id.recycler_friends);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        friendsRecyclerView.setLayoutManager(layoutManager);
+
+// Create and set adapter for friends RecyclerView
+        FriendAdapter friendAdapter = new FriendAdapter(this); // Pass your list of friend details here
+        friendsRecyclerView.setAdapter(friendAdapter);
+
+    }
 
     private void fetchAndDisplayPosts(String currentDisplayName) {
         // Observe changes in posts data
         postsViewModel.getPostsforUserName().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(posts);
-                postDao.clear();
-                postDao.insertList(posts);
-                postsFetched = true; // Set the flag to true after fetc
+                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
             } else {
                 Toast.makeText(MyProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
             }
@@ -189,12 +197,11 @@ private boolean postsFetched = false;
     private void setUpPostsRecyclerView() {
         // Initialize and set layout manager for posts RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
+        postsRecyclerView.setLayoutManager(layoutManager);
 
         // Create and set adapter for posts RecyclerView
         adapter = new PostAdapter(this, username, postsViewModel, displayName);
         postsRecyclerView.setAdapter(adapter);
-        postsRecyclerView.setLayoutManager(layoutManager);
     }
     private void openEditProfileDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -1,9 +1,12 @@
 package com.example.login.viewModels;
 
 import android.content.Context;
+import android.util.Pair;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.example.login.facebookdesign.User;
@@ -61,11 +64,13 @@ public class UsersViewModel extends ViewModel {
     public void askFriend() {
         repository.askFriend(userid, token);
     }
-    public LiveData<User>  getFriends() {
-        return repository.getFriends(userid, token);
-    }
-    public void acceptFriend(String userid,String friendid) {
+
+        public void acceptFriend(String userid,String friendid) {
         repository.acceptFriend(userid, friendid, token);
+    }
+    public LiveData<Pair<List<String>, List<String>>>
+    getFriends() {
+        return repository.getFriends(userid, token);
     }
     public void deleteFriend(String userid,String friendid) {
         repository.deleteFriend(userid, friendid, token);
