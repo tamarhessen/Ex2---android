@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -17,6 +18,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.login.API.WebServiceAPI;
 import com.example.login.facebookdesign.CreateAccountActivity;
 import com.example.login.facebookdesign.FeedActivity;
+import com.example.login.facebookdesign.FriendsSchema;
 import com.example.login.facebookdesign.LogInActivity;
 import com.example.login.facebookdesign.OnlyUsername;
 import com.example.login.facebookdesign.User;
@@ -224,37 +226,38 @@ public class UsersAPI {
             }
         });
     }
-    public LiveData<User> getFriends(String username, String token) {
-        MutableLiveData<User> userLiveData = new MutableLiveData<>();
+    public LiveData<Pair<List<String>, List<String>>> getFriends(String username, String token) {
+        MutableLiveData<Pair<List<String>, List<String>>> friendsLiveData = new MutableLiveData<>();
 
-        Call<User> call = webServiceAPI.getFriends(username, "Bearer " + token);
-        call.enqueue(new Callback<User>() {
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    if (user != null) {
-                        // Update LiveData with the fetched user
-                        userLiveData.setValue(user);
+            public void run() {
+                try {
+                    Response<FriendsSchema> response = webServiceAPI.getFriends(username, "Bearer " + token).execute();
+                    if (response.isSuccessful()) {
+                        FriendsSchema friendsSchema = response.body();
+                        if (friendsSchema != null) {
+                            List<String> friendList = friendsSchema.getFriendList();
+                            List<String> pendingList = friendsSchema.getPendingList();
+                            // Update LiveData with the fetched lists
+                            friendsLiveData.postValue(new Pair<>(friendList, pendingList));
+                        } else {
+                            Log.e("UsersAPI", "Response body is null");
+                            // Optionally, you can handle the case where response body is null
+                        }
                     } else {
-                        Log.e("UsersAPI", "Response body is null");
-                        // Optionally, you can handle the case where response body is null
+                        Log.e("UsersAPI", "Response not successful: " + response.code());
+                        // Optionally, you can handle the case where response is not successful
                     }
-                } else {
-                    Log.e("UsersAPI", "Response not successful: " + response.code());
-                    // Optionally, you can handle the case where response is not successful
+                } catch (IOException e) {
+                    // Log the error for debugging purposes
+                    Log.e("UsersAPI", "Failed to fetch friends: " + e.getMessage());
+                    // Optionally, you can also update LiveData with empty lists or show an error message to the user
                 }
             }
+        }).start();
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                // Log the error for debugging purposes
-                Log.e("UsersAPI", "Failed to fetch user: " + t.getMessage());
-                // Optionally, you can also update LiveData with an empty user or show an error message to the user
-            }
-        });
-
-        return userLiveData;
+        return friendsLiveData;
     }
 
     public void deleteFriend(String userId,String friendId, String token) {

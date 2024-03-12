@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -48,6 +49,8 @@ public class MyProfileActivity extends AppCompatActivity {
     private RecyclerView friendsRecyclerView;
     private PostAdapter adapter;
     private Button editProfile;
+    private  List<String> friends;
+    private List<String> pendingRequests;
     private ImageButton exitButton;
     private Button deleteUser;
     private Button friendRequests;
@@ -66,14 +69,22 @@ public class MyProfileActivity extends AppCompatActivity {
         friendsRecyclerView=findViewById(R.id.recycler_friends);
         deleteUser = findViewById(R.id.btn_delete_user);
         friendRequests = findViewById(R.id.btn_more);
-
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
-       // setUpFriendsRecyclerView();
+        setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
         setUpPostsRecyclerView();
+        usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
+            @Override
+            public void onChanged(Pair<List<String>, List<String>> friendLists) {
+                // Update UI with the list of friends
+                friends = friendLists.first;
+                pendingRequests = friendLists.second;
 
+                // Update your UI components with the friends list as needed
+            }
+        });
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("Token");
@@ -110,7 +121,6 @@ public class MyProfileActivity extends AppCompatActivity {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
-
         friendRequests.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -137,17 +147,20 @@ public class MyProfileActivity extends AppCompatActivity {
             profilePictureImageView.setImageBitmap(bitmap);
         }
     }
-//    private void fetchAndDisplayUserFriends() {
-//        usersViewModel.getUserFriends(username, token).observe(this, new Observer<List<String>>() {
-//            @Override
-//            public void onChanged(List<String> friends) {
-//                // Update the RecyclerView adapter with the list of friends
-//                // Assuming you have a FriendsAdapter, set the friends list to it
-//                FriendsAdapter adapter = new FriendsAdapter(friends);
-//                friendsRecyclerView.setAdapter(adapter);
-//            }
-//        });
-//    }
+
+    private void setUpFriendsRecyclerView() {
+        // Inside onCreate method or any appropriate method
+
+// Initialize RecyclerView for friends
+        friendsRecyclerView = findViewById(R.id.recycler_friends);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        friendsRecyclerView.setLayoutManager(layoutManager);
+
+// Create and set adapter for friends RecyclerView
+        FriendAdapter friendAdapter = new FriendAdapter(this); // Pass your list of friend details here
+        friendsRecyclerView.setAdapter(friendAdapter);
+
+    }
 
     private void fetchAndDisplayPosts(String currentDisplayName) {
         // Observe changes in posts data

@@ -3417,6 +3417,7 @@ id floating
 id forever
 id forgot_password
 id fragment_container_view_tag
+id friend_name_btn
 id friends
 id frost
 id fullscreen_header
@@ -3976,6 +3977,7 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout one_comment
+layout one_friend
 layout post_layout
 layout profile_page
 layout select_dialog_item_material

@@ -2,6 +2,7 @@ package com.example.login.API;
 
 import com.example.login.facebookdesign.Comment;
 import com.example.login.facebookdesign.CommentToSend;
+import com.example.login.facebookdesign.FriendsSchema;
 import com.example.login.facebookdesign.OnlyUsername;
 import com.example.login.facebookdesign.Post;
 import com.example.login.facebookdesign.User;
@@ -47,8 +48,9 @@ public interface WebServiceAPI {
     @DELETE("users/{id}/friends/{fid}") // Route for deleting a post
     Call<Void> deleteFriend(@Path("id") String userId, @Path("fid") String friendId, @Header("Authorization") String authHeader);
     @GET("users/{id}/friends")
-    Call<User> getFriends(@Path("id") String id,
-                                 @Header("Authorization") String authHeader);
+    Call<FriendsSchema> getFriends(@Path("id") String id,
+                                   @Header("Authorization") String authHeader);
+
     @POST("Tokens")
     Call<String> getToken(@Body UserCreateToken userCreateToken);
 

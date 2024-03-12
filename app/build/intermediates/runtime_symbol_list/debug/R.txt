@@ -3416,6 +3416,7 @@ int id floating 0x7f0800f8
 int id forever 0x7f0800f9
 int id forgot_password 0x7f0800fa
 int id fragment_container_view_tag 0x7f0800fb
+int id friend_name_btn 0x7f08025e
 int id friends 0x7f0800fc
 int id frost 0x7f0800fd
 int id fullscreen_header 0x7f0800fe
@@ -3975,6 +3976,7 @@ int layout notification_template_icon_group 0x7f0b0072
 int layout notification_template_part_chronometer 0x7f0b0073
 int layout notification_template_part_time 0x7f0b0074
 int layout one_comment 0x7f0b0075
+int layout one_friend 0x7f0b007c
 int layout post_layout 0x7f0b0076
 int layout profile_page 0x7f0b0077
 int layout select_dialog_item_material 0x7f0b0078
