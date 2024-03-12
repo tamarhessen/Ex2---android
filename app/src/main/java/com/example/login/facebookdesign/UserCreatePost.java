@@ -17,6 +17,14 @@ public class UserCreatePost {
         return PendingList;
     }
 
+    public List<String> getFriendList() {
+        return FriendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        FriendList = friendList;
+    }
+
     public void setPendingList(List<String> pendingList) {
         PendingList = pendingList;
     }

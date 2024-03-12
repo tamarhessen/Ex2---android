@@ -12,7 +12,7 @@ import androidx.room.util.TableInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import com.example.login.facebookdesign.CommentPostDao;
-import com.example.login.facebookdesign.CommentPostDao_UserDB_Impl;
+import com.example.login.facebookdesign.CommentPostDao_Impl;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.facebookdesign.UserDao_Impl;
 import java.lang.Class;
@@ -159,7 +159,7 @@ public final class UserDB_Impl extends UserDB {
   protected Map<Class<?>, List<Class<?>>> getRequiredTypeConverters() {
     final HashMap<Class<?>, List<Class<?>>> _typeConvertersMap = new HashMap<Class<?>, List<Class<?>>>();
     _typeConvertersMap.put(UserDao.class, UserDao_Impl.getRequiredConverters());
-    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_UserDB_Impl.getRequiredConverters());
+    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -199,7 +199,7 @@ public final class UserDB_Impl extends UserDB {
     } else {
       synchronized(this) {
         if(_commentPostDao == null) {
-          _commentPostDao = new CommentPostDao_UserDB_Impl(this);
+          _commentPostDao = new CommentPostDao_Impl(this);
         }
         return _commentPostDao;
       }

@@ -45,7 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
     private String token;
     private String username;
     private String myusername;
-    private String displayName;
+    private String currentUsername;
+    private static String displayName;
+    private List<String> friendList;
     private UsersViewModel usersViewModel;
 
     @Override
@@ -90,11 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         // Observe changes in posts data
-        postsViewModel.getPosts().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                adapter.setPosts(posts);
-            }
-        });
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("AcceptFriend", "Username: " + username);
                 Log.d("AcceptFriend", "Username: " + myusername);
                 usersViewModel.acceptFriend(myusername,username);
+
             }
 
         });
@@ -129,21 +127,22 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         });
-        fetchAndDisplayPosts(displayName);
-        // Add more setup code as needed
+
     }
-    private void fetchAndDisplayPosts(String currentDisplayName) {
+        private void fetchAndDisplayPosts(String currentDisplayName, List<String> friendList, String curretUsername){
         // Observe changes in posts data
         postsViewModel.getPostsforUserName().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(filterPostsByDisplayName(posts,currentDisplayName));
+                adapter.setPosts(filterPostsByDisplayName(posts, currentDisplayName,friendList,curretUsername));
             } else {
-                Toast.makeText(ProfileActivity .this, "No posts found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity .this, "This user is private", Toast.LENGTH_SHORT).show();
+                adapter.setPosts(null);
+                postsRecyclerView.setVisibility(View.GONE);
             }
         });
     }
-    private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName) {
+    private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName, List<String> friendList,String currentUsername) {
         List<Post> filteredPosts = new ArrayList<>();
         for (Post post : posts) {
             if (post.getCreator().equals(currentDisplayName)) {
@@ -164,11 +163,15 @@ public class ProfileActivity extends AppCompatActivity {
             usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
                 @Override
                 public void onChanged(UserCreatePost userCreatePost) {
+                   friendList = userCreatePost.FriendList;
+                   currentUsername = userCreatePost.getUsername();
                     // Display user data or handle the single userCreatePost object as needed
                     // Example: Set the profile picture
                     setProfilePicture(userCreatePost.getProfilePic());
                     setDisplayName(userCreatePost.getDisplayName());
                     displayName=userCreatePost.getDisplayName();
+
+                    fetchAndDisplayPosts(displayName,friendList,username);
                 }
             });
         }

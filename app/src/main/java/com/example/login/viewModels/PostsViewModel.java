@@ -41,8 +41,7 @@ public class PostsViewModel extends AndroidViewModel {
         return posts;
     }
     public LiveData<List<Post>> getPostsforUserName() {
-        posts = repository.getOnlyUser();
-        return posts;
+        return repository.getOnlyUser();
     }
 
     public void addPost(Post post) {
