@@ -125,18 +125,13 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create a new instance of the dialog fragment
-                PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment();
-
-                // Create a bundle to pass parameters
-                Bundle args = new Bundle();
-                args.putString("username", username);
-                args.putString("token", token);
-                dialogFragment.setArguments(args);
+                PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment(pendingRequests);
 
                 // Show the dialog
                 dialogFragment.show(getSupportFragmentManager(), "PendingRequestsDialogFragment");
             }
         });
+
 
 
         // Retrieve the profile picture byte array from Intent extras
