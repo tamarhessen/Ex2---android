@@ -81,6 +81,24 @@ public class ProfileActivity extends AppCompatActivity {
         setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
+        Intent activityIntent = getIntent();
+        if (activityIntent != null) {
+            token = activityIntent.getStringExtra("Token");
+            username = activityIntent.getStringExtra("Username");
+            myusername=activityIntent.getStringExtra("myUsername");
+            // Initialize ViewModel with token
+            postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+            postsViewModel.setUsername(username);
+            postsViewModel.setToken(token);
+
+
+
+            // Initialize UsersViewModel
+
+        } else {
+            // Handle case where intent is null or token is not provided
+            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
+        }
 
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
@@ -103,24 +121,25 @@ public class ProfileActivity extends AppCompatActivity {
                 // Update your UI components with the friends list as needed
             }
         });
-        Intent activityIntent = getIntent();
-        if (activityIntent != null) {
-            token = activityIntent.getStringExtra("Token");
-            username = activityIntent.getStringExtra("Username");
-            myusername=activityIntent.getStringExtra("myUsername");
-            // Initialize ViewModel with token
-            postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
-            postsViewModel.setUsername(username);
-            postsViewModel.setToken(token);
+        myUserViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+        myUserViewModel.setUserid(myusername);
+        myUserViewModel.setToken(token);
 
-
-
-            // Initialize UsersViewModel
-
-        } else {
-            // Handle case where intent is null or token is not provided
-            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
-        }
+        // Observe changes in pending friend requests for my user
+        myUserViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
+            @Override
+            public void onChanged(Pair<List<String>, List<String>> friendLists) {
+                // Update UI with the list of friends and pending requests for my user
+                friends = friendLists.first;
+                pendingList = friendLists.second;
+                if (pendingList.contains(username)) {
+                    acceptFriend.setVisibility(View.VISIBLE);
+                } else {
+                    acceptFriend.setVisibility(View.INVISIBLE);
+                }
+                // Update your UI components with the friends list and pending requests as needed
+            }
+        });
 
         // Observe changes in posts data
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +211,8 @@ public class ProfileActivity extends AppCompatActivity {
             username = activityIntent.getStringExtra("Username");
             usersViewModel.setToken(token);
             usersViewModel.setUserid(username);
+            myUserViewModel.setUserid(myusername);
+            myUserViewModel.setToken(token);
 
             // Observe user data
             usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
