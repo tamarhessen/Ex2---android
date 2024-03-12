@@ -89,8 +89,29 @@
         android:textColor="@android:color/black"
         android:layout_below="@id/friends"
         android:layout_marginTop="10dp"
-        android:background="@color/facebook_text_color"
+        android:backgroundTint="@color/facebook_text_color"
+        android:visibility="visible"
         android:text="Add Friend" />
+    <Button
+        android:id="@+id/btn_request_sent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/friends"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="Request sent" />
+    <Button
+        android:id="@+id/btn_send_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/friends"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/facebook_text_color"
+        android:visibility="visible"
+        android:text="Message" />
     <!-- Button for Sending Message -->
 
 
@@ -98,7 +119,7 @@
 
     <!-- List of Friends -->
     <Button
-        android:id="@+id/btn_send_message"
+        android:id="@+id/btn_delete_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/friends"
@@ -116,11 +137,12 @@
         android:textColor="@android:color/black"
         android:layout_marginStart="19dp"
         android:layout_marginTop="9dp"
-        android:layout_toEndOf="@id/btn_send_message"
+        android:layout_toEndOf="@id/btn_delete_friend"
         android:text="accept friend"
+        android:visibility="visible"
         android:backgroundTint="@color/light_grey"
 
-       /> <!-- Set the shape of the button here -->
+       />
        />
     <TextView
         android:id="@+id/Friends"

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 
 import com.example.login.R;
 
@@ -52,6 +53,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         String detail = friendDetailsList.get(position);
         holder.bind(detail);
+
     }
 
     @Override

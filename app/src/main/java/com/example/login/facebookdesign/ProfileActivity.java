@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -36,16 +37,22 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView numOfFriendsTextView;
     private PostsViewModel postsViewModel;
     private Button addFriendButton;
+    private Button sentFriendRequest;
     private Button acceptFriend;
     private PostAdapter adapter;
     private Button deleteFriend;
+    private Button sendMessage;
     private ImageButton closeButton;
     private RecyclerView friendsRecyclerView;
     private RecyclerView postsRecyclerView;
+    private FriendAdapter friendAdapter;
     private String token;
     private String username;
     private String myusername;
+    private  List<String> friends;
+    private  List<String> pendingList;
     private String currentUsername;
+    private UsersViewModel myUserViewModel;
     private static String displayName;
     private List<String> friendList;
     private UsersViewModel usersViewModel;
@@ -60,16 +67,18 @@ public class ProfileActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.user_name);
         numOfFriendsTextView = findViewById(R.id.num_of_friends);
         addFriendButton = findViewById(R.id.btn_add_friend);
-        deleteFriend = findViewById(R.id.btn_send_message);
+        sentFriendRequest = findViewById(R.id.btn_request_sent);
+        deleteFriend = findViewById(R.id.btn_delete_friend);
+        sendMessage = findViewById(R.id.btn_send_message);
         friendsRecyclerView = findViewById(R.id.recycler_friends);
         postsRecyclerView = findViewById(R.id.recycler_posts);
         closeButton = findViewById(R.id.btn_exit);
         acceptFriend=findViewById(R.id.btn_more);
         usersViewModel = new UsersViewModel();
-
+        myUserViewModel = new UsersViewModel();
 
         // Set up RecyclerViews
-        //   setUpFriendsRecyclerView();
+        setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
         fetchUserData();
         Intent activityIntent = getIntent();
@@ -91,6 +100,47 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
 
+        usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
+            @Override
+            public void onChanged(Pair<List<String>, List<String>> friendLists) {
+                // Update UI with the list of friends
+                friends = friendLists.first;
+                pendingList = friendLists.second;
+                if(friends.contains(myusername)) {
+                    addFriendButton.setVisibility(View.INVISIBLE);
+                    sentFriendRequest.setVisibility(View.INVISIBLE);
+                    sendMessage.setVisibility(View.VISIBLE);
+                    friendAdapter.setFriends(friends);
+                }
+                else{
+                    addFriendButton.setVisibility(View.VISIBLE);
+                    sentFriendRequest.setVisibility(View.INVISIBLE);
+                    sendMessage.setVisibility(View.INVISIBLE);
+                    friendsRecyclerView.setVisibility(View.GONE);
+                }
+                // Update your UI components with the friends list as needed
+            }
+        });
+        myUserViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
+        myUserViewModel.setUserid(myusername);
+        myUserViewModel.setToken(token);
+
+        // Observe changes in pending friend requests for my user
+        myUserViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
+            @Override
+            public void onChanged(Pair<List<String>, List<String>> friendLists) {
+                // Update UI with the list of friends and pending requests for my user
+                friends = friendLists.first;
+                pendingList = friendLists.second;
+                if (pendingList.contains(username)) {
+                    acceptFriend.setVisibility(View.VISIBLE);
+                } else {
+                    acceptFriend.setVisibility(View.INVISIBLE);
+                }
+                // Update your UI components with the friends list and pending requests as needed
+            }
+        });
+
         // Observe changes in posts data
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +152,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 usersViewModel.askFriend();
+                addFriendButton.setVisibility(View.INVISIBLE);
+                sentFriendRequest.setVisibility(View.VISIBLE);
+
             }
 
         });
@@ -129,14 +182,14 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
-        private void fetchAndDisplayPosts(String currentDisplayName, List<String> friendList, String curretUsername){
+    private void fetchAndDisplayPosts(String currentDisplayName, List<String> friendList, String curretUsername){
         // Observe changes in posts data
         postsViewModel.getPostsforUserName().observe(this, posts -> {
-            if (posts != null && !posts.isEmpty()) {
+            if (posts != null && !posts.isEmpty() ) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(filterPostsByDisplayName(posts, currentDisplayName,friendList,curretUsername));
+                adapter.setPosts(filterPostsByDisplayName(posts, currentDisplayName, friendList, curretUsername));
             } else {
-                Toast.makeText(ProfileActivity .this, "This user is private", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "This user is private", Toast.LENGTH_SHORT).show();
                 adapter.setPosts(null);
                 postsRecyclerView.setVisibility(View.GONE);
             }
@@ -158,6 +211,8 @@ public class ProfileActivity extends AppCompatActivity {
             username = activityIntent.getStringExtra("Username");
             usersViewModel.setToken(token);
             usersViewModel.setUserid(username);
+            myUserViewModel.setUserid(myusername);
+            myUserViewModel.setToken(token);
 
             // Observe user data
             usersViewModel.getCurrentUser(username, token).observe(this, new Observer<UserCreatePost>() {
@@ -171,7 +226,7 @@ public class ProfileActivity extends AppCompatActivity {
                     setDisplayName(userCreatePost.getDisplayName());
                     displayName=userCreatePost.getDisplayName();
 
-                    fetchAndDisplayPosts(displayName,friendList,username);
+                    fetchAndDisplayPosts(displayName,friendList,currentUsername);
                 }
             });
         }
@@ -190,15 +245,15 @@ public class ProfileActivity extends AppCompatActivity {
     private void setDisplayName(String displayName) {
         userNameTextView.setText(displayName);
     }
-//    private void setUpFriendsRecyclerView() {
-//        // Initialize and set layout manager for friends RecyclerView
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        friendsRecyclerView.setLayoutManager(layoutManager);
-//
-//        // Create and set adapter for friends RecyclerView
-//        FriendsAdapter friendsAdapter = new FriendsAdapter(/* pass necessary parameters */);
-//        friendsRecyclerView.setAdapter(friendsAdapter);
-//    }
+    private void setUpFriendsRecyclerView() {
+        // Initialize and set layout manager for friends RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        friendsRecyclerView.setLayoutManager(layoutManager);
+
+        // Create and set adapter for friends RecyclerView
+        friendAdapter = new FriendAdapter(this); // <-- Assign it to the field
+        friendsRecyclerView.setAdapter(friendAdapter); // <-- Set the adapter
+    }
 
     private void setUpPostsRecyclerView() {
         // Initialize and set layout manager for posts RecyclerView

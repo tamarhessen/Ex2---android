@@ -97,7 +97,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     }
                     else{
                         Intent intent = new Intent(mContext, MyProfileActivity.class);
-                        intent.putExtra("Username", currentUserUsername);
+                        intent.putExtra("Username", creatorUsername);
                         intent.putExtra("myUsername",currentUserUsername);
                         intent.putExtra("ProfilePicture",current.getCreatorImg()); // Pass the profile picture here
                         intent.putExtra("Token", postsViewModel.getToken());
