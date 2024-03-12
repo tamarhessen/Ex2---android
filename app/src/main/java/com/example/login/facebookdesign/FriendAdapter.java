@@ -23,6 +23,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         this.context = context;
         this.friendDetailsList = new ArrayList<>();
     }
+    public void setFriends(List<String> friends) {
+        this.friendDetailsList.clear();
+        this.friendDetailsList.addAll(friends);
+        notifyDataSetChanged();
+    }
 
 
     @NonNull
