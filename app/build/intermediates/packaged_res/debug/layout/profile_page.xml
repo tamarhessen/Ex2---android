@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageButton
         android:id="@+id/btn_exit"
         android:layout_width="wrap_content"
@@ -13,13 +14,13 @@
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
     <!-- Profile Picture -->
     <!-- Cover Photo -->
     <ImageView
         android:id="@+id/cover_photo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-
         android:scaleType="centerCrop" />
 
     <!-- Profile Picture -->
@@ -36,10 +37,7 @@
             android:id="@+id/profile_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btn_exit"
             android:padding="2dp" />
-
-
     </androidx.cardview.widget.CardView>
 
     <!-- User's Name -->
@@ -50,7 +48,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="200dp"
         android:layout_marginStart="20dp"
-
         android:textSize="24sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
@@ -67,9 +64,8 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
-    <!-- Number of Friends -->
-    <!-- Button for Adding Friend -->
 
+    <!-- Button for Adding Friend -->
     <TextView
         android:id="@+id/friends"
         android:layout_width="wrap_content"
@@ -92,6 +88,7 @@
         android:backgroundTint="@color/facebook_text_color"
         android:visibility="visible"
         android:text="Add Friend" />
+
     <Button
         android:id="@+id/btn_request_sent"
         android:layout_width="wrap_content"
@@ -102,6 +99,7 @@
         android:visibility="gone"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="Request sent" />
+
     <Button
         android:id="@+id/btn_send_message"
         android:layout_width="wrap_content"
@@ -112,8 +110,8 @@
         android:backgroundTint="@color/facebook_text_color"
         android:visibility="visible"
         android:text="Message" />
-    <!-- Button for Sending Message -->
 
+    <!-- Button for Sending Message -->
 
     <!-- Button for Viewing Photos -->
 
@@ -140,34 +138,47 @@
         android:layout_toEndOf="@id/btn_delete_friend"
         android:text="accept friend"
         android:visibility="visible"
-        android:backgroundTint="@color/light_grey"
+        android:backgroundTint="@color/light_grey" />
 
-       />
-       />
-    <TextView
-        android:id="@+id/Friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_more"
-        android:text="Friends"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_friends"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Friends"
-        android:layout_marginTop="5dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_more">
 
-    <!-- List of Posts -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_posts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_friends"
-        android:visibility="visible"
-        android:layout_marginTop="20dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Friends"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Friends"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- List of Posts -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/recycler_friends" />
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Add more views as needed -->
 

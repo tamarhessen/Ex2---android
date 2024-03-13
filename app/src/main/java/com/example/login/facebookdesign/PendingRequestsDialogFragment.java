@@ -65,5 +65,6 @@ public class PendingRequestsDialogFragment extends DialogFragment {
         builder.setView(view);
 
         return builder.create();
+
     }
 }

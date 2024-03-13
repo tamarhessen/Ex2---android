@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="ExtraText">
+
     <ImageButton
         android:id="@+id/btn_exit"
         android:layout_width="wrap_content"
@@ -15,6 +16,7 @@
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
     <!-- Profile Picture -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_profile_picture"
@@ -28,9 +30,7 @@
             android:id="@+id/profile_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btn_exit"
             android:padding="2dp" />
-
 
     </androidx.cardview.widget.CardView>
 
@@ -110,30 +110,45 @@
         android:backgroundTint="@color/light_grey" />
 
     <!-- Set the shape of the button here -->
-    <TextView
-        android:id="@+id/Friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_more"
-        android:text="Friends"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_friends"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Friends"
-        android:layout_marginTop="5dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_more">
 
-    <!-- List of Posts -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_posts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_friends"
-        android:layout_marginTop="20dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Friends"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Friends"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- List of Posts -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/recycler_friends" />
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Add more views as needed -->
 

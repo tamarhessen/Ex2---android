@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -107,20 +109,32 @@ public class ProfileActivity extends AppCompatActivity {
                 friends = friendLists.first;
                 pendingList = friendLists.second;
                 if(friends.contains(myusername)) {
+                    // Hide the "Add Friend" button if already friends
                     addFriendButton.setVisibility(View.INVISIBLE);
                     sentFriendRequest.setVisibility(View.INVISIBLE);
                     sendMessage.setVisibility(View.VISIBLE);
-                    friendAdapter.setFriends(friends);
-                }
-                else{
+                    friendAdapter.setFriends(friends,token,myusername);
+                    deleteFriend.setVisibility(View.VISIBLE);
+                } else if (pendingList.contains(username)) {
+                    // Hide the "Add Friend" button if there is a pending friend request
+                    addFriendButton.setVisibility(View.INVISIBLE);
+                    sentFriendRequest.setVisibility(View.INVISIBLE);
+                    sendMessage.setVisibility(View.INVISIBLE);
+                    friendsRecyclerView.setVisibility(View.GONE);
+                    deleteFriend.setVisibility(View.INVISIBLE);
+                } else {
+                    // Show the "Add Friend" button if none of the above conditions are met
                     addFriendButton.setVisibility(View.VISIBLE);
                     sentFriendRequest.setVisibility(View.INVISIBLE);
                     sendMessage.setVisibility(View.INVISIBLE);
                     friendsRecyclerView.setVisibility(View.GONE);
+                    deleteFriend.setVisibility(View.INVISIBLE);
                 }
-                // Update your UI components with the friends list as needed
+                updateNumberOfFriends(friends.size());
             }
         });
+
+
         myUserViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         myUserViewModel.setUserid(myusername);
         myUserViewModel.setToken(token);
@@ -148,6 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                 onBackPressed(); // Navigate back to the previous activity
             }
         });
+
         addFriendButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -165,6 +180,9 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("AcceptFriend", "Username: " + username);
                 Log.d("AcceptFriend", "Username: " + myusername);
                 usersViewModel.acceptFriend(myusername,username);
+               acceptFriend.setVisibility(View.INVISIBLE);
+                dismissDialogFragment();
+                finish();
 
             }
 
@@ -176,11 +194,15 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("AcceptFriend", "Username: " + username);
                 Log.d("AcceptFriend", "Username: " + myusername);
                 usersViewModel.deleteFriend(myusername,username);
-                usersViewModel.deleteFriend(username,myusername);
+
+                finish();
             }
 
         });
 
+    }
+    private void updateNumberOfFriends(int numberOfFriends) {
+        numOfFriendsTextView.setText(String.valueOf(numberOfFriends));
     }
     private void fetchAndDisplayPosts(String currentDisplayName, List<String> friendList, String curretUsername){
         // Observe changes in posts data
@@ -190,7 +212,7 @@ public class ProfileActivity extends AppCompatActivity {
                 adapter.setPosts(filterPostsByDisplayName(posts, currentDisplayName, friendList, curretUsername));
             } else {
                 Toast.makeText(ProfileActivity.this, "This user is private", Toast.LENGTH_SHORT).show();
-                adapter.setPosts(null);
+                adapter.setPosts(new ArrayList<>());
                 postsRecyclerView.setVisibility(View.GONE);
             }
         });
@@ -253,6 +275,14 @@ public class ProfileActivity extends AppCompatActivity {
         // Create and set adapter for friends RecyclerView
         friendAdapter = new FriendAdapter(this); // <-- Assign it to the field
         friendsRecyclerView.setAdapter(friendAdapter); // <-- Set the adapter
+
+    }
+    private void dismissDialogFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag("PendingRequestsDialogFragment");
+        if (fragment != null) {
+            fragmentManager.beginTransaction().remove(fragment).commit();
+        }
     }
 
     private void setUpPostsRecyclerView() {

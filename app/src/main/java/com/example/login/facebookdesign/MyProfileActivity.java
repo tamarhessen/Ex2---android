@@ -46,6 +46,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private PostsViewModel postsViewModel;
     private String displayName;
     private RecyclerView postsRecyclerView;
+    private TextView numOfFriendsTextView;
     private RecyclerView friendsRecyclerView;
     private PostAdapter postAdapter;
     private FriendAdapter friendAdapter;
@@ -70,6 +71,7 @@ public class MyProfileActivity extends AppCompatActivity {
         friendsRecyclerView=findViewById(R.id.recycler_friends);
         deleteUser = findViewById(R.id.btn_delete_user);
         friendRequests = findViewById(R.id.btn_more);
+        numOfFriendsTextView = findViewById(R.id.num_of_friends);
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         setUpFriendsRecyclerView();
@@ -84,7 +86,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 pendingRequests = friendLists.second;
                 friendAdapter.setFriends(friends,token,username);
 
-                // Update your UI components with the friends list as needed
+                updateNumberOfFriends(friends.size());
             }
         });
         Intent activityIntent = getIntent();
@@ -127,6 +129,7 @@ public class MyProfileActivity extends AppCompatActivity {
             // Create a new instance of the dialog fragment
             PendingRequestsDialogFragment dialogFragment = new PendingRequestsDialogFragment(pendingRequests,token,username);
             dialogFragment.show(getSupportFragmentManager(), "PendingRequestsDialogFragment");
+
         });
 
 
@@ -213,7 +216,9 @@ public class MyProfileActivity extends AppCompatActivity {
         editProfileDialogFragment.show(fragmentManager, "EditProfileDialogFragment");
 
     }
-
+    private void updateNumberOfFriends(int numberOfFriends) {
+        numOfFriendsTextView.setText(String.valueOf(numberOfFriends));
+    }
     private void fetchUserData() {
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
