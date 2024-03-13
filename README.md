@@ -2,7 +2,14 @@
 ## This project is the front end of the adinroid application of facebook.
 ### Made by: Tamar Hessen, Sapir Yanai, and Daniel Lifshitz.
 ## Run:
-Build and run using ide
+1. Download server from this rpository https://github.com/tamarhessen/Ex3-server.git
+2. open the server in terminal and write: npm install
+3. After downloading you can run the server with command: npm run windows
+4. Once the server has started you will see this message: Server started on port: 5000
+Connected to MongoDB
+5. Now that server is running you can go to the android app and press play.
+6. When opening the app you will see a login page, there you will fid create new account button.
+7. Create account and sign up then log in and Enjoy!
 ## adapters
 ### CommentsAdapter
 Initializing RecyclerView and its adapter for comments.
