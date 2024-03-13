@@ -34,7 +34,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`,`password`,`FriendList`,`PendingList`) VALUES (?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `user` (`id`,`username`,`user`,`lastComment`,`password`,`FriendList`,`PendingList`,`profilePic`) VALUES (?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -73,6 +73,11 @@ public final class UserDao_Impl implements UserDao {
           statement.bindNull(7);
         } else {
           statement.bindString(7, _tmp_3);
+        }
+        if (entity.getProfilePic() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getProfilePic());
         }
       }
     };
@@ -80,7 +85,7 @@ public final class UserDao_Impl implements UserDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ?,`password` = ?,`FriendList` = ?,`PendingList` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `user` SET `id` = ?,`username` = ?,`user` = ?,`lastComment` = ?,`password` = ?,`FriendList` = ?,`PendingList` = ?,`profilePic` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -120,7 +125,12 @@ public final class UserDao_Impl implements UserDao {
         } else {
           statement.bindString(7, _tmp_3);
         }
-        statement.bindLong(8, entity.getId());
+        if (entity.getProfilePic() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getProfilePic());
+        }
+        statement.bindLong(9, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
@@ -188,6 +198,7 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
       final int _cursorIndexOfFriendList = CursorUtil.getColumnIndexOrThrow(_cursor, "FriendList");
       final int _cursorIndexOfPendingList = CursorUtil.getColumnIndexOrThrow(_cursor, "PendingList");
+      final int _cursorIndexOfProfilePic = CursorUtil.getColumnIndexOrThrow(_cursor, "profilePic");
       final List<User> _result = new ArrayList<User>(_cursor.getCount());
       while (_cursor.moveToNext()) {
         final User _item;
@@ -236,6 +247,13 @@ public final class UserDao_Impl implements UserDao {
           _tmp_3 = _cursor.getString(_cursorIndexOfPendingList);
         }
         _item.PendingList = ListStringConverter.fromString(_tmp_3);
+        final String _tmpProfilePic;
+        if (_cursor.isNull(_cursorIndexOfProfilePic)) {
+          _tmpProfilePic = null;
+        } else {
+          _tmpProfilePic = _cursor.getString(_cursorIndexOfProfilePic);
+        }
+        _item.setProfilePic(_tmpProfilePic);
         _result.add(_item);
       }
       return _result;
@@ -261,6 +279,7 @@ public final class UserDao_Impl implements UserDao {
       final int _cursorIndexOfPassword = CursorUtil.getColumnIndexOrThrow(_cursor, "password");
       final int _cursorIndexOfFriendList = CursorUtil.getColumnIndexOrThrow(_cursor, "FriendList");
       final int _cursorIndexOfPendingList = CursorUtil.getColumnIndexOrThrow(_cursor, "PendingList");
+      final int _cursorIndexOfProfilePic = CursorUtil.getColumnIndexOrThrow(_cursor, "profilePic");
       final User _result;
       if (_cursor.moveToFirst()) {
         final int _tmpId;
@@ -308,6 +327,13 @@ public final class UserDao_Impl implements UserDao {
           _tmp_3 = _cursor.getString(_cursorIndexOfPendingList);
         }
         _result.PendingList = ListStringConverter.fromString(_tmp_3);
+        final String _tmpProfilePic;
+        if (_cursor.isNull(_cursorIndexOfProfilePic)) {
+          _tmpProfilePic = null;
+        } else {
+          _tmpProfilePic = _cursor.getString(_cursorIndexOfProfilePic);
+        }
+        _result.setProfilePic(_tmpProfilePic);
       } else {
         _result = null;
       }

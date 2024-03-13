@@ -181,8 +181,12 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("AcceptFriend", "Username: " + myusername);
                 usersViewModel.acceptFriend(myusername,username);
                acceptFriend.setVisibility(View.INVISIBLE);
-                dismissDialogFragment();
-                finish();
+                // Navigate back to the feed activity
+                Intent intent = new Intent(ProfileActivity.this, FeedActivity.class);
+                intent.putExtra("Token", token);
+                intent.putExtra("Username", myusername);
+
+                startActivity(intent);
 
             }
 

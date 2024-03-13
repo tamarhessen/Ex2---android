@@ -278,6 +278,7 @@ public class FeedActivity extends AppCompatActivity {
                             postsViewModel.addPost(newPost);
                             share=true;
                             // Refresh the RecyclerView
+                            postsViewModel.refreshPosts();
                             fetchAndDisplayPosts();
                         }
                     } else {

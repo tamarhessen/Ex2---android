@@ -57,7 +57,7 @@ public class PostsRepository {
         jsonObject.addProperty("postText", post.getPostText());
   //      jsonObject.addProperty("CreatorUsername" , post.getCreatorUsername());
         if(post.getPostImg()!=null) {
-            jsonObject.addProperty("postImg", post.getPostImg
+            jsonObject.addProperty("postImg", "data:image/jpeg;charset=utf-8;base64,"+post.getPostImg
 
                     ());
         }
@@ -83,7 +83,7 @@ public class PostsRepository {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", updatedPost.getPostText());
     //    jsonObject.addProperty("CreatorUsername" , updatedPost.getCreatorUsername());
-        jsonObject.addProperty("postImg", updatedPost.getPostImg
+        jsonObject.addProperty("postImg", "data:image/jpeg;charset=utf-8;base64,"+updatedPost.getPostImg
                 ());
         postAPI.editPost(userId,postId,jsonObject,authHeader);
         dao.update(updatedPost);

@@ -12,7 +12,7 @@ import androidx.room.util.TableInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import com.example.login.facebookdesign.CommentPostDao;
-import com.example.login.facebookdesign.CommentPostDao_UserDB_Impl;
+import com.example.login.facebookdesign.CommentPostDao_Impl;
 import com.example.login.facebookdesign.UserDao;
 import com.example.login.facebookdesign.UserDao_Impl;
 import java.lang.Class;
@@ -38,10 +38,10 @@ public final class UserDB_Impl extends UserDB {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `user` (`id` INTEGER NOT NULL, `username` TEXT, `user` TEXT, `lastComment` TEXT, `password` TEXT, `FriendList` TEXT, `PendingList` TEXT, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `user` (`id` INTEGER NOT NULL, `username` TEXT, `user` TEXT, `lastComment` TEXT, `password` TEXT, `FriendList` TEXT, `PendingList` TEXT, `profilePic` TEXT, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS `commentPost` (`postId` INTEGER NOT NULL, `listComment` TEXT, PRIMARY KEY(`postId`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dc7f80a945beb907a4cc678912949dc5')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '69b917a0a0aff3b3b6c1790c6f4b6082')");
       }
 
       @Override
@@ -91,7 +91,7 @@ public final class UserDB_Impl extends UserDB {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(7);
+        final HashMap<String, TableInfo.Column> _columnsUser = new HashMap<String, TableInfo.Column>(8);
         _columnsUser.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsUser.put("username", new TableInfo.Column("username", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsUser.put("user", new TableInfo.Column("user", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -99,6 +99,7 @@ public final class UserDB_Impl extends UserDB {
         _columnsUser.put("password", new TableInfo.Column("password", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsUser.put("FriendList", new TableInfo.Column("FriendList", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsUser.put("PendingList", new TableInfo.Column("PendingList", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUser.put("profilePic", new TableInfo.Column("profilePic", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysUser = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesUser = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoUser = new TableInfo("user", _columnsUser, _foreignKeysUser, _indicesUser);
@@ -122,7 +123,7 @@ public final class UserDB_Impl extends UserDB {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "dc7f80a945beb907a4cc678912949dc5", "69c994858f971310c5868665cd28ca17");
+    }, "69b917a0a0aff3b3b6c1790c6f4b6082", "1e135980839a93cc68864f9877a675b9");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -159,7 +160,7 @@ public final class UserDB_Impl extends UserDB {
   protected Map<Class<?>, List<Class<?>>> getRequiredTypeConverters() {
     final HashMap<Class<?>, List<Class<?>>> _typeConvertersMap = new HashMap<Class<?>, List<Class<?>>>();
     _typeConvertersMap.put(UserDao.class, UserDao_Impl.getRequiredConverters());
-    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_UserDB_Impl.getRequiredConverters());
+    _typeConvertersMap.put(CommentPostDao.class, CommentPostDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -199,7 +200,7 @@ public final class UserDB_Impl extends UserDB {
     } else {
       synchronized(this) {
         if(_commentPostDao == null) {
-          _commentPostDao = new CommentPostDao_UserDB_Impl(this);
+          _commentPostDao = new CommentPostDao_Impl(this);
         }
         return _commentPostDao;
       }

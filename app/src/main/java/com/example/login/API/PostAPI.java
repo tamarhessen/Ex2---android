@@ -56,6 +56,23 @@ public class PostAPI {
                         new Thread(() -> {
                             // Iterate through the list of posts
                             for (Post post : posts) {
+                                // Remove the unwanted string from each post's text
+                                if(post.getPostImg()!=null) {
+                                    String postText = post.getPostImg();
+                                    // Replace "unwantedString" with the string you want to remove
+                                    int location = postText.indexOf(",");
+                                    postText = postText.substring(location + 1);
+                                    // Update the post's text
+                                    post.setPostImg(postText);
+                                }
+                                if(post.getCreatorImg()!=null) {
+                                    String postText = post.getCreatorImg();
+                                    // Replace "unwantedString" with the string you want to remove
+                                    int location = postText.indexOf(",");
+                                    postText = postText.substring(location + 1);
+                                    // Update the post's text
+                                    post.setCreatorImg(postText);
+                                }
                                 // Check if the current user is in the liked list of the post
                                 if (post.getPeopleLiked().contains(userId)) {
                                     post.setLiked(true); // Set the liked status of the post
@@ -77,6 +94,7 @@ public class PostAPI {
             }
         });
     }
+
     public void getpostsuser(String userId) {
         if (token == null) {
             Log.e("PostAPI", "Token is null. Cannot fetch posts.");
@@ -96,6 +114,22 @@ public class PostAPI {
                         new Thread(() -> {
                             // Iterate through the list of posts
                             for (Post post : posts) {
+                                if(post.getPostImg()!=null) {
+                                    String postText = post.getPostImg();
+                                    // Replace "unwantedString" with the string you want to remove
+                                    int location = postText.indexOf(",");
+                                    postText = postText.substring(location + 1);
+                                    // Update the post's text
+                                    post.setPostImg(postText);
+                                }
+                                if(post.getCreatorImg()!=null) {
+                                    String postText = post.getCreatorImg();
+                                    // Replace "unwantedString" with the string you want to remove
+                                    int location = postText.indexOf(",");
+                                    postText = postText.substring(location + 1);
+                                    // Update the post's text
+                                    post.setCreatorImg(postText);
+                                }
                                 // Check if the current user is in the liked list of the post
                                 if (post.getPeopleLiked().contains(userId)) {
                                     post.setLiked(true); // Set the liked status of the post

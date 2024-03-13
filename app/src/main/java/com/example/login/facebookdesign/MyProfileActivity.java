@@ -61,7 +61,6 @@ public class MyProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_profile_page);
-
         // Initialize views
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
@@ -74,10 +73,11 @@ public class MyProfileActivity extends AppCompatActivity {
         numOfFriendsTextView = findViewById(R.id.num_of_friends);
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
-        setUpFriendsRecyclerView();
-        setUpPostsRecyclerView();
+
         fetchUserData();
         setUpPostsRecyclerView();
+        setUpFriendsRecyclerView();
+
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
