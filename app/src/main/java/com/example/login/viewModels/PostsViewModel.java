@@ -28,6 +28,7 @@ public class PostsViewModel extends AndroidViewModel {
     }
 
     public void setToken(String token) {
+        this.token = token;
         repository.setTokenAndId(token,username);
         posts = repository.getAll();
     }

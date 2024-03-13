@@ -49,6 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.posts = new ArrayList<>();
     }
 
+
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -91,6 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         Intent intent = new Intent(mContext, ProfileActivity.class);
                         intent.putExtra("Username", current.getCreatorUsername());
                         intent.putExtra("myUsername",currentUserUsername);
+                        intent.putExtra("DisplayName",currentDisplayName);
                         intent.putExtra("ProfilePicture", current.getCreatorImg());
                         intent.putExtra("Token",postsViewModel.getToken());
                         mContext.startActivity(intent);
@@ -99,7 +101,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         Intent intent = new Intent(mContext, MyProfileActivity.class);
                         intent.putExtra("Username", creatorUsername);
                         intent.putExtra("myUsername",currentUserUsername);
-                        intent.putExtra("ProfilePicture",current.getCreatorImg()); // Pass the profile picture here
+                        intent.putExtra("ProfilePicture",current.getCreatorImg());
+                        intent.putExtra("DisplayName",currentDisplayName);
                         intent.putExtra("Token", postsViewModel.getToken());
                         mContext.startActivity(intent);
 
