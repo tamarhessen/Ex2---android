@@ -74,10 +74,8 @@ public class MyProfileActivity extends AppCompatActivity {
         numOfFriendsTextView = findViewById(R.id.num_of_friends);
         // Initialize UsersViewModel
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
-        setUpFriendsRecyclerView();
-        setUpPostsRecyclerView();
+
         fetchUserData();
-        setUpPostsRecyclerView();
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
@@ -102,7 +100,8 @@ public class MyProfileActivity extends AppCompatActivity {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
-
+        setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
         // Observe changes in posts data
         postsViewModel.getPosts().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {

@@ -52,7 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String username;
     private String myusername;
     private  List<String> friends;
-    private  List<String> pendingList;
+    private  List<String> friendPendingList;
+    private  List<String> myPendingList;
     private String currentUsername;
     private UsersViewModel myUserViewModel;
     private static String displayName;
@@ -80,8 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
         myUserViewModel = new UsersViewModel();
 
         // Set up RecyclerViews
-        setUpFriendsRecyclerView();
-        setUpPostsRecyclerView();
+
         fetchUserData();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
@@ -101,13 +101,14 @@ public class ProfileActivity extends AppCompatActivity {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
-
+        setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
                 // Update UI with the list of friends
                 friends = friendLists.first;
-                pendingList = friendLists.second;
+                friendPendingList = friendLists.second;
                 if(friends.contains(myusername)) {
                     // Hide the "Add Friend" button if already friends
                     addFriendButton.setVisibility(View.INVISIBLE);
@@ -115,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                     sendMessage.setVisibility(View.VISIBLE);
                     friendAdapter.setFriends(friends,token,myusername);
                     deleteFriend.setVisibility(View.VISIBLE);
-                } else if (pendingList.contains(username)) {
+                } else if (friendPendingList.contains(username)) {
                     // Hide the "Add Friend" button if there is a pending friend request
                     addFriendButton.setVisibility(View.INVISIBLE);
                     sentFriendRequest.setVisibility(View.INVISIBLE);
@@ -145,11 +146,13 @@ public class ProfileActivity extends AppCompatActivity {
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
                 // Update UI with the list of friends and pending requests for my user
                 friends = friendLists.first;
-                pendingList = friendLists.second;
-                if (pendingList.contains(username)) {
+                myPendingList = friendLists.second;
+                if (myPendingList.contains(username)) {
                     acceptFriend.setVisibility(View.VISIBLE);
+                    addFriendButton.setVisibility(View.INVISIBLE);
                 } else {
                     acceptFriend.setVisibility(View.INVISIBLE);
+                    addFriendButton.setVisibility(View.VISIBLE);
                 }
                 // Update your UI components with the friends list and pending requests as needed
             }

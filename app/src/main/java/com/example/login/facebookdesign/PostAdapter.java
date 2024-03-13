@@ -122,6 +122,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     final Post current = posts.get(holder.getAdapterPosition());
                     postsViewModel.likePost(current.getId(), postsViewModel.getToken(), current);
                     postsViewModel.refreshPosts();
+                    postsViewModel.reloadPosts();
                 }
             });
 
