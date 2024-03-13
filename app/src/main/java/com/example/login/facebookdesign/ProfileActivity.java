@@ -139,7 +139,8 @@ public class ProfileActivity extends AppCompatActivity {
         myUserViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         myUserViewModel.setUserid(myusername);
         myUserViewModel.setToken(token);
-
+        setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
         // Observe changes in pending friend requests for my user
         myUserViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
@@ -184,8 +185,12 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("AcceptFriend", "Username: " + myusername);
                 usersViewModel.acceptFriend(myusername,username);
                acceptFriend.setVisibility(View.INVISIBLE);
-                dismissDialogFragment();
-                finish();
+                // Navigate back to the feed activity
+                Intent intent = new Intent(ProfileActivity.this, FeedActivity.class);
+                intent.putExtra("Token", token);
+                intent.putExtra("Username", myusername);
+
+                startActivity(intent);
 
             }
 

@@ -74,6 +74,13 @@ public class UsersAPI {
                 if (response.isSuccessful()) {
                     UserCreatePost user = response.body();
                     if (user != null) {
+                        String postText = user.getProfilePic();
+                        // Replace "unwantedString" with the string you want to remove
+                        int location = postText.indexOf(",");
+                        postText = postText.substring(location + 1);
+                        // Update the post's text
+
+                        user.setProfilePic(postText);
                         // Update LiveData with the fetched user
                         userLiveData.setValue(user);
                     } else {
@@ -135,7 +142,7 @@ public class UsersAPI {
     public void editUser(String userId, String displayName, String base64EncodedImage, String token) {
         JsonObject userBody = new JsonObject();
         userBody.addProperty("displayName", displayName);
-        userBody.addProperty("profilePic", base64EncodedImage);
+        userBody.addProperty("profilePic", "data:image/jpeg;charset=utf-8;base64,"+base64EncodedImage);
 
         // Call updateUserByIdPatch or updateUserByIdPut based on your preference
         Call<Void> call = webServiceAPI.updateUserByIdPatch(userId, userBody, "Bearer " + token);
@@ -322,6 +329,13 @@ public class UsersAPI {
                 if (response.isSuccessful()) {
                     User user = response.body();
                     if (user != null) {
+                        String postText = user.getProfilePic();
+                        // Replace "unwantedString" with the string you want to remove
+                        int location = postText.indexOf(",");
+                        postText = postText.substring(location + 1);
+                        // Update the post's text
+
+                        user.setProfilePic(postText);
                         // Update LiveData with the fetched user
                         userLiveData.setValue(user);
                     } else {

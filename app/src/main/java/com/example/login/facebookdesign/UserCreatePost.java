@@ -10,6 +10,11 @@ public class UserCreatePost {
     private String username,password,displayName,profilePic;
     @TypeConverters(ListStringConverter.class)
     public List<String> FriendList;
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
     @TypeConverters(ListStringConverter.class)
     public List<String> PendingList;
 

@@ -23,8 +23,17 @@ public class User {
     public List<String> FriendList;
     @TypeConverters(ListStringConverter.class)
     public List<String> PendingList;
+    private String profilePic;
 
-    public User(int id, String username, UserNoPassword user, CommentDetails lastComment,String
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public User(int id, String username, UserNoPassword user, CommentDetails lastComment, String
             password) {
         this.id = id;
         this.username = username;

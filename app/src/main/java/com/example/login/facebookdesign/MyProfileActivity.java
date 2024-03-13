@@ -61,7 +61,6 @@ public class MyProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_profile_page);
-
         // Initialize views
         profilePictureImageView = findViewById(R.id.profile_picture);
         displayNameTextView = findViewById(R.id.user_name);
@@ -76,6 +75,8 @@ public class MyProfileActivity extends AppCompatActivity {
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
 
         fetchUserData();
+
+
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
@@ -100,8 +101,8 @@ public class MyProfileActivity extends AppCompatActivity {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
-        setUpFriendsRecyclerView();
         setUpPostsRecyclerView();
+        setUpFriendsRecyclerView();
         // Observe changes in posts data
         postsViewModel.getPosts().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {

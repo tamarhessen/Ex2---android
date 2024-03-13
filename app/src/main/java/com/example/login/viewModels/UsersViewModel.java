@@ -56,6 +56,7 @@ public class UsersViewModel extends ViewModel {
     }
 
     public void editUser(String displayName, String base64EncodedImage) {
+
         repository.editUser(userid, displayName, base64EncodedImage, token);
     }
     public void deleteuser() {

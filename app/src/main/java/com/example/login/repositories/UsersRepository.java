@@ -51,7 +51,7 @@ public class UsersRepository {
     }
 
     public void editUser(String userId, String displayName, String base64EncodedImage, String token) {
-        api.editUser(userId,displayName,base64EncodedImage,token);
+        api.editUser(userId,displayName,"data:image/jpeg;charset=utf-8;base64,"+base64EncodedImage,token);
     }
     public void deleteUser(String userId, String token) {
         api.deleteUser(userId,token);
@@ -142,6 +142,7 @@ public class UsersRepository {
 
     // Method to add a new user
     public void add(UserCreatePost userCreatePost, Context context) {
+        userCreatePost.setProfilePic("data:image/jpeg;charset=utf-8;base64,"+userCreatePost.getProfilePic());
         api.add(userCreatePost, context);
     }
 
