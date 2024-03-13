@@ -80,8 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         myUserViewModel = new UsersViewModel();
 
         // Set up RecyclerViews
-        setUpFriendsRecyclerView();
-        setUpPostsRecyclerView();
+
         fetchUserData();
         Intent activityIntent = getIntent();
         if (activityIntent != null) {
@@ -138,7 +137,8 @@ public class ProfileActivity extends AppCompatActivity {
         myUserViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         myUserViewModel.setUserid(myusername);
         myUserViewModel.setToken(token);
-
+        setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
         // Observe changes in pending friend requests for my user
         myUserViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
@@ -148,8 +148,10 @@ public class ProfileActivity extends AppCompatActivity {
                 pendingList = friendLists.second;
                 if (pendingList.contains(username)) {
                     acceptFriend.setVisibility(View.VISIBLE);
+                    addFriendButton.setVisibility(View.INVISIBLE);
                 } else {
                     acceptFriend.setVisibility(View.INVISIBLE);
+                    addFriendButton.setVisibility(View.VISIBLE);
                 }
                 // Update your UI components with the friends list and pending requests as needed
             }

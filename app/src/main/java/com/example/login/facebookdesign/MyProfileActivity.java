@@ -75,8 +75,7 @@ public class MyProfileActivity extends AppCompatActivity {
         usersViewModel = new ViewModelProvider(this).get(UsersViewModel.class);
 
         fetchUserData();
-        setUpPostsRecyclerView();
-        setUpFriendsRecyclerView();
+
 
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
@@ -102,7 +101,8 @@ public class MyProfileActivity extends AppCompatActivity {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
-
+        setUpPostsRecyclerView();
+        setUpFriendsRecyclerView();
         // Observe changes in posts data
         postsViewModel.getPosts().observe(this, posts -> {
             if (posts != null && !posts.isEmpty()) {
