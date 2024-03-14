@@ -34,6 +34,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private final LayoutInflater mInflater;
     private List<Post> posts;
     private String currentUserUsername;
+    private boolean edited=false;
     private String currentDisplayName;
     private final Context mContext;
     private PostsViewModel postsViewModel;
@@ -165,8 +166,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                                     // Update the post in the dataset with the edited post
                                     posts.set(editedPostIndex, editedPost);
                                     // Notify the adapter that the data has changed at the edited post index
-                                    notifyItemChanged(posts.size() - editedPostIndex - 1);
+                                    notifyItemChanged(editedPostIndex);
                                     postsViewModel.refreshPosts();
+
                                 }
                             }
                         }, postsViewModel);
