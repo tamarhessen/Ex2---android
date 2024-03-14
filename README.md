@@ -1,7 +1,8 @@
 # Ex2---android
 ## This project is the front end of the adinroid application of facebook.
 ### Made by: Tamar Hessen, Sapir Yanai, and Daniel Lifshitz.
-## Run:
+## Run: 
+### The final code is in the branch main_part-3
 1. Download server from this rpository https://github.com/tamarhessen/Ex3-server.git
 2. open the server in terminal and write: npm install
 3. After downloading you can run the server with command: npm run windows
