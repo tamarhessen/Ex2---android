@@ -52,10 +52,12 @@ public class ProfileActivity extends AppCompatActivity {
     private String username;
     private String myusername;
     private  List<String> friends;
-    private  List<String> pendingList;
+    private  List<String> friendPendingList;
+    private  List<String> myPendingList;
     private String currentUsername;
     private UsersViewModel myUserViewModel;
     private static String displayName;
+    private String loggedInDisplayname;
     private List<String> friendList;
     private UsersViewModel usersViewModel;
 
@@ -87,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
             token = activityIntent.getStringExtra("Token");
             username = activityIntent.getStringExtra("Username");
             myusername=activityIntent.getStringExtra("myUsername");
+            loggedInDisplayname=activityIntent.getStringExtra("DisplayName");
             // Initialize ViewModel with token
             postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
             postsViewModel.setUsername(username);
@@ -100,13 +103,14 @@ public class ProfileActivity extends AppCompatActivity {
             // Handle case where intent is null or token is not provided
             Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show();
         }
-
+        setUpFriendsRecyclerView();
+        setUpPostsRecyclerView();
         usersViewModel.getFriends().observe(this, new Observer<Pair<List<String>, List<String>>>() {
             @Override
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
                 // Update UI with the list of friends
                 friends = friendLists.first;
-                pendingList = friendLists.second;
+                friendPendingList = friendLists.second;
                 if(friends.contains(myusername)) {
                     // Hide the "Add Friend" button if already friends
                     addFriendButton.setVisibility(View.INVISIBLE);
@@ -114,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
                     sendMessage.setVisibility(View.VISIBLE);
                     friendAdapter.setFriends(friends,token,myusername);
                     deleteFriend.setVisibility(View.VISIBLE);
-                } else if (pendingList.contains(username)) {
+                } else if (friendPendingList.contains(username)) {
                     // Hide the "Add Friend" button if there is a pending friend request
                     addFriendButton.setVisibility(View.INVISIBLE);
                     sentFriendRequest.setVisibility(View.INVISIBLE);
@@ -145,8 +149,8 @@ public class ProfileActivity extends AppCompatActivity {
             public void onChanged(Pair<List<String>, List<String>> friendLists) {
                 // Update UI with the list of friends and pending requests for my user
                 friends = friendLists.first;
-                pendingList = friendLists.second;
-                if (pendingList.contains(username)) {
+                myPendingList = friendLists.second;
+                if (myPendingList.contains(username)) {
                     acceptFriend.setVisibility(View.VISIBLE);
                     addFriendButton.setVisibility(View.INVISIBLE);
                 } else {
@@ -215,7 +219,7 @@ public class ProfileActivity extends AppCompatActivity {
         postsViewModel.getPostsforUserName().observe(this, posts -> {
             if (posts != null && !posts.isEmpty() ) {
                 // Update RecyclerView adapter with fetched posts
-                adapter.setPosts(filterPostsByDisplayName(posts, currentDisplayName, friendList, curretUsername));
+                adapter.setPosts(filterPostsByDisplayName(posts,displayName, friendList, curretUsername));
             } else {
                 Toast.makeText(ProfileActivity.this, "This user is private", Toast.LENGTH_SHORT).show();
                 adapter.setPosts(new ArrayList<>());
@@ -295,9 +299,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Initialize and set layout manager for posts RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         postsRecyclerView.setLayoutManager(layoutManager);
-
         // Create and set adapter for posts RecyclerView
-        adapter = new PostAdapter(this, username, postsViewModel, displayName);
+        adapter = new PostAdapter(this, username, postsViewModel, loggedInDisplayname);
         postsRecyclerView.setAdapter(adapter);
     }
 

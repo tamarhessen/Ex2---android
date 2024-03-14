@@ -277,6 +277,7 @@ public class FeedActivity extends AppCompatActivity {
                             // Add new post to ViewModel
                             postsViewModel.addPost(newPost);
                             share=true;
+                            postsViewModel.refreshPosts();
                             // Refresh the RecyclerView
                             postsViewModel.refreshPosts();
                             fetchAndDisplayPosts();
