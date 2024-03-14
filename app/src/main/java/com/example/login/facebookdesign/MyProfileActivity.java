@@ -168,6 +168,9 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean postsFetched = false;
+
+
     private List<Post> filterPostsByDisplayName(List<Post> posts, String currentDisplayName) {
         List<Post> filteredPosts = new ArrayList<>();
         for (Post post : posts) {
