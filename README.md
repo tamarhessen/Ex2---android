@@ -1,9 +1,11 @@
 # Ex2---android
-## This project is the front end of the adinroid application of facebook.
+## This project is the front end of the android application of facebook.
 ### Made by: Tamar Hessen, Sapir Yanai, and Daniel Lifshitz.
 ## Run: 
 ### The final code is in the branch main_part-3
-1. Download server from this rpository https://github.com/tamarhessen/Ex3-server.git
+
+### Server
+1. Download server from this repository https://github.com/tamarhessen/Ex3-server.git
 2. open the server in terminal and write: npm install
 3. After downloading you can run the server with command: npm run windows
 4. Once the server has started you will see this message: Server started on port: 5000
@@ -11,6 +13,13 @@ Connected to MongoDB
 5. Now that server is running you can go to the android app and press play.
 6. When opening the app you will see a login page, there you will fid create new account button.
 7. Create account and sign up then log in and Enjoy!
+
+### Android
+Build and run using the IDE
+
+### If: code says couldn't find sdk go to - build.gradle.kts (in Gradle Scripts) and press open then OK
+
+
 ## adapters
 ### CommentsAdapter
 Initializing RecyclerView and its adapter for comments.
