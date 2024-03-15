@@ -3,6 +3,10 @@
 ### Made by: Tamar Hessen, Sapir Yanai, and Daniel Lifshitz.
 ## Run:
 Build and run using ide
+
+### If: code says couldn't find sdk go to - build.gradle.kts (in Gradle Scripts) and press open then OK
+
+
 ## adapters
 ### CommentsAdapter
 Initializing RecyclerView and its adapter for comments.

@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.login"
-    compileSdk = 34
+    compileSdk = 3
 
     defaultConfig {
         applicationId = "com.example.login"
         minSdk = 21 // Set minSdk to API level 21 for Android Lollipop
-        targetSdk = 21 // Set targetSdk to API level 21 for Android Lollipop
+        //targetSdk = 21 // Set targetSdk to API level 21 for Android Lollipop
         versionCode = 1
         versionName = "1.0"
 
