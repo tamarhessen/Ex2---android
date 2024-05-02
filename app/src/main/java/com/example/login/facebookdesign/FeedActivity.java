@@ -275,7 +275,7 @@ public class FeedActivity extends AppCompatActivity {
                             Post newPost = new Post(user.getDisplayName(), postText, postImage, 0, null, profileImage, currentTime, username);
 
                             // Add new post to ViewModel
-                            postsViewModel.addPost(newPost);
+                            postsViewModel.addPost(newPost, FeedActivity.this);
                             share=true;
                             postsViewModel.refreshPosts();
                             // Refresh the RecyclerView

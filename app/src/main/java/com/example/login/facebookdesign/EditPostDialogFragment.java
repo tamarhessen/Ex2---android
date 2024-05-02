@@ -65,7 +65,7 @@ public class EditPostDialogFragment extends DialogFragment {
                 post.setPostText(updatedContent);
 
                 // Call the editPost method of the PostViewModel to update the post
-                postsViewModel.editPost(post);
+                postsViewModel.editPost(post,EditPostDialogFragment.this.getContext());
 
                 // Notify the listener that the post has been edited
                 onPostEditedListener.onPostEdited(post);

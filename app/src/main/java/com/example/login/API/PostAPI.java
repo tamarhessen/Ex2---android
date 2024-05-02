@@ -1,6 +1,8 @@
 package com.example.login.API;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -153,7 +155,7 @@ public class PostAPI {
         });
     }
 
-    public void createPost(String userId, JsonObject jsonBody, String authHeader) {
+    public void createPost(String userId, JsonObject jsonBody, String authHeader, Context context) {
         Call<Post> call = webServiceAPI.createPost(userId, jsonBody, "bearer " + authHeader);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -168,7 +170,14 @@ public class PostAPI {
                     }
                 } else {
                     // Handle unsuccessful response
-                    Log.e("PostAPI", "Failed to create post: " + response.code());
+                    if (response.code() == 404) {
+                        // Post already exists, show a message to the user
+                        Log.e("PostAPI", "Post already exists.");
+                        Toast.makeText(context, "Couldn't create a post. Try again later", Toast.LENGTH_SHORT).show();
+                        // You can notify your UI or any observer here that the post already exists
+                    } else {
+                        Log.e("PostAPI", "Failed to create post: " + response.code());
+                    }
                 }
             }
 
@@ -186,6 +195,7 @@ public class PostAPI {
         });
     }
 
+
     // Define an interface for the listener
 
 
@@ -199,6 +209,7 @@ public class PostAPI {
                     Log.d("PostAPI", "Post deleted successfully");
                     // You can perform any additional actions here if needed
                 } else {
+
                     // Handle unsuccessful response
                     Log.e("PostAPI", "Failed to delete post: " + response.code());
                 }
@@ -211,21 +222,34 @@ public class PostAPI {
             }
         });
     }
-    public void editPost(String userId,int postId, JsonObject updatedPostData, String authHeader) {
+    public void editPost(String userId,int postId, JsonObject updatedPostData, String authHeader,
+                         Context context) {
         Call<Void> call = webServiceAPI.editPost(userId, postId, updatedPostData, "Bearer " + authHeader);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Post edited successfully
-                    Log.d("PostAPI", "Post edited successfully");
-                    // You can perform any additional actions here if needed
+                        // Response body is null even though the request was successful
+
+                        // Post edited successfully
+                        Log.d("PostAPI", "Post edited successfully");
+                        // You can perform any additional actions here if needed
+
                 } else {
-                    // Handle unsuccessful response
-                    Log.e("PostAPI", "Failed to edit post: " + response.code());
+                    if (response.code() == 404) {
+                        // Post already exists, show a message to the user
+                        Log.e("PostAPI", "Post already exists.");
+                        Toast.makeText(context, "Couldn't create a post. Try again later", Toast.LENGTH_SHORT).show();
+                        // You can notify your UI or any observer here that the post already exists
+                    } else {
+                        // Handle unsuccessful response
+                        Log.e("PostAPI", "Failed to edit post: " + response.code());
+                    }
                 }
+
             }
+
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {

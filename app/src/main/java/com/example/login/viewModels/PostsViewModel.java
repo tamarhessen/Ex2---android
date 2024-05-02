@@ -1,6 +1,7 @@
 package com.example.login.viewModels;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
@@ -45,8 +46,8 @@ public class PostsViewModel extends AndroidViewModel {
         return repository.getOnlyUser();
     }
 
-    public void addPost(Post post) {
-        repository.add(post);
+    public void addPost(Post post, Context context) {
+        repository.add(post,context);
     }
 
     public void deletePost(Post post) {
@@ -75,10 +76,10 @@ public class PostsViewModel extends AndroidViewModel {
     public void setUsername(String username){
         this.username=username;
     }
-    public void editPost(Post updatedPost) {
+    public void editPost(Post updatedPost,Context context) {
         // Perform the edit post action here, such as making a network request or updating a local database
         // After editing, update the LiveData if necessary
-        repository.editPost(updatedPost.getId(),updatedPost,token);
+        repository.editPost(updatedPost.getId(),updatedPost,token,context);
     }
     public void likePost(int postId, String token,Post post){
         repository.likepost(postId,token, post);

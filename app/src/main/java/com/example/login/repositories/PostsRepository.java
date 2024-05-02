@@ -52,7 +52,7 @@ public class PostsRepository {
         return postListData;
     }
 
-    public void add(Post post) {
+    public void add(Post post,Context context) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", post.getPostText());
   //      jsonObject.addProperty("CreatorUsername" , post.getCreatorUsername());
@@ -65,7 +65,7 @@ public class PostsRepository {
             jsonObject.addProperty("postImg", "");
         }
 
-        postAPI.createPost(userId, jsonObject, token);
+        postAPI.createPost(userId, jsonObject, token,context);
         dao.insert(post);
     }
 
@@ -79,13 +79,13 @@ public class PostsRepository {
     }
 
 
-    public void editPost(int postId,Post updatedPost,String authHeader) {
+    public void editPost(int postId,Post updatedPost,String authHeader, Context context) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("postText", updatedPost.getPostText());
     //    jsonObject.addProperty("CreatorUsername" , updatedPost.getCreatorUsername());
         jsonObject.addProperty("postImg", "data:image/jpeg;charset=utf-8;base64,"+updatedPost.getPostImg
                 ());
-        postAPI.editPost(userId,postId,jsonObject,authHeader);
+        postAPI.editPost(userId,postId,jsonObject,authHeader,context);
         dao.update(updatedPost);
 
     }
